@@ -9,11 +9,14 @@
     <title>Document</title>
     <script src="https://kit.fontawesome.com/2409d81413.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0%;
             padding: 0%;
             color: #333333;
+            font-family: 'Noto Sans KR', sans-serif;
         }
         
         body html {
@@ -219,7 +222,7 @@
         }
         
         .header-nav-addr-mention {
-            font-size: 15px;
+            font-size: 14px;
             line-height: 21px;
             display: inline;
         }
@@ -231,6 +234,7 @@
         #header-nav-button-icon {
             width: 12px;
             height: 12px;
+            
         }
         
         .header-nav-button {
@@ -238,10 +242,11 @@
             outline: none;
             border: 1px solid #4C0C70;
             border-radius: 5px;
-            padding: 0px 40px 0px 40px;
+            padding: 0px 38px 0px 38px;
             margin-top: 15px;
             background-color: #fff;
             font-size: 12px;
+            cursor:pointer;
         }
         
         .header-nav-button-b {
@@ -383,8 +388,10 @@
             <div id="header-nav-addr-con">
                 <p class="header-nav-addr-mention" id="header-nav-addr-mention-1">배송지를 등록</p>
                 <p class="header-nav-addr-mention">하고<br>집에서 eau de toillette의 상품을 만나보세요!</p>
+                <div>
                 <button type="button" class="header-nav-button">로그인</button>
                 <button type="button" class="header-nav-button header-nav-button-b"><img src="${pageContext.request.contextPath}/resources/images/loupe.svg" id="header-nav-button-icon">&nbsp;&nbsp;주소검색</button>
+                </div>
             </div>
         </div>
     </div>
