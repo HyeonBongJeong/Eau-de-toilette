@@ -179,6 +179,9 @@
             width: 1050px;
             margin: 0 auto;
             display: none;
+            position: absolute;
+            left: 50%;
+            margin: 0 0 0 -525px;
         }
         
         #header-nav-addr-con {
