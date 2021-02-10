@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kkkj.eaude.common.dao.ProductDao;
+import com.kkkj.eaude.dao.ProductDao;
 import com.kkkj.eaude.domain.Product;
 
 @Service("pService")

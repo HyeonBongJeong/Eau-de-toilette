@@ -1,4 +1,4 @@
-package com.kkkj.eaude.common.dao;
+package com.kkkj.eaude.dao;
 
 import java.util.List;
 
