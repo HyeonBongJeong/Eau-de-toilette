@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Product">
+
+	<resultMap type="Product" id="resultProduct">
+		<id property="p_id" column="p_id" />
+		<result property="m_id" column="m_id" />
+		<result property="p_title" column="p_title" />
+		<result property="p_intro" column="p_intro" />
+		<result property="p_content" column="p_content" />
+		<result property="p_price" column="p_price" />
+		<result property="p_img" column="p_img" />
+		<result property="p_adddate" column="p_adddate" />
+		<result property="p_tag" column="p_tag" />
+		<result property="p_like" column="p_like" />
+	</resultMap>
+	<insert id="insertProduct" parameterType="Product" flushCache="true" statementType="PREPARED">
+	insert into product values(Product_write_SEQ.nextval,#{p_title},#{p_intro},current_timestamp,#{p_price},#{p_img},#{p_content},0,0,#{p_size},#{p_type})
+	</insert>
+	
+	<select id="selectAllProductList" resultType="arraylist" resultMap="resultProduct">
+	select * from product order by p_id desc
+	</select>
+	<select id="selectProductTotalCount" resultType="int">
+	select count(*) from product
+ 	</select>
+ 	
+ 	<select id="selectHotProductList" resultType="arraylist" resultMap="resultProduct">
+ 	select* from (select* from product order by p_like desc) where 3 >=rownum
+ 	</select>
+ 	<select id="selectProductSearchCount" resultType="int" parameterType="string">
+ 	select count(*) from product where p_title LIKE '%'|| #{keyword} ||'%'
+		OR p_content LIKE '%'|| #{keyword} ||'%' order by p_id
+		desc
+ 	</select>
+ 	 	<select id="selectProductTagCount" resultType="int" parameterType="string">
+ 	select count(*) from product where p_type =#{p_type} order by p_id
+		desc
+ 	</select>
+ 	
+ 		<select id="selectProductSearchList"  resultType="arraylist" resultMap="resultProduct" parameterType="string">
+ 	select * from product where p_title LIKE '%'|| #{keyword} ||'%'
+		OR p_content LIKE '%'|| #{keyword} ||'%' order by p_id
+		desc
+ 	</select>
+ 	 	<select id="selectProductTagList" resultType="arraylist" resultMap="resultProduct" parameterType="string">
+ 	select * from product where p_type = #{p_type}  order by p_id desc
+ 	</select>
+ 	<select id="selectProductDetail" resultType="Product" parameterType="int">
+ 	
+ 	select* from product where p_id = #{p_id}
+ 	</select>
+</mapper>

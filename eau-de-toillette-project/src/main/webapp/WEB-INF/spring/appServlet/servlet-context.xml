@@ -20,9 +20,27 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+	<beans:bean class="java.lang.String" id="uploadPath">
+ <beans:constructor-arg value="C:\GJW-Spring\Eau-de-toilette\src\main\webapp\resources\uploadimage" />
+</beans:bean>
+<!-- 일반 파일 업로드 경로 -->
+<resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
+<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+ <beans:property name="maxUploadSize" value="10485760"/>
+</beans:bean>
 	<context:component-scan base-package="com.kkkj.eaude" />
-	
-	
-	
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<beans:property name="username" value="edu"/>
+		<beans:property name="password" value="edu1234"/>	
+	</beans:bean>
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="configLocation" value="classpath:mybatis-config.xml"/>	
+	</beans:bean>
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg ref="sqlSessionFactory" />
+	</beans:bean>
 </beans:beans>
+	

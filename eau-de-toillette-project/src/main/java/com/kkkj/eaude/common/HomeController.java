@@ -1,4 +1,4 @@
-package com.kkkj.eaude;
+package com.kkkj.eaude.common;
 
 import java.text.DateFormat;
 import java.util.Date;

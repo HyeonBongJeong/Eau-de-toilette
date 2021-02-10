@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Review">
+
+	<resultMap type="Review" id="resultReview">
+		<id property="r_id" column="r_id" />
+		<result property="m_id" column="m_id" />
+		<result property="r_title" column="r_title" />
+		<result property="r_content" column="r_content" />
+		<result property="r_adddate" column="r_adddate" />
+		<result property="r_img" column="r_img" />
+		<result property="r_ref" column="r_ref" />
+		<result property="p_id" column="p_id" />
+	</resultMap>
+	<insert id="reviewWrite" parameterType="Review" statementType="PREPARED" flushCache="true">
+	insert into review values(REVIEW_SEQ.NEXTVAL,#{r_img},current_timestamp,'0',#{r_content},#{r_title},'GJWoon',#{r_ref})
+	</insert>
+	<select id="selectreviewlist" resultType="arraylist" resultMap="resultReview" parameterType="int">
+	select* from review where p_id =#{r_ref} and r_ref=0 order by to_number(r_id) desc
+	</select>
+	<select id="selectreviewcount" parameterType="int" resultType="int">
+	select count(*) from review where p_id=#{r_ref} and r_ref =0
+	</select>
+	</mapper>
