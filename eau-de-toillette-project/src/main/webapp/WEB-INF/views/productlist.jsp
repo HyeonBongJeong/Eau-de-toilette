@@ -19,44 +19,45 @@ section {
 	width: 300px;
 	height: 394px;
 }
-.gjw-ptitle{
 
-font-size: 20px;
-font-weight: 400;
+.gjw-ptitle {
+	font-size: 20px;
+	font-weight: 400;
 }
-.gjw-price{
 
-font-weight: 800;
-letter-spacing: 0;
-    font-size: 18px;
+.gjw-price {
+	font-weight: 800;
+	letter-spacing: 0;
+	font-size: 18px;
 }
-.gjw-intro{
-    color: #999;
+
+.gjw-intro {
+	color: #999;
 }
 </style>
 </head>
 <body>
 
- <jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="header.jsp"></jsp:include>
 
 	<section>
 
 
 		<div
-			style="display: flex;justify-content: center;/* flex-direction: column; */width: 1050px;margin-left: 60px;">
-			
+			style="display: flex; justify-content: center; /* flex-direction: column; */ width: 1050px; margin-left: 60px;">
+
 			<table style="width: 1050px;">
 				<c:if test="${not empty list }">
 					<c:forEach var="vo" items="${list }" varStatus="s">
 						<c:if test="${s.count eq '4'||s.count eq '7' }">
 							<tr>
 						</c:if>
-						<td><a href ="product_detail.do?p_id=${vo.p_id }"><img
-							src="${pageContext.request.contextPath}/resources${vo.p_img}"
-							class="thumbnail-img"></a>
+						<td><a href="${pageContext.request.contextPath}/product_detail.do?p_id=${vo.p_id }"><img
+								src="${pageContext.request.contextPath}/resources${vo.p_img}"
+								class="thumbnail-img"></a>
 							<div class="gjw-ptitle">${vo.p_title }</div>
-														<div class="gjw-intro">${vo.p_intro }</div>
-							
+							<div class="gjw-intro">${vo.p_intro }</div>
+
 							<div class="gjw-price">${vo.afterPirce }원</div></td>
 						<c:if test="${s.current eq '4'||s.current eq '7' }">
 							</tr>
@@ -111,7 +112,7 @@ letter-spacing: 0;
 			</table>
 		</div>
 	</section>
- <jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 
 
 

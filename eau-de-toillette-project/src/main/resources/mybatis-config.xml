@@ -12,14 +12,24 @@
 			type="com.kkkj.eaude.domain.Review" />
 			
 		<typeAlias alias="Member"
-			type="com.kkkj.eaude.domain.Member" />	
-	
+			type="com.kkkj.eaude.domain.Member" />
+
+
+		<typeAlias alias="Basket"
+			type="com.kkkj.eaude.domain.Basket" />
 			
+			
+		<typeAlias alias="Purchasehistory"
+			type="com.kkkj.eaude.domain.Purchasehistory" />
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/Review-mapper.xml" />
 		<mapper resource="mapper/product-mapper.xml" />
 		<mapper resource="mapper/member-mapper.xml" />
 		
+		<mapper resource="mapper/Basket-mapper.xml" />
+		<mapper resource="mapper/Purchasehistory-mapper.xml" />
+
 	</mappers>
 </configuration>

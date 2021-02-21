@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Basket">
+
+	<resultMap type="Basket" id="resultBasket">
+		<id property="basket_id" column="basket_id" />
+		<result property="m_id" column="m_id" />
+		<result property="p_id" column="p_id" />
+	</resultMap>
+	
+	
+	<insert id="insertBasket" parameterType="Basket" flushCache="true" statementType="PREPARED">
+	insert into basket values(BASKET_SEQ.nextval,#{m_id},#{p_id})
+	</insert>
+</mapper>

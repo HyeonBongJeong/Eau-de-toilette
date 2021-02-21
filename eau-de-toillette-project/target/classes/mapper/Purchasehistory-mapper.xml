@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Purchasehistory">
+
+	<resultMap type="Purchasehistory" id="resultPurchasehistory">
+		<id property="ph_id" column="ph_id" />
+		<result property="ph_count" column="ph_count" />
+		<result property="ph_date" column="ph_date" />
+		<result property="m_id" column="m_id" />
+		<result property="p_id" column="p_id" />
+	</resultMap>
+	
+	
+	<insert id="insertPurchasehistory" parameterType="Purchasehistory" flushCache="true" statementType="PREPARED">
+	insert into purchasehistory values(PURCHASEHISTORY_SEQ.nextval,#{ph_count},CURRENT_TIMESTAMP,#{m_id},#{p_id})
+	
+	</insert>
+</mapper>

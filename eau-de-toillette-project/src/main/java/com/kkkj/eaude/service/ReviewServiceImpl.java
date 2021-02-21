@@ -29,4 +29,21 @@ public class ReviewServiceImpl {
 	public int selectreviewcount(int r_ref) {
 		return rDao.selectreviewcount(r_ref);
 	}
+
+	public Review selectReviewDetail(int r_id) {
+		return rDao.selectReviewDetail(r_id);
+	}
+
+	public int commentWrite(Review rvo) {
+		rDao.commentWrite(rvo);
+		return rDao.selectCommentId();
+	}
+
+	public List<Review> selectCommentList(int r_id) {
+		return rDao.selectCommentList(r_id);
+	}
+	public void deletecomment(int r_id) {
+		 rDao.deletecomment(r_id);
+	}
+	
 }

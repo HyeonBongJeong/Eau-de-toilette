@@ -31,9 +31,9 @@
 	<context:component-scan base-package="com.kkkj.eaude" />
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-		<beans:property name="username" value="edu"/>
-		<beans:property name="password" value="edu1234"/>	
+		<beans:property name="url" value="jdbc:oracle:thin:@eaudedb.chbnztntqlpl.ap-northeast-2.rds.amazonaws.com:1521:orcl"/>
+		<beans:property name="username" value="eaudedb"/>
+		<beans:property name="password" value="eaude1234"/>	
 	</beans:bean>
 	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"/>

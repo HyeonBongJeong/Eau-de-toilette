@@ -3,7 +3,9 @@ package com.kkkj.eaude.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +24,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kkkj.eaude.common.UploadFileUtils;
+import com.kkkj.eaude.domain.Basket;
 import com.kkkj.eaude.domain.Product;
+import com.kkkj.eaude.domain.Purchasehistory;
 import com.kkkj.eaude.domain.Review;
+import com.kkkj.eaude.service.BasketServiceImpl;
+import com.kkkj.eaude.service.MemberService;
+import com.kkkj.eaude.service.MemberServiceImpl;
 import com.kkkj.eaude.service.ProductServiceImpl;
+import com.kkkj.eaude.service.PurchaseSeviceImpl;
 import com.kkkj.eaude.service.ReviewServiceImpl;
 
 @Controller
@@ -39,6 +47,15 @@ public class ProductController{
 	
 	@Autowired
 	private ReviewServiceImpl rService;
+	
+	@Autowired
+	private MemberServiceImpl mService;
+	
+	@Autowired
+	private BasketServiceImpl bService;
+	
+	@Autowired
+	private PurchaseSeviceImpl phService;
 	
 	@RequestMapping(value = "productwrite")
 	public ModelAndView postGoodRegisterGo(ModelAndView mv) {
@@ -202,6 +219,17 @@ public class ProductController{
 		rService.reviewWrite(vo);
 		return "null";
 }
+	
+	
+		@RequestMapping(value="review_detail.do")
+		@ResponseBody
+		public Object reviewdetail(@RequestParam(name="r_id")int r_id) {
+			Map<String, Object> list = new HashMap<String, Object>();
+			list.put("list",rService.selectReviewDetail(r_id));
+			list.put("commentlist",rService.selectCommentList(r_id));
+			return list;
+		}
+		
 	@RequestMapping(value="review_list.do")
 	@ResponseBody
 	public Object reviewlist(@RequestParam(name="page",required = false,defaultValue ="1")int page,@RequestParam(name="p_id")int r_ref) {
@@ -216,11 +244,9 @@ public class ProductController{
 			startPage = (page / 5) * 5 + 1;
 			endPage = (page / 5 + 1) * 5;
 		}
-		System.out.println(page);
 		int listcount = rService.selectreviewcount(r_ref);
 		int maxPage = (int) ((double) listcount / LIMIT + 0.9);
 		Map<String, Object> list = new HashMap<String, Object>();
-		System.out.println(rService.selectreviewlist(page,LIMIT,r_ref).get(0).getR_adddate());
 		list.put("list",rService.selectreviewlist(page,LIMIT,r_ref));
 		list.put("startPage",startPage);
 		list.put("endPage", endPage);
@@ -228,6 +254,60 @@ public class ProductController{
 		list.put("maxPage",maxPage);
 		return list;
 	}
+	@RequestMapping(value="reviewcomment_write.do")
+	@ResponseBody
+	public Object commentwrite(@RequestParam(name="r_ref")int r_ref,@RequestParam(name="r_content")String r_content,@RequestParam(name="p_id")int p_id) {
+		
+		Review rvo = new Review();
+		rvo.setR_ref(r_ref);
+		rvo.setR_content(r_content);
+		rvo.setM_id("GJWoon");
+		rvo.setP_id(p_id);
+		int r_id =rService.commentWrite(rvo);
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+		Date time = new Date();
+		String time1 = format1.format(time);
+		Map<String, Object> list = new HashMap<String, Object>();
+		list.put("m_id",rvo.getM_id());
+		list.put("date",time1);
+		list.put("content", r_content);
+		list.put("r_id",r_id);
+		return list;
+	}
+	
+	@RequestMapping(value="findaddress.do",produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String findaddress(@RequestParam(name="ID")String id) {
+		String result=mService.findadd(id);
+		System.out.println(result);
+		return result;
+	}
+	
+	@RequestMapping(value="	commentdelete.do")
+	@ResponseBody
+	public void commentdelete(@RequestParam(name="r_id")int r_id) {
+		
+		rService.deletecomment(r_id);
+	}
+	@RequestMapping(value="insertBasket.do")
+	@ResponseBody
+	public void insertBasket(@RequestParam(name="id")String id,@RequestParam(name="p_id")int p_id) {
+		Basket vo = new Basket();
+		vo.setM_id(id);
+		vo.setP_id(p_id);
+		bService.insertBasket(vo);
+	}
+	
+	@RequestMapping(value="productBuy.do")
+	@ResponseBody
+	public void productBuy(@RequestParam(name="m_id")String id,@RequestParam(name="p_id")int p_id,@RequestParam(name="ph_count")int ph_count) {
+		Purchasehistory vo = new Purchasehistory();
+		vo.setM_id(id);
+		vo.setP_id(p_id);
+		vo.setPh_count(ph_count);
+		phService.insertPurchasehistory(vo);
+	}
+	
 	
 	
 }

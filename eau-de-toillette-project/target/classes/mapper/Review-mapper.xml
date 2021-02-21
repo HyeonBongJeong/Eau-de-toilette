@@ -21,4 +21,21 @@
 	<select id="selectreviewcount" parameterType="int" resultType="int">
 	select count(*) from review where p_id=#{r_ref} and r_ref =0
 	</select>
+	<select id="selectReviewDetail" parameterType="int" resultType="Review">
+	select* from review where r_id =#{r_id}
+	</select>
+	<insert id="commentWrite" parameterType="Review" statementType="PREPARED" flushCache="true">
+		insert into review values(REVIEW_SEQ.NEXTVAL,'null',current_timestamp,#{r_ref},#{r_content},'null',#{m_id},#{p_id})
+	</insert>
+	<select id="selectCommentList" parameterType="int" resultType="arraylist" resultMap="resultReview">
+	select* from review where r_ref =#{r_ref}
+	</select>
+	
+	<select id="selectCommentId" resultType="int">
+	select max(r_id) from review
+	</select>
+	
+	<delete id="deletecomment" parameterType="int" flushCache="true" statementType="PREPARED">
+	delete review where r_id =#{r_id}
+	</delete>
 	</mapper>

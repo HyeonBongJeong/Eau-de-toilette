@@ -34,4 +34,30 @@ public class ReviewDao {
 		return sqlSession.selectOne("Review.selectreviewcount",r_ref);
 	}
 
+
+	public Review selectReviewDetail(int r_id) {
+		return sqlSession.selectOne("Review.selectReviewDetail",r_id);
+	}
+
+
+	public void commentWrite(Review rvo) {
+
+		
+		sqlSession.insert("Review.commentWrite",rvo);
+	}
+
+
+	public List<Review> selectCommentList(int r_id) {
+		return sqlSession.selectList("Review.selectCommentList",r_id);
+	}
+	
+	public int selectCommentId(){
+		return sqlSession.selectOne("Review.selectCommentId");
+		
+	}
+
+
+	public void deletecomment(int r_id) {
+		sqlSession.delete("Review.deletecomment",r_id);
+	}
 }

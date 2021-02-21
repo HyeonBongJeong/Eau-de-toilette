@@ -20,9 +20,55 @@ section {
 	width: 1050px;
 }
 
+.comment-update-btn {
+	font-size: 12px;
+	color: gray;
+	display: flex;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	border: 0px;
+	background: none;
+	outline: none;
+	cursor: pointer;
+}
+
+.comment-del-btn {
+	font-size: 12px;
+	color: gray;
+	display: flex;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	border: 0px;
+	background: none;
+	outline: none;
+	cursor: pointer;
+}
+
+.reviewcommentdiv {
+	
+}
+
+.gjw-cwriter-wrap {
+	margin-left: 20px;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+.gjw-ccontent-wrap {
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
 .productimg {
 	width: 430px;
 	height: 552px;
+}
+
+.gjw-comment-textarea {
+	resize: none;
+	height: auto;
+	width: 100%;
+	outline: none;
 }
 
 .section_view {
@@ -31,9 +77,23 @@ section {
 	border-bottom: inset;
 	justify-content: center;
 }
-
+input{
+outline: none;
+}
+.reviewtr:hover{
+background-color: #9e9e9e2b;
+}
 #productnumber {
 	width: 15px;
+}
+#sample4_jibunAddress{
+width: 300px;
+}
+#sample4_detailAddress{
+width: 300px;
+}
+textarea {
+	border: 0;
 }
 
 #productprice {
@@ -46,7 +106,7 @@ section {
 	display: none;
 	width: 500px;
 	height: 500px;
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	margin: -250px 0 0 -250px;
@@ -57,7 +117,7 @@ section {
 
 .black_bg {
 	display: none;
-	position: absolute;
+	position: fixed;
 	content: "";
 	width: 100%;
 	height: 100%;
@@ -93,6 +153,14 @@ section {
 	user-select: none;
 }
 
+#addresstext1 {
+	border: 0;
+}
+
+#lastaddressdiv {
+	display: none;
+}
+
 .modal_close>a {
 	display: block;
 	width: 100%;
@@ -123,7 +191,11 @@ img {
 	padding-top: 0px;
 	padding-bottom: 0px;
 	top: 2px;
-    position: relative;
+	position: relative;
+}
+
+.gjw-commentlist-wrap {
+	border-bottom: 1px solid #00000017;
 }
 
 #plusbtn {
@@ -138,7 +210,7 @@ img {
 	padding-top: 0px;
 	padding-bottom: 0px;
 	top: 2px;
-    position: relative;
+	position: relative;
 }
 
 #productnumber {
@@ -152,11 +224,138 @@ img {
 #addresstext {
 	display: none;
 }
-#ajaxdiv{
-    margin-bottom: 30px;
+
+#ajaxdiv {
+	margin-bottom: 30px;
 }
-#ajaxform{
-margin-top: 20px;
+
+#ajaxform {
+	margin-top: 20px;
+}
+
+.reviewtitle {
+	font-weight: 700;
+	color: #514859;
+	line-height: 18px;
+	margin-left: 50px;
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+.reviewdetailtr {
+	border-bottom: 1px solid #9e9e9e;
+}
+
+#nomal-add {
+	margin-top: 7px;
+	margin-right: 5px;
+}
+
+#new-add-btn {
+	margin-top: 7px;
+	margin-right: 5px;
+}
+
+.gjw-comment-wrap {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.gjw-comment-submit {
+	background: none;
+	color: purple;
+	outline: none;
+	border: 0;
+}
+
+.gjw-commentsubmit-wrap {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 30px;
+	margin-bottom: 10px;
+}
+
+.gjw-comment-write {
+	overflow: hidden;
+	resize: none;
+	outline: none;
+	width: 100%;
+	overflow: hidden;
+	width: 100%;
+	height: 32px;
+}
+
+.gjw-comment-wrap {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.gjw-comment-div {
+	border: 2px solid purple;
+	outline: none;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	width: 80%;
+	border-radius: 9px;
+}
+
+#gjw-comment-write {
+	overflow: hidden;
+	resize: none;
+	outline: none;
+	width: 100%;
+	overflow: hidden;
+	width: 100%;
+}
+
+.gjw-comment-cl {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 40px;
+}
+
+.gjw-comment-date {
+	font-size: 12px;
+	color: gray;
+	display: flex;
+	margin-bottom: 10px;
+	margin-left: 40px;
+}
+
+.mw {
+	position: fixed;
+	_position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	z-index: 4;
+}
+
+.mw .bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .5;
+	filter: alpha(opacity = 50)
+}
+
+.mw .fg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 360px;
+	height: 160px;
+	margin: -100px 0 0 -200px;
+	padding: 20px;
+	border: 3px solid #ccc;
+	background: #fff;
 }
 </style>
 <meta charset="UTF-8">
@@ -192,8 +391,8 @@ margin-top: 20px;
 						id="productnumber" style="text-align: center; width: 30px;"><input
 						type="button" id="plusbtn"></span>
 				</p>
-				<div style="padding-bottom: 30px; border-bottom: inset;">
-					<span>총 상품금액: </span><span id="productprice"></span>
+				<div style="padding-bottom: 20px; border-bottom: inset;padding-top: 10px;">
+					<span>총 상품금액: </span><span id="productprice">0원</span>
 				</div>
 				<div style="margin-top: 4px;">
 					<div>
@@ -208,11 +407,12 @@ margin-top: 20px;
 			</div>
 		</div>
 
-		<div style="border-bottom: inset;    padding-top: 30px;">${list.p_content }</div>
+		<div style="border-bottom: inset; padding-top: 30px;">${list.p_content }</div>
 		<div style="border-bottom: 1px solid black;">
-			<div style="margin-top: 20px; font-size: 25px; font-weight: bold;    margin-bottom: 10px;">
+			<div
+				style="margin-top: 20px; font-size: 25px; font-weight: bold; margin-bottom: 10px;">
 				PRODUCT REVIEW</div>
-			<div style="    margin-bottom: 30px;">
+			<div style="margin-bottom: 30px;">
 				<p>■ 상품에 대한 리뷰를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로
 					이동될 수 있습니다.</p>
 				<p>■ 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 1:1 문의에 남겨주세요.</p>
@@ -269,12 +469,11 @@ margin-top: 20px;
 			<div
 				style="display: flex; justify-content: flex-end;
 	/* margin-right: 20px; */ margin-top: 50px; border-bottom: inset; padding-bottom: 30px;">
-	
-	<input type="button" value="글 목록"
+
+				<input type="button" value="글 목록"
 					style="width: 150px;
-	/* justify-content: flex-end; */ height: 30px; text-align: center; color: white; background-color: purple; border: 0; font-weight: bold;    margin-right: 10px;"
-					id="productlistbtn">
-				<input type="button" value="후기작성"
+	/* justify-content: flex-end; */ height: 30px; text-align: center; color: white; background-color: purple; border: 0; font-weight: bold; margin-right: 10px;"
+					id="productlistbtn"> <input type="button" value="후기작성"
 					style="width: 150px;
 	/* justify-content: flex-end; */ height: 30px; text-align: center; color: white; background-color: purple; border: 0; font-weight: bold;"
 					id="reviewwritebtn">
@@ -318,7 +517,6 @@ margin-top: 20px;
 
 		</div>
 	</section>
-	</GJW>
 	<div class="black_bg"></div>
 	<div class="modal_wrap">
 		<div class="modal_close">
@@ -333,34 +531,50 @@ margin-top: 20px;
 				<div>
 					<div
 						style="display: flex; justify-content: flex-end; margin-right: 10px; margin-top: 20px">
-						<input type="radio" name="address" value="기본배송지로 배송하기">기본배송지로
-						배송하기
+						<input type="radio" id="nomal-add" name="address"
+							required="required" value="기본배송지">기본배송지
 					</div>
 					<div
 						style="display: flex; justify-content: flex-end; margin-right: 10px">
-						<input type="text" id="originaladd">
+						<input type="text" id="originaladd" readonly="readonly"
+							style="width: 99%; text-align: end; padding-right: 30px; border: 0; outline: none;">
 					</div>
 				</div>
 				<div
-					style="display: flex; justify-content: flex-end; margin-right: 57px; margin-top: 20px;">
-					<input type="radio" name="address" value="배송지 직접입력">배송지
-					직접입력
+					style="display: flex; justify-content: flex-end; margin-right: 53px; margin-top: 20px;">
+					<input type="radio" name="address" value="배송지 선택" id="new-add-btn">배송지
+					선택
 				</div>
+				<div
+					style="display: flex; justify-content: flex-end; margin-right: 53px; margin-top: 20px;">
+					<input type="radio" name="address" value="배송지 직접입력"
+						id="new-add-btn">배송지 직접입력
+				</div>
+
+
 				<div id="addresstext">
 					<input type="text" id="sample4_postcode" placeholder="우편번호">
 					<input type="button" onclick="sample4_execDaumPostcode()"
-						value="우편번호 찾기"><br> <input type="text"
-						id="sample4_roadAddress" placeholder="도로명주소"> <input
-						type="text" id="sample4_jibunAddress" placeholder="지번주소">
+						value="우편번호 찾기"><br>  <input
+						type="text" id="sample4_jibunAddress" placeholder="지번주소"><br>
 					<span id="guide" style="color: #999; display: none"></span> <input
 						type="text" id="sample4_detailAddress" placeholder="상세주소"
-						required="required">
+						required="required"> <input type="button" value="확인"
+						id="addresssubmitbtn">
 				</div>
 				<div>
 					<div
 						style="display: flex; justify-content: flex-end; margin-right: 30px; position: absolute; top: 400px; right: 0px;">
 						<span style="margin-top: 9px; margin-right: 10px;">결제금액:</span><span
 							id="lastprice" style="font-size: 25px; font-weight: bold;"></span>
+					</div>
+
+					<div style="justify-content: flex-end; margin-top: 50px;"
+						id="lastaddressdiv">
+						<div>
+							<span style="font-size: 13px; margin-right: 5px;">주소:</span><input
+								type="text" id="addresstext1">
+						</div>
 					</div>
 					<div style="top: 460px; position: absolute">
 						<input type="button" value="결제하기"
@@ -371,7 +585,200 @@ margin-top: 20px;
 			</div>
 		</div>
 	</div>
+	</GJW>
+	<div id="mw_temp" class="mw">
+		<div class="bg">
+			<!--이란에는 내용을 넣지 마십시오.-->
+		</div>
+		<div class="fg">
+			<p>
+				모달창 예제입니다.body 태그앞에 넣으십시오.
+				<button
+					onclick="document.getElementById('mw_temp').style.display='none'"
+					type="button">창닫기</button>
+			</p>
+		</div>
+	</div>
 	<script>
+		$(document).on(
+				"click",
+				".comment-del-btn",
+				function() {
+
+					var m_id = $(this).parent().parent().prev().prev(
+							".gjw-comment-cl").text();
+					var r_id = $(this).prev().val();
+					var div = $(this).parent().parent().parent(
+							".gjw-commentlist-wrap");
+					//나중에 바꿔야됨 세션 ID로
+					if (m_id != "GJWoon") {
+						alert("댓글 작성자만 삭제가 가능합니다.");
+						return false;
+					} else {
+						$.ajax({
+							url : "commentdelete.do",
+							data : {
+								"r_id" : r_id
+							},
+							success : function() {
+								div.remove();
+								alert("댓글이 삭제 되었습니다.")
+							}
+						})
+					}
+				})
+
+		$(document)
+				.on(
+						"click",
+						".gjw-comment-submit",
+						function() {
+
+							var content = $(this).parent().prev().children(
+									".gjw-comment-write").val();
+							var r_ref = $(this).prev().val();
+							var p_id = "${list.p_id}";
+							$
+									.ajax({
+										url : "reviewcomment_write.do",
+										data : {
+											"r_content" : content,
+											"r_ref" : r_ref,
+											"p_id" : p_id
+										},
+										success : function(list) {
+											alert("댓글 작성에 성공하셨습니다.");
+											$(".reviewcommentdiv")
+													.append(
+															'<div class="gjw-commentlist-wrap"><div class="gjw-comment-cl" style="margin-bottom: 30px;font-weight:bold">'
+																	+ list.m_id
+																	+ '</div><div class="gjw-comment-cl"><textarea class="gjw-comment-textarea" resize="none" readonly="readonly" style="word-break: break-all; height: 19px;">'
+																	+ list.content
+																	+ '</textarea></div><div style="display:flex;"><div class="gjw-comment-date">'
+																	+ list.date
+																	+ '</div><div><input type="hidden" value='+list.r_id+'><input type="button" value="댓글삭제" class="comment-del-btn"></div><div><input type="button" value="수정하기" class="comment-update-btn"></div></div></div>');
+											$(".gjw-comment-write").val("");
+
+											$(document)
+													.ready(
+															function() {
+																$("table")
+																		.on(
+																				"keyup",
+																				"textarea",
+																				function(
+																						e) {
+																					$(
+																							this)
+																							.css(
+																									"height",
+																									"auto");
+																					$(
+																							this)
+																							.height(
+																									this.scrollHeight);
+																				});
+																$("table")
+																		.find(
+																				"textarea")
+																		.keyup();
+															})
+										}
+									})
+						})
+
+		$(document)
+				.on(
+						"click",
+						".reviewdetailbtn",
+						function() {
+							var tr = $(this).parent();
+							tr.prevAll(".reviewdetailtr")
+									.css("display", "none");
+							tr.nextAll(".reviewdetailtr")
+									.css("display", "none");
+
+							$
+									.ajax({
+										url : "review_detail.do",
+										data : {
+											"r_id" : $(this).prev().text()
+										},
+										dataType : "JSON",
+										success : function(list) {
+											tr
+													.eq(-1)
+													.after(
+															'<tr class="reviewdetailtr"><td colspan="4"><div class="reviewtitle">[${list.p_title}]</div><div style=" display: flex;justify-content: center;"><img src="${pageContext.request.contextPath}/resources'+list.list.r_img+'"></div><div style="font-weight: 400;border-bottom: 1px solid #00000038;padding-bottom: 30px;padding-left:50px;">'
+																	+ list.list.r_content
+																	+ '</div><div></div><div class="reviewcommentdiv"></div><div class="gjw-comment-wrap"><div class="gjw-comment-div"><div class="gjw-cwriter-wrap">금지운(${userID})</div><div class="gjw-ccontent-wrap"><textarea class="gjw-comment-write" rows="1" placeholder="댓글을 남겨보세요" name="b_content"></textarea></div><div class="gjw-commentsubmit-wrap"><input type="hidden" value="'+list.list.r_id+'"><input type="button" value="등록" class="gjw-comment-submit"></div></div><div></td><tr>');
+											/* 		<div id="gjw-comment-wrap">
+													<div id="gjw-comment-div">
+													<form action="commentInsert.do" method="post">
+													<div id="gjw-cwriter-wrap">
+													<input type="text" value="${userID }" name="m_id"
+															readonly="readonly">
+													<input type="hidden" value="${blist.b_id }" name="b_id">
+													</div>
+													<div id="gjw-ccontent-wrap">
+													<textarea id="gjw-comment-write" rows="1"
+															placeholder="댓글을 남겨보세요" name="b_content"></textarea>
+													</div>
+													<div id="gjw-commentsubmit-wrap">
+													<input type="submit" value="등록" id="gjw-comment-submit">
+													</div>
+													</form>
+													</div>
+													</div> */
+											var values = []
+											values = list.commentlist;
+											$
+													.each(
+															values,
+															function(index,
+																	value) {
+																$(
+																		".reviewcommentdiv")
+																		.append(
+																				'<div class="gjw-commentlist-wrap"><div class="gjw-comment-cl" style="margin-bottom: 30px;font-weight:bold">'
+																						+ value.m_id
+																						+ '</div><div class="gjw-comment-cl"><textarea class="gjw-comment-textarea" resize="none" readonly="readonly" style="word-break: break-all; height: 19px;">'
+																						+ value.r_content
+																						+ '</textarea></div><div style="display:flex;"><div class="gjw-comment-date">'
+																						+ value.r_adddate
+																						+ '</div><div><input type="hidden" value='+value.r_id+'><input type="button" value="댓글삭제" class="comment-del-btn"></div><div><input type="button" value="수정하기" class="comment-update-btn"></div></div></div>');
+
+															});
+
+											$(document)
+													.ready(
+															function() {
+																$("table")
+																		.on(
+																				"keyup",
+																				"textarea",
+																				function(
+																						e) {
+																					$(
+																							this)
+																							.css(
+																									"height",
+																									"auto");
+																					$(
+																							this)
+																							.height(
+																									this.scrollHeight);
+																				});
+																$("table")
+																		.find(
+																				"textarea")
+																		.keyup();
+															})
+
+										}
+									})
+
+						});
 		review();
 		function review() {
 			$(function() {
@@ -394,7 +801,7 @@ margin-top: 20px;
 															.append(
 																	'<tr style="text-align: center; border-bottom: 1px solid #80808096; height: 40px;"class="reviewtr"><td>'
 																			+ value.r_id
-																			+ '</td><td>'
+																			+ '</td><td  class="reviewdetailbtn">'
 																			+ value.r_title
 																			+ '</td><td>'
 																			+ value.m_id
@@ -495,11 +902,13 @@ margin-top: 20px;
 																								.append(
 																										'<tr style="text-align: center; border-bottom: 1px solid #80808096; height: 40px;"class="reviewtr"><td>'
 																												+ value.r_id
-																												+ '</td><td>'
+																												+ '</td><td  class="reviewdetailbtn">'
 																												+ value.r_title
 																												+ '</td><td>'
 																												+ value.m_id
-																												+ '</td><td>'+value.r_adddate+'</td></tr>');
+																												+ '</td><td>'
+																												+ value.r_adddate
+																												+ '</td></tr>');
 																					});
 																	$(
 																			".pagenumber")
@@ -608,14 +1017,37 @@ margin-top: 20px;
 					.click(
 							function() {
 
-								if ($("input[name=address]:checked").val() == "기본배송지로 배송하기") {
-									alert("테이블 생성시 멤버테이블에서 해당 회원의 주소값 가져오기");
+								if ($("input[name=address]:checked").val() == "기본배송지") {
+									$.ajax({
+										url : "findaddress.do",
+										data : {
+											"ID" : "GJWoon"
+										},
+										success : (function(result) {
+											alert(result);
+											$("#originaladd").val(result);
+											$("#originaladd").css("display",
+													"block");
+										})
+									})
+
 									$("#addresstext").css("display", "none");
 								} else if ($("input[name=address]:checked")
 										.val() == "배송지 직접입력") {
-
+									$("#originaladd").css("display", "none");
+									$("#originaladd").val("");
 									$("#addresstext").css("display", "block");
+								} else if ($("input[name=address]:checked")
+										.val() == "배송지 선택") {
+									$("#mw_temp").css("display", "block");
+									$("#addresstext").css("display", "none");
+									$("#lastaddressdiv").css("display","none");
+									$("#sample4_jibunAddress").val("");
+									$("#sample4_postcode").val("");
+									$("#sample4_detailAddress").val("");
+									$("#addresstext1").val("");
 								}
+
 							})
 		})
 		window.onload = function() {
@@ -642,13 +1074,12 @@ margin-top: 20px;
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 	<script>
-	
-	$(function(){
-	$("#productlistbtn").click(function(){
-		location.href="productlist.do?p_type=${list.p_type}"
-	})
-	})
-	
+		$(function() {
+			$("#productlistbtn").click(function() {
+				location.href = "productlist.do?p_type=${list.p_type}"
+			})
+		})
+
 		function sample4_execDaumPostcode() {
 			new daum.Postcode(
 					{
@@ -678,15 +1109,9 @@ margin-top: 20px;
 							}
 
 							document.getElementById('sample4_postcode').value = data.zonecode;
-							document.getElementById("sample4_roadAddress").value = roadAddr;
 							document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
 
 							// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-							if (roadAddr !== '') {
-								document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-							} else {
-								document.getElementById("sample4_extraAddress").value = '';
-							}
 
 							var guideTextBox = document.getElementById("guide");
 							// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
@@ -712,18 +1137,28 @@ margin-top: 20px;
 	</script>
 	<script>
 		$("#reviewwritebtn").click(function() {
-
 			$("#ajaxdiv").css("display", "block");
 			$('html, body').scrollTop(document.body.scrollHeight)
-
 		})
 
 		$('#buybtn2').click(function() {
+			
+			var userID = "${userID}";
+			//밑에꺼 지우기
+			userID = "GJWoon";
+			var p_id = ${list.p_id};
+			var productcount = $("#productnumber").val();
 			var bill1 = $("#lastprice").text().replace(/,/g, "");
 			var bill = bill1.replace('원', '');
 			if (bill == '0') {
 				alert("옵션을 선택해주세요!");
 				return;
+			}
+			
+			var address =$("#addresstext1").val();
+			if(address==""){
+				alert("주소를 입력해주세요!");
+				return false;
 			}
 			// getter
 			var IMP = window.IMP;
@@ -743,6 +1178,10 @@ margin-top: 20px;
 				console.log(rsp);
 				if (rsp.success) {
 					var msg = '결제가 완료되었습니다.';
+					$.ajax({
+						url:"productBuy.do",
+						data:{"ph_count":productcount,"m_id":userID,"p_id":p_id}
+					})
 				} else {
 					var msg = '결제에 실패하였습니다.';
 					msg += '\n에러내용 : ' + rsp.error_msg;
@@ -788,8 +1227,61 @@ margin-top: 20px;
 				}
 			});
 		}
-		
 
+		$(function() {
+			$("#basketbtn").click(function() {
+				var userID = "${userID}";
+				var p_id = $
+				{
+					list.p_id
+				}
+				//지워야됨 밑에꺼
+				userID = "GJWoon";
+				if (userID == null || userID == "") {
+					alert("로그인이 필요한 서비스입니다.");
+					return false;
+				} else {
+					alert("실행");
+					$.ajax({
+						url : "insertBasket.do",
+						data : {
+							"p_id" : p_id,
+							"id" : userID
+						},
+						success : function() {
+							alert("장바구니에 추가되었습니다.");
+						},
+						error : function() {
+							alert("장바구니 추가하지 마세요 그냥");
+						}
+					})
+
+				}
+
+			})
+		})
+
+		$(function() {
+			$("#addresssubmitbtn").click(function() {
+				var add = $("#sample4_jibunAddress").val();
+				var detail = $("#sample4_detailAddress").val();
+				if (add == "") {
+					alert("주소를 입력해주세요");
+					return false;
+				}
+				if (detail == "") {
+					alert("상세주소를 입력해주세요.");
+					return false;
+				} else {
+					var lastadd = add + " " + detail;
+					alert(lastadd.length)
+					$("#addresstext1").css('width', lastadd.length *10);
+					$("#addresstext1").val(lastadd);
+					$("#lastaddressdiv").css("display", "flex");
+				}
+
+			})
+		})
 	</script>
 	<jsp:include page="footer.jsp" />
 
