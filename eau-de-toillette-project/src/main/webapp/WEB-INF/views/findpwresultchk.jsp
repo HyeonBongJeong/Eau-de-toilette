@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
         <!DOCTYPE html>
         <html>
@@ -87,7 +88,7 @@
                 #login-a-btn-1 {
                     color: #fff;
                     background-color: #4c0c70;
-                    margin-top: 20px;
+                    margin-top: 30px;
                 }
                 
                 .find-title {
@@ -96,44 +97,56 @@
                     font-size: 12px;
                     line-height: 18px;
                 }
+                
+                .txt-email {
+                    height: 20px;
+                    padding-top: 10px;
+                    font-size: 14px;
+                    line-height: 20px;
+                    text-align: center;
+                }
+                
+                .emph {
+                    color: #4c0c70;
+                    background-color:transparent;
+                    outline:none;
+                    border:none;
+                }
             </style>
         </head>
         <script>
-            function findpw() {
-                var m_name = $("#m_name").val();
-                var m_id = $("#m_id").val();
-                var m_email = $("#m_email").val();
-                if (m_name != '' && m_id != '' && m_email != '') {
-                    $.ajax({
-                        url: "${pageContext.request.contextPath}/findpwajax",
-                        method: "POST",
-                        data: {
-                            m_name: m_name,
-                            m_id: m_id,
-                            m_email: m_email
-                        },
-                        success: function(data) {
-                            if (data == 0) {
-                                alert("등록되지 않은 아이디입니다.");
-                                $("#m_name").val('');
-                                $("#m_id").val('');
-                                $("#m_email").val('');
-                            } else if (data == 1) {
-                                var url = "${pageContext.request.contextPath}/findpwresult?m_name=" + m_name + "&m_id=" + m_id + "&m_email=" + m_email;
-                                $(location).attr('href', url);
-                            }
-                        },
-                        error: function(request, status, error) {
-                            console.log("error");
-                            alert("code:" + request.status + "\n" + "message:" +
-                                request.responseText + "\n" + "error:" +
-                                error);
-                        }
-                    });
-                } else {
-                    alert("고객님의 이름과 아이디와 이메일을 입력해주세요.");
-                }
+            
+            
+            $(function(){
+                var number = Math.floor(Math.random() * 100000) + 100000;
+                var athor_text;
+            if (number > 100000) {
+                number = number - 10000;
             }
+            if (!athor_text) {
+                athor_text = number;
+            } else {
+                athor_text = '';
+                athor_text = number;
+            }
+            $("#chk").val(athor_text);
+            
+            $("#login-a-btn-1").on('click', function() {
+                var chknumber = $("#chknumber").val();
+                var chk1 = $("#chk1").val();
+                var m_id = $("#m_id").val();
+                console.log(chknumber);
+                console.log(chk1);
+                console.log(m_id);
+                if (chknumber != chk1) {
+                    alert('인증번호를 정확하게 입력해주세요.');
+                    $("#chknumber").val('');
+                } else if (chknumber == chk1) {
+                	var url = "${pageContext.request.contextPath}/findpwdcg?m_id=" + m_id;
+                    $(location).attr('href', url);
+                }
+            });
+            });
         </script>
 
         <body>
@@ -141,17 +154,29 @@
             <div id="login-big-con">
                 <h3>비밀번호 찾기</h3>
                 <div id="login-wirte-form">
-                    <strong class="find-title">이름</strong>
-                    <input type="text" class="login-input" id="m_name" placeholder="고객님의 이름을 입력해주세요">
-                    <strong class="find-title">아이디</strong>
-                    <input type="text" class="login-input" id="m_id" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요">
-                    <strong class="find-title">이메일</strong>
-                    <input type="email" class="login-input" id="m_email" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요">
-                    <input type="submit" class="login-input-btn" id="login-a-btn-1" onclick="findpw();" value="찾기">
+                    <form id="sendmail" action="mailSender" method="post">
+                        <strong class="find-title">이메일 주소 인증</strong>
+                        <input type="text" class="login-input" id="chknumber" placeholder="인증번호를 입력해주세요">
+                        <p class="txt-email">
+                            인증번호를 못 받았다면?
+                            <input type="submit" class="emph" value="인증번호 재전송 >">
+                        </p>
+                        <c:if test="${not empty hiddenid }">
+                            <input type="hidden" name="m_id" id="m_id" value="${hiddenid }">
+                        </c:if>
+                        <c:if test="${not empty chk }">
+                            <input type="hidden" id="chk1" value="${chk }">
+                            <input type="hidden" name="chk" id="chk">
+                        </c:if>
+                        <c:if test="${not empty hiddenemail }">
+                            <input type="hidden" name="m_email" value="${hiddenemail }">
+                        </c:if>
+                    </form>
+                        <input type="button" class="login-input-btn" id="login-a-btn-1" value="확인">
                 </div>
             </div>
-
             <jsp:include page="footer.jsp"></jsp:include>
+
         </body>
 
         </html>

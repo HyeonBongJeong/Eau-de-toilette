@@ -6,7 +6,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Insert title here</title>
+            <title>아이디 찾기</title>
             <script src="https://kit.fontawesome.com/2409d81413.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
             <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -98,17 +98,51 @@
         }
             </style>
         </head>
-
+<script>
+function findid(){
+	var m_name = $("#m_name").val();
+	var m_email = $("#m_email").val();
+	
+	if(m_name!='' && m_email!=''){
+		$.ajax({
+    		url: "${pageContext.request.contextPath}/findidajax",
+			method : "POST",
+			data : {
+				m_name : m_name,
+				m_email : m_email
+			},
+			success : function(data) {
+				if(data==0){
+					alert("등록되지 않은 이메일입니다.");
+					$("#m_name").val('');
+					$("#m_email").val('');
+				} else if(data==1){
+					var url = "${pageContext.request.contextPath}/findidresult?m_name="+m_name+"&m_email="+m_email;
+					$(location).attr('href', url);
+				} 
+			},
+			error : function(request, status, error) {
+				console.log("error");
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:"
+						+ error);
+			}
+    	});
+	} else{
+		alert("고객님의 이름과 이메일을 입력해주세요.");
+	}
+}
+</script>
         <body>
             <jsp:include page="header.jsp"></jsp:include>
          <div id="login-big-con">
         <h3>아이디 찾기</h3>
         <div id="login-wirte-form">
             <strong class="find-title">이름</strong>
-            <input type="text" class="login-input" placeholder="고객님의 이름을 입력해주세요">
+            <input type="text" class="login-input" id="m_name" placeholder="고객님의 이름을 입력해주세요">
             <strong class="find-title">이메일</strong>
-            <input type="email" class="login-input" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요">
-            <input type="submit" class="login-input-btn" id="login-a-btn-1" value="확인">
+            <input type="email" class="login-input" id="m_email" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요">
+            <input type="button" class="login-input-btn" id="login-a-btn-1" onclick="findid();" value="확인">
         </div>
     </div>
 

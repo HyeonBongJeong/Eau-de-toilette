@@ -96,44 +96,61 @@
                     font-size: 12px;
                     line-height: 18px;
                 }
+                
+                .pw_chk {
+                    height: 48px;
+                    line-height: 18px;
+                    font-size: 12px;
+                    color: #666666;
+                    padding-top: 6px;
+                }
+                
+                .pw_chk2 {
+                    height: 20px;
+                    line-height: 18px;
+                    font-size: 12px;
+                    color: #666666;
+                    padding-top: 6px;
+                    display: none;
+                }
             </style>
         </head>
         <script>
-            function findpw() {
-                var m_name = $("#m_name").val();
-                var m_id = $("#m_id").val();
-                var m_email = $("#m_email").val();
-                if (m_name != '' && m_id != '' && m_email != '') {
-                    $.ajax({
-                        url: "${pageContext.request.contextPath}/findpwajax",
-                        method: "POST",
-                        data: {
-                            m_name: m_name,
-                            m_id: m_id,
-                            m_email: m_email
-                        },
-                        success: function(data) {
-                            if (data == 0) {
-                                alert("등록되지 않은 아이디입니다.");
-                                $("#m_name").val('');
-                                $("#m_id").val('');
-                                $("#m_email").val('');
-                            } else if (data == 1) {
-                                var url = "${pageContext.request.contextPath}/findpwresult?m_name=" + m_name + "&m_id=" + m_id + "&m_email=" + m_email;
-                                $(location).attr('href', url);
+            // 비밀번호 정규식 
+            var check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,20}$/; //영문,숫자
+
+            var check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,20}$/; //영문,특수문자
+
+            var check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,20}$/; //특수문자, 숫자
+            $(document).ready(function() {
+                //  password
+                $("#m_pwd").on("propertychange change keyup paste input", function() {
+                    if ($('#m_pwd').val().length < 10 || check1.test($('#m_pwd').val()) != true && check2.test($('#m_pwd').val()) != true && check3.test($('#m_pwd').val()) != true || /(\w)\1\1/.test($('#m_pwd').val())) {
+                        $('.pw_chk').css('color', 'red');
+                    } else {
+                        $('.pw_chk').html('사용 가능한 비밀번호입니다');
+                        $('.pw_chk').css('color', 'green');
+                        $(".pw_chk2").css("display", "block");
+                        $("#m_pwd2").on("propertychange change keyup paste input", function() {
+                            if ($('#m_pwd').val() == $('#m_pwd2').val()) {
+                                $('.pw_chk2').css('color', 'green');
+                                $("#findpw-val").val($('#m_pwd2').val());
+                            } else {
+                                $('.pw_chk2').css('color', 'red');
                             }
-                        },
-                        error: function(request, status, error) {
-                            console.log("error");
-                            alert("code:" + request.status + "\n" + "message:" +
-                                request.responseText + "\n" + "error:" +
-                                error);
-                        }
-                    });
-                } else {
-                    alert("고객님의 이름과 아이디와 이메일을 입력해주세요.");
-                }
-            }
+                        });
+                    }
+                });
+                $("#findpw-ch-form").on('submit', function() {
+					if($("#findpw-val").val()==''){
+						alert('새 비밀번호를 형식에 맞추어 입력해주세요.');
+						return false;
+					} else{
+						alert("비밀번호가 변경되었습니다.");
+						return true;
+					}
+                });
+            });
         </script>
 
         <body>
@@ -141,13 +158,23 @@
             <div id="login-big-con">
                 <h3>비밀번호 찾기</h3>
                 <div id="login-wirte-form">
-                    <strong class="find-title">이름</strong>
-                    <input type="text" class="login-input" id="m_name" placeholder="고객님의 이름을 입력해주세요">
-                    <strong class="find-title">아이디</strong>
-                    <input type="text" class="login-input" id="m_id" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요">
-                    <strong class="find-title">이메일</strong>
-                    <input type="email" class="login-input" id="m_email" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요">
-                    <input type="submit" class="login-input-btn" id="login-a-btn-1" onclick="findpw();" value="찾기">
+                    <strong class="find-title">새 비밀번호 등록</strong>
+                    <input type="password" class="login-input" id="m_pwd" placeholder="새 비밀번호를 입력해주세요">
+                    <p class="pw_chk">
+                        최소 10글자 이상/영문, 숫자, 특수문자 2개 이상 조합<br> 동일한 숫자 3개 이상 연속 사용 불가
+                    </p>
+                    <strong class="find-title">새 비밀번호 확인</strong>
+                    <input type="password" class="login-input" id="m_pwd2" placeholder="새 비밀번호를 한 번 더 입력해주세요">
+                    <p class="pw_chk2">
+                        동일한 비밀번호를 입력해주세요
+                    </p>
+                    <form id="findpw-ch-form" action="changepw" method="post">
+                    <c:if test="${not empty hiddenid }">
+                    <input type="hidden" name="m_id" value="${hiddenid }">
+                    </c:if>
+                        <input type="hidden" name="m_password" id="findpw-val">
+                        <input type="submit" class="login-input-btn" id="login-a-btn-1" onclick="findpw();" value="확인">
+                    </form>
                 </div>
             </div>
 

@@ -6,7 +6,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Insert title here</title>
+            <title>eau de toillette</title>
             <script src="https://kit.fontawesome.com/2409d81413.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
             <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -280,29 +280,95 @@
                     height: 72px;
                     width: 100%;
                 }
+                
+                #scroll-outer {
+                    width: 100%;
+                    max-height:270px;
+                    /* margin-top: -141px; */
+                    position: sticky;
+                    top: 200px;
+                }
+                
+                #scroll {
+                    width: 78px;
+                    float: right;
+                    margin-right: -130px;
+                    max-height:270px;
+                    /* margin-top:141px; */
+                    border:1px solid #4C4C4C;
+                    text-align:center;
+                    /* overflow:hidden; */
+                }
+                
+                #scroll-inner {
+                    width: 78px;
+                    height: 100px;
+                    background-color: yellow;
+                }
+                
+                #scroll-img-con{
+                max-height:200px;
+                overflow:hidden;
+                }
+                
+                .scroll-up{
+                height:22px;
+               	cursor:pointer;
+                }
+                
+                #scroll-title{
+                height:16px;
+                font-size:12px;
+                line-height:16px;
+                padding-bottom:6px;
+                }
+                
+                .scroll-img{
+                width:60px;
+                height:77px;
+                background-color:white;
+                }
             </style>
         </head>
         <script>
-            var all = ele => document.querySelectorAll(ele)
-            var one = ele => document.querySelector(ele)
-            var slide = _ => {
-                var wrap = one('#main-big-add') // .slide 선택
-                var target = wrap.children[0] // .slide ul 선택
-                var len = target.children.length // .slide li 갯수
-                    // .slide ul의 너비 조정
-                target.style.cssText = `width:calc(100% * ${len});display:flex;transition:1s;`
-                    // .slide li의 너비 조정
-                Array.from(target.children)
-                    .forEach(ele => ele.style.cssText = `width:calc(100% / ${len});`)
-                let pos = 0
-                setInterval(() => {
-                    pos = (pos + 1) % len // 장면 선택
-                    target.style.marginLeft = `${-pos * 100}%` // 장면 전환
-                }, 2000)
-            }
-            window.onload = function() {
-                slide()
-            }
+            /* var all = ele => document.querySelectorAll(ele)
+                                                var one = ele => document.querySelector(ele)
+                                                var slide = _ => {
+                                                    var wrap = one('#main-big-add') // .slide 선택
+                                                    var target = wrap.children[0] // .slide ul 선택
+                                                    var len = target.children.length // .slide li 갯수
+                                                        // .slide ul의 너비 조정
+                                                    target.style.cssText = `width:calc(100% * ${len});display:flex;transition:1s;`
+                                                        // .slide li의 너비 조정
+                                                    Array.from(target.children)
+                                                        .forEach(ele => ele.style.cssText = `width:calc(100% / ${len});`)
+                                                    let pos = 0
+                                                    setInterval(() => {
+                                                        pos = (pos + 1) % len // 장면 선택
+                                                        target.style.marginLeft = `${-pos * 100}%` // 장면 전환
+                                                    }, 2000)
+                                                }
+                                                window.onload = function() {
+                                                    slide()
+                                                } */
+        </script>
+        <script>
+            /* function scroll_follow(id) {
+                                                    $(window).scroll(function() //스크롤이 움직일때마다 이벤트를 발생시키고
+                                                        {
+                                                            var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
+                                                            $(id).stop().animate({
+                                                                top: position + "px"
+                                                            }, 1); //해당 오브젝트 위치값 재설정
+                                                        });
+                                                }
+                                                scroll_follow("#scroll");
+                                                //스크롤이 생기도록 <br> 을 여러개 넣은 부분..
+                                                $(document).ready(function() {
+                                                    for (var i = 0; i < 200; i++) {
+                                                        $('#brr').html($('#brr').html() + "<br>" + i);
+                                                    }
+                                                }); */
         </script>
 
         <body>
@@ -319,6 +385,18 @@
                 <section class="main-section-title">
                     <p>Candle</p>
                 </section>
+                <div id="scroll-outer">
+                    <div id="scroll" style="right:100;">
+                    <div class="scroll-up"><i class="fas fa-angle-up"></i></div>
+                    <strong id="scroll-title">최근 본 상품</strong>
+                    <div id="scroll-img-con">
+                    <img class="scroll-img">
+                    <img class="scroll-img">
+                    <img class="scroll-img">
+                    </div>
+                    <div class="scroll-up"><i class="fas fa-angle-down"></i></div>
+                    </div>
+                </div> 
                 <section id="main-section-1" class="main-blank">
                     <ul>
                         <li>
