@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.kkkj.eaude.dao.MyPageDao;
 import com.kkkj.eaude.domain.Member;
+import com.kkkj.eaude.domain.ShoppingDestination;
 
 @Service("myService")
 public class MypageServiceImpl implements MypageService {
 	@Autowired
 	private MyPageDao myDao;
+	
 	
 	@Override
 	public List<Member> mypage_update(Member m) {
@@ -37,6 +39,39 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<Member> myPageTop(Member m) {
 		return myDao.myPageTop(m);
+	}
+
+	@Override
+	public List<ShoppingDestination> mypageShippingDestination(ShoppingDestination sd) {
+		return myDao.mypageShippingDestination(sd);
+	}
+
+	@Override
+	public void mypageAddrInsert(ShoppingDestination sd) {
+		myDao.mypageAddrInsert(sd);
+		
+	}
+
+	@Override
+	public void mypageAddrUpdate(ShoppingDestination sd) {
+		myDao.mypageAddrUpdate(sd);
+		
+	}
+
+	@Override
+	public void memberAddrUpdate(Member m) {
+		myDao.memberAddrUpdate(m);
+		
+	}
+
+	@Override
+	public int myPageAddrDelete(ShoppingDestination sd) {
+		return myDao.myPageAddrDelete(sd);
+	}
+
+	@Override
+	public List<ShoppingDestination> myPageAddrChkNum(ShoppingDestination sd) {
+		return myDao.myPageAddrChkNum(sd);
 	}
 
 }

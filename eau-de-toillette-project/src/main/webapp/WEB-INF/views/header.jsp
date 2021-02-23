@@ -438,10 +438,9 @@
                             <span class="member-grade">${regInfo.m_grade }</span> ${regInfo.m_name }&nbsp;&nbsp;<i class="fas fa-caret-down"></i></a>
                         <div id="header-usermenu-drop-con-2">
                             <ul id="header-usermenu-drop-2">
-                                <li class="header-drop-menu"><a href="#">주문 내역</a></li>
-                                <li class="header-drop-menu"><a href="#">배송지 관리</a></li>
-                                <li class="header-drop-menu"><a href="#">상품 후기</a></li>
-                                <li class="header-drop-menu"><a href="#">개인 정보 수정</a></li>
+                                <li class="header-drop-menu"><a href="#" onclick="location.href='/eaude/myPageOrderList.do'">주문 내역</a></li>
+                                <li class="header-drop-menu"><a href="#" onclick="location.href='/eaude/mypageShippingDestination.do'">배송지 관리</a></li>
+                                <li class="header-drop-menu"><a href="#" onclick="location.href='/eaude/myPageInfo.do'">개인 정보 수정</a></li>
                                 <li class="header-drop-menu"><a href="#" onclick="logout('${my_name}');">로그아웃</a></li>
                  </ul>
                         </div>
@@ -495,7 +494,7 @@
                             <p class="header-nav-addr-mention" style="height:45px; display:inline-block;">${regInfo.m_addr }</p>
 
                             <div>
-                                <button type="button" class="header-nav-button-2" onclick="location.href='';">배송지 변경</button>
+                                <button type="button" class="header-nav-button-2" onclick="location.href='/eaude/mypageShippingDestination.do'">배송지 변경</button>
                             </div>
                         </div>
                     </c:if>

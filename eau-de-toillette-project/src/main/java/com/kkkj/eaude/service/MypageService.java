@@ -3,6 +3,7 @@ package com.kkkj.eaude.service;
 import java.util.List;
 
 import com.kkkj.eaude.domain.Member;
+import com.kkkj.eaude.domain.ShoppingDestination;
 
 public interface MypageService {
 
@@ -15,5 +16,17 @@ public interface MypageService {
 	int myPagePassChk(Member m);
 
 	List<Member> myPageTop(Member m);
+
+	List<ShoppingDestination> mypageShippingDestination(ShoppingDestination sd);
+
+	void mypageAddrInsert(ShoppingDestination sd);
+
+	void mypageAddrUpdate(ShoppingDestination sd);
+
+	void memberAddrUpdate(Member m);
+
+	int myPageAddrDelete(ShoppingDestination sd);
+
+	List<ShoppingDestination> myPageAddrChkNum(ShoppingDestination sd);
 
 }

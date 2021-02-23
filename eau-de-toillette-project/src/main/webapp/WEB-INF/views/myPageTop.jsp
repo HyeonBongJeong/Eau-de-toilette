@@ -154,6 +154,12 @@
             font-weight: bold;
             cursor: pointer;
         }
+        
+        .menu-on > a{
+
+            color :#5f0080;
+
+        }
 
         #mypage-ques{
             margin-top : 20px; 
@@ -194,10 +200,10 @@
             <div id="user-infos">
                 <div class="user-info-body">
                     <div id="grade-square">
-                        <div id="grade">뚜알레</div>
+                        <div id="grade"></div>
                         <div id="info-body">
-                            <div id="info-name"><p id="info_realname">정현봉</p><span>님</span></div>
-                            <input type="hidden" name="info-id" value="whb1026">
+                            <div id="info-name"><p id="info_realname"></p><span>님</span></div>
+                            <input type="hidden" name="info-id">
                             <div id="info-point-grade">적립<span>   0.5%</span></div>
                         </div>
                     </div>
@@ -243,7 +249,7 @@
    			}else{
    				$('#grade').html(data.loginMember[0].m_grade);
    				$('#info_realname').html(data.loginMember[0].m_name);
-   				$('#input[name=info-id]').html(data.loginMember[0].m_id);
+   				$('input[name=info-id]').val(data.loginMember[0].m_id);
    				$('#realpoint').html(data.loginMember[0].m_point+'원');
    				
    				

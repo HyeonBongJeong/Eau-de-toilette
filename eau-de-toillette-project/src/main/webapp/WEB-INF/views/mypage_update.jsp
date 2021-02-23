@@ -222,18 +222,16 @@
             <h2>마이뚜알레</h2>
             <div id="mypage-side-menu">
                 <ul id="mypage-side-menus">
-                    <li class= "menu">&nbsp;&nbsp;&nbsp;주문내역&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></li>
-                    <li class= "menu">&nbsp;&nbsp;&nbsp;배송지 관리&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 75px;"></li>
-                    <li class= "menu">&nbsp;&nbsp;&nbsp;상품후기&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></li>
-                    <li class= "menu">&nbsp;&nbsp;&nbsp;적립금&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 105px;"></li>
-                    <li class= "menu menu-on">&nbsp;&nbsp;&nbsp;개인 정보 수정&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 55px;"></li> 
+                    <li class= "menu">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='/eaude/myPageOrderList.do'">주문내역&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></a></li>
+                    <li class= "menu">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='/eaude/mypageShippingDestination.do'">배송지 관리&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 75px;"></a></li>
+                    <li class= "menu menu-on">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='/eaude/myPageInfo.do'">개인 정보 수정&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 55px;"></a></li> 
                 </ul>
                 <div id="mypage-ques">
                     <p id="mypage-ques-header">도움이 필요하신가요?</p>
                     <p id="mypage-ques-text">1대1문의하기</p>
                 </div>
             </div>
-            </div>
+		</div>
             <div class="mypage-personer-info">
                 <div class = "mypage-personer-info-section">
                     <h2>개인정보 수정</h2>
@@ -350,7 +348,8 @@
 	                                <span id="mypage_personer_info_update"></span>개인정보 수집 이용 동의
 	                                </label>
 	                                <span style="color: #ccc;">(선택)</span>
-	                                <span id="yak_show" style="margin-left: 30px; cursor: pointer; color:#5f0081;">약관보기 <img id="yak_img" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;"></span>
+	                                <span id="yak_show" style="margin-left: 30px; cursor: pointer; color:#5f0081;">약관보기 
+	                                <img id="yak_img" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;"></span>
 	                                
 	                                </td>
 	                                

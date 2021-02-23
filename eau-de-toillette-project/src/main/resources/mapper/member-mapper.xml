@@ -53,9 +53,23 @@
 		<select id="myPagePassChk" resultType="String" resultMap="resultMember" parameterType="Member">
 			select m_password from member where m_id = #{m_id} and m_password = #{m_password}
 		</select>
-	<select id="findaddress" resultType="string" parameterType="string">
-	select m_addr from member where m_id =#{m_id}
-	</select>
+		
+		<select id="findaddress" resultType="string" parameterType="string">
+		select m_addr from member where m_id =#{m_id}
+		</select>
+	
+	
+		
+		<update id="memberAddrUpdate" flushCache="true" statementType="PREPARED" timeout="20" parameterType="Member">
+			update member 
+			set 
+			m_addr = #{m_addr}
+			where m_id = #{m_id}
+		
+		
+		</update>
+	
+	
 
 
 </mapper>

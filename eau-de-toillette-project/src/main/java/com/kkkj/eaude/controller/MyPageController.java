@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kkkj.eaude.common.Coolsms;
 import com.kkkj.eaude.domain.Member;
+import com.kkkj.eaude.domain.ShoppingDestination;
 import com.kkkj.eaude.service.MypageService;
 
 
@@ -199,28 +200,146 @@ public class MyPageController {
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}
-
-
-
-						
-						
-						
 					}
 					System.out.println(m);
-					
-					
-					
-					
 				}
-				
 				int result = myService.myPageUpdateInfo(m);
 				//리다이렉트로 info로 간다잉
-			
-				
-				
 				mv.setViewName("/mypage_update");
 				return mv;
 			}
+			
+			
+			//마이페이지 구매내역 이동 메서드
+			@RequestMapping(value = "/myPageOrderList.do", method = RequestMethod.GET)
+			public ModelAndView myPageOrderList(ModelAndView mv, HttpSession session) {
+				//String loginId = (String) session.getAttribute("loginId");
+				mv.setViewName("/mypage_orderList");
+				return mv;
+			}
+			
+			//마이페이지 배송지 이동 메서드
+			@RequestMapping(value = "/mypageShippingDestination.do", method = RequestMethod.GET)
+			public ModelAndView mypageShippingDestination(ModelAndView mv, HttpSession session, ShoppingDestination sd) {
+				//String loginId = (String) session.getAttribute("loginId");
+				List<ShoppingDestination> list = new ArrayList<ShoppingDestination>();
+				String id= "whb1026";
+				sd.setM_id(id);
+				list = myService.mypageShippingDestination(sd);
+				mv.addObject("list", list);
+				mv.setViewName("/mypage_shipping_destination");
+				return mv;
+			}
+			
+			//마이페이지 배송지 팝업 메서드
+			@RequestMapping(value = "/mypage_addr_popup.do", method = RequestMethod.GET)
+			public ModelAndView mypage_addr_popup(ModelAndView mv, HttpSession session, ShoppingDestination sd, 
+					@RequestParam(value="id", defaultValue="")String id					
+					) {
+				mv.addObject("id",id);
+				
+				mv.setViewName("/mypage_addr_popup");
+				return mv;
+			}
+			//마이페이지 배송지 업데이트 팝업 메서드
+			@RequestMapping(value = "/mypage_addr_update_popup.do", method = RequestMethod.GET)
+			public ModelAndView mypage_addr_update_popup(ModelAndView mv, HttpSession session, ShoppingDestination sd, 
+					@RequestParam(value="id", defaultValue="")String id,
+					@RequestParam(value="sd_id", defaultValue="")String sd_id) {
+				mv.addObject("id",id);
+				mv.addObject("sd_id",sd_id);
+				mv.setViewName("/mypage_addr_update_popup");
+				return mv;
+			}
+			
+			//마이페이지 배송지 저장 메서드
+			
+			@RequestMapping(value = "/mypageAddrInsert.do", method = RequestMethod.GET)
+			public ModelAndView mypageAddrInsert(ModelAndView mv, HttpSession session, ShoppingDestination sd, 
+					@RequestParam(name="id") String id,
+					@RequestParam(name="pop_addr") String addr,
+					@RequestParam(name="pop_detail_addr") String pop_detail_addr,
+					@RequestParam(name="pop_name") String pop_name,
+					@RequestParam(name="pop_phone") String pop_phone) {
+				sd.setM_id(id);
+				sd.setSd_addr(addr+" "+pop_detail_addr);
+				sd.setSd_name(pop_name);
+				sd.setSd_phone(pop_phone);
+				sd.setSd_addr_nickname("배송지");
+				myService.mypageAddrInsert(sd);
+				
+				mv.setViewName("redirect:mypageShippingDestination.do");
+				return mv;
+			}
+			//마이페이지 기본 배송지 수정 메서드
+			@RequestMapping(value = "/mypageAddrUpdate.do", method = RequestMethod.GET)
+			public ModelAndView mypageAddrUpdate(ModelAndView mv, HttpSession session,Member m, ShoppingDestination sd, 
+					@RequestParam(name="id") String id,
+					@RequestParam(name="sd_id") String sd_id,
+					@RequestParam(name="pop_addr") String addr,
+					@RequestParam(name="pop_detail_addr") String pop_detail_addr,
+					@RequestParam(name="pop_name") String pop_name,
+					@RequestParam(name="pop_phone") String pop_phone) {
+				sd.setM_id(id);
+				sd.setSd_id(sd_id);
+				sd.setSd_addr(addr+" "+pop_detail_addr);
+				sd.setSd_name(pop_name);
+				sd.setSd_phone(pop_phone);
+				m.setM_id(id);
+				m.setM_addr(addr+" "+pop_detail_addr);
+				System.out.println(sd);
+				myService.mypageAddrUpdate(sd);
+				myService.memberAddrUpdate(m);
+				
+				
+				mv.setViewName("redirect:mypageShippingDestination.do");
+				return mv;
+			}
+			
+			
+			
+			//마이페이지 배송지 삭제 메서드
+			@ResponseBody
+			@RequestMapping(value = "/myPageAddrDelete.do", method = RequestMethod.POST)
+			public Object myPageAddrDelete(ModelAndView mv, HttpSession session, ShoppingDestination sd) {
+				int a = myService.myPageAddrDelete(sd);
+				return a;
+			}
+			
+			
+			@ResponseBody
+			@RequestMapping(value = "/myPageAddrChkNum.do", method = RequestMethod.POST)
+			public Object myPageAddrChkNum(ModelAndView mv, HttpSession session, HttpServletResponse response, ShoppingDestination sd) {
+				int a = 0;
+				System.out.println(sd);
+				List<ShoppingDestination> list = new ArrayList<ShoppingDestination>(); 
+				list = myService.myPageAddrChkNum(sd);
+				System.out.println(list.size());
+				if(list.size() >= 5) {
+					a=1;
+				}else {
+					a=0;
+				}
+				return a;
+			}
+			
+			//마이페이지 리뷰 이동 메서드
+			@RequestMapping(value = "/myPageReview.do", method = RequestMethod.GET)
+			public ModelAndView myPageReview(ModelAndView mv, HttpSession session) {
+				//String loginId = (String) session.getAttribute("loginId");
+				mv.setViewName("/mypage_point");
+				return mv;
+			}
+			
+			//마이페이지 배송지 이동 메서드
+			@RequestMapping(value = "/myPageMyHome.do", method = RequestMethod.GET)
+			public ModelAndView myPageMyHome(ModelAndView mv, HttpSession session) {
+				//String loginId = (String) session.getAttribute("loginId");
+				mv.setViewName("/mypage_point");
+				return mv;
+			}
+			
+			
 	
 }
 
