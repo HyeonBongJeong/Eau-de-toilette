@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Board">
+
+	<resultMap type="Board" id="resultBoard">
+		<id property="b_id" column="b_id" />
+		<result property="b_type" column="b_type" />
+		<result property="b_title" column="b_title" />
+		<result property="b_time" column="b_time" />
+		<result property="b_cont" column="b_cont" />
+		<result property="b_sec" column="b_sec" />
+		<result property="b_sec_pas" column="b_sec_pas" />
+		<result property="b_view" column="b_view" />
+		<result property="m_id" column="m_id" />
+
+	</resultMap>
+	<insert id="insertBoard" parameterType="Board" flushCache="true"
+		statementType="PREPARED">
+		insert into board
+		values(board_SEQ.nextval,#{b_type},#{b_title},current_timestamp,#{b_cont},#{b_sec},#{b_sec_pas},#{m_id})
+	</insert>
+	<select id="selectAllListBoard" resultType="arraylist"
+		resultMap="resultBoard">
+		select * from board order by b_id desc
+	</select>
+	<select id="selectTotalCountBoard" resultType="int">
+		select count(*)
+		from board
+	</select>
+	<select id="selectViewListBoard" resultType="arraylist"
+		resultMap="resultBoard">
+		select * from (select * from board order by b_view desc)
+		where 3 >=rownum
+	</select>
+	<select id="selectSearchCountBoard" resultType="int"
+		parameterType="string">
+		select count(*) from board where b_title LIKE '%'||
+		#{keyword} ||'%'
+		OR
+		b_content LIKE '%'|| #{keyword} ||'%' order by b_id
+		desc
+	</select>
+	<select id="selectTagCountBoard" resultType="int"
+		parameterType="string">
+		select count(*) from board where b_type =#{b_type} order
+		by b_id
+		desc
+	</select>
+	<select id="selectSearchListBoard" resultType="arraylist"
+		resultMap="resultBoard" parameterType="string">
+		select * from board where
+		b_title LIKE '%'|| #{keyword} ||'%'
+		OR b_content
+		LIKE '%'|| #{keyword}
+		||'%' order by b_id
+		desc
+	</select>
+	<select id="selectTagListBoard" resultType="arraylist"
+		resultMap="resultBoard" parameterType="string">
+		select * from board where b_type
+		= #{b_type} order by b_id desc
+	</select>
+	<select id="selectDetailBoard" resultType="Board"
+		parameterType="int">
+		select * from board where b_id = #{b_id}
+	</select>
+	<select id="totalSearchCount" parameterType="string"
+		resultType="int">
+		select count(*) from board where
+		b_title LIKE '%'|| #{keyword} ||'%'
+		OR
+		b_cont LIKE '%'|| #{keyword} ||'%'
+	</select>
+</mapper>

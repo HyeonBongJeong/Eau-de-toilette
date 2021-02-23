@@ -7,31 +7,26 @@
 	<typeAliases>
 		<typeAlias alias="Product"
 			type="com.kkkj.eaude.domain.Product" />
-	
 		<typeAlias alias="Review"
 			type="com.kkkj.eaude.domain.Review" />
-			
 		<typeAlias alias="Member"
 			type="com.kkkj.eaude.domain.Member" />
-
-
-<typeAlias type="com.kkkj.eaude.domain.MainVO"
+		<typeAlias alias="Board"
+			type="com.kkkj.eaude.domain.Board" />
+		<typeAlias type="com.kkkj.eaude.domain.MainVO"
 			alias="Main" />
-
 		<typeAlias alias="Basket"
-			type="com.kkkj.eaude.domain.Basket" />
-			
-			
+			type="com.kkkj.eaude.domain.Basket" />		
 		<typeAlias alias="Purchasehistory"
 			type="com.kkkj.eaude.domain.Purchasehistory" />
 
 	</typeAliases>
 	<mappers>
-<mapper resource="mapper/main-mapper.xml" />
+		<mapper resource="mapper/main-mapper.xml" />
 		<mapper resource="mapper/Review-mapper.xml" />
 		<mapper resource="mapper/product-mapper.xml" />
 		<mapper resource="mapper/member-mapper.xml" />
-		
+		<mapper resource="mapper/board-mapper.xml" />
 		<mapper resource="mapper/Basket-mapper.xml" />
 		<mapper resource="mapper/Purchasehistory-mapper.xml" />
 

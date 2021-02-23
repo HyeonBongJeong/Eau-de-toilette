@@ -49,7 +49,7 @@ public class ProductController{
 	private ReviewServiceImpl rService;
 	
 	@Autowired
-	private MemberServiceImpl mService;
+	private MemberServiceImpl meService;
 	
 	@Autowired
 	private BasketServiceImpl bService;
@@ -278,7 +278,7 @@ public class ProductController{
 	@RequestMapping(value="findaddress.do",produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String findaddress(@RequestParam(name="ID")String id) {
-		String result=mService.findadd(id);
+		String result=meService.findadd(id);
 		System.out.println(result);
 		return result;
 	}

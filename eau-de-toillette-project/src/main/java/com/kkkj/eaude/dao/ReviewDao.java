@@ -34,7 +34,6 @@ public class ReviewDao {
 		return sqlSession.selectOne("Review.selectreviewcount",r_ref);
 	}
 
-
 	public Review selectReviewDetail(int r_id) {
 		return sqlSession.selectOne("Review.selectReviewDetail",r_id);
 	}

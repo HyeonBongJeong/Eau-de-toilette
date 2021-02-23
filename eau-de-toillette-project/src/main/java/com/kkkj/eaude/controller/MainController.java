@@ -31,7 +31,7 @@ import com.kkkj.eaude.service.MainService;
 @Controller
 public class MainController {
 	@Autowired
-	private MainService mService;
+	private MainService maService;
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -40,7 +40,7 @@ public class MainController {
 		logger.info("main start");
 		HttpSession session = request.getSession();
 		String my_name = (String) session.getAttribute("my_name");
-		mv.addObject("regInfo", mService.regInfo(my_name));
+		mv.addObject("regInfo", maService.regInfo(my_name));
 		mv.setViewName("main");
 		return mv;
 	}
@@ -81,7 +81,7 @@ public class MainController {
 		logger.info("finishreg start");
 		HttpSession session = request.getSession();
 		String my_name = (String) session.getAttribute("my_name");
-		mv.addObject("regInfo", mService.regInfo(my_name));
+		mv.addObject("regInfo", maService.regInfo(my_name));
 		mv.setViewName("finishreg");
 		return mv;
 	}
@@ -89,7 +89,7 @@ public class MainController {
 	@RequestMapping(value = "/findidresult", method = RequestMethod.GET)
 	public ModelAndView findidresult(HttpServletRequest request, ModelAndView mv, MainVO vo) {
 		logger.info("findidresult start");
-		String result = mService.findidresult(vo);
+		String result = maService.findidresult(vo);
 		String result1 = result.substring(0, 3);
 		int resultlength = result.length() - 3;
 		String result2 = String.format("%" + resultlength + "s", "").replace(' ', '*');
@@ -132,7 +132,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(String m_id) {
-		int result = mService.idCheck(m_id);
+		int result = maService.idCheck(m_id);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,7 +145,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
 	public int emailCheck(String m_email) {
-		int result = mService.emailCheck(m_email);
+		int result = maService.emailCheck(m_email);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,7 +161,7 @@ public class MainController {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
-			result = mService.insertMember(vo);
+			result = maService.insertMember(vo);
 			session = request.getSession();
 			String my_name = request.getParameter("m_id");
 			session.setAttribute("my_name", my_name);
@@ -176,8 +176,8 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/enterlogin", method = RequestMethod.POST)
 	public int enterlogin(MainVO vo) {
-		int resultid = mService.idExist(vo);
-		int resultpw = mService.pwExist(vo);
+		int resultid = maService.idExist(vo);
+		int resultpw = maService.pwExist(vo);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -222,7 +222,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/findidajax", method = RequestMethod.POST)
 	public int findidajax(MainVO vo) {
-		int result = mService.findid(vo);
+		int result = maService.findid(vo);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -235,7 +235,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/findpwajax", method = RequestMethod.POST)
 	public int findpwajax(MainVO vo) {
-		int result = mService.findpw(vo);
+		int result = maService.findpw(vo);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -249,7 +249,7 @@ public class MainController {
 	public String changepw(MainVO vo, HttpSession session, HttpServletRequest request) {
 		int result = 0;
 		try {
-			result = mService.changepw(vo);
+			result = maService.changepw(vo);
 
 		} catch (Exception e) {
 			e.printStackTrace();

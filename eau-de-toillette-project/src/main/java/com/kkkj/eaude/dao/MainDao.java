@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kkkj.eaude.domain.MainVO;
 
-@Repository("mDao")
+@Repository("maDao")
 public class MainDao {
 
 	@Autowired
