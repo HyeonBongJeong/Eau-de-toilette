@@ -378,7 +378,8 @@ img {
 				<p
 					style="padding-bottom: 20px; border-bottom: inset; margin-top: 30px;">
 					<span
-						style="font-weight: 700; font-size: 28px; line-height: 30px; margin-top: 30px;">${list.afterPirce }원</span>
+						style="font-weight: 700; font-size: 28px; line-height: 30px; margin-top: 30px;">
+						<input type="hidden" value="${list.afterPirce }" name="price">${list.afterPirce }원</span>
 				</p>
 				<p
 					style="padding-bottom: 30px; border-bottom: inset; margin-top: 30px;">

@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kkkj.eaude.common.Coolsms;
 import com.kkkj.eaude.domain.Member;
+import com.kkkj.eaude.domain.Purchasehistory;
 import com.kkkj.eaude.domain.ShoppingDestination;
 import com.kkkj.eaude.service.MypageService;
 
@@ -52,7 +53,27 @@ public class MyPageController {
 			response.setContentType("text/html; charset=UTF-8");
 			m.setM_id("whb1026");
 			list = myService.myPageTop(m);
+			String grade = list.get(0).getM_grade();
+			int allPoint = list.get(0).getM_allpoint();
+			int leastPoint = 0;
+			if(grade.equals("샤워코롱") ) {
+				leastPoint = 0;
+			}else if(grade.equals("오드코롱")) {
+				leastPoint = 10000-allPoint;
+			}else if(grade.equals("뚜알레")) {
+				leastPoint = 50000-allPoint;
+				
+			}else if(grade.equals("오드퍼퓸")) {
+				leastPoint = 100000-allPoint;
+				
+			}else if(grade.equals("퍼퓸")) {
+				leastPoint = 0;
+				
+			}		
+			
+				
 			map.put("loginMember", list);
+			map.put("leastPoint", leastPoint);
 		} catch (UnsupportedEncodingException e) {
 			map.put("fail", "실패");
 			e.printStackTrace();
@@ -120,7 +141,6 @@ public class MyPageController {
 		            set.put("text", "안녕하세요 인증번호는 ["+(String)request.getParameter("text")+"]입니다"); // 문자내용, jsp에서 전송한 문자내용을 받아 map에 저장한다.
 		            set.put("type", "sms"); // 문자 타입
 		 
-		            System.out.println(set);
 		 
 		            JSONObject result = coolsms.send(set); // 보내기&전송결과받기
 		 
@@ -201,7 +221,6 @@ public class MyPageController {
 							e.printStackTrace();
 						}
 					}
-					System.out.println(m);
 				}
 				int result = myService.myPageUpdateInfo(m);
 				//리다이렉트로 info로 간다잉
@@ -212,9 +231,22 @@ public class MyPageController {
 			
 			//마이페이지 구매내역 이동 메서드
 			@RequestMapping(value = "/myPageOrderList.do", method = RequestMethod.GET)
-			public ModelAndView myPageOrderList(ModelAndView mv, HttpSession session) {
+			public ModelAndView myPageOrderList(ModelAndView mv, HttpSession session, Purchasehistory ph) {
 				//String loginId = (String) session.getAttribute("loginId");
+				String id = "GJWoon";
+				ph.setM_id(id);
+				List<Purchasehistory> list = new ArrayList<Purchasehistory>();
+//				list = myService.myPageOrderList(ph);
+//				System.out.println(list);
 				mv.setViewName("/mypage_orderList");
+				return mv;
+			}
+			//마이페이지 구매내역 이동 메서드
+			@RequestMapping(value = "/myPageOrderDetail.do", method = RequestMethod.GET)
+			public ModelAndView myPageOrderDetail(ModelAndView mv, HttpSession session, Purchasehistory ph) {
+				//String loginId = (String) session.getAttribute("loginId");
+
+				mv.setViewName("/mypage_orderDetail");
 				return mv;
 			}
 			
@@ -234,8 +266,7 @@ public class MyPageController {
 			//마이페이지 배송지 팝업 메서드
 			@RequestMapping(value = "/mypage_addr_popup.do", method = RequestMethod.GET)
 			public ModelAndView mypage_addr_popup(ModelAndView mv, HttpSession session, ShoppingDestination sd, 
-					@RequestParam(value="id", defaultValue="")String id					
-					) {
+					@RequestParam(value="id", defaultValue="")String id) {
 				mv.addObject("id",id);
 				
 				mv.setViewName("/mypage_addr_popup");
@@ -306,12 +337,11 @@ public class MyPageController {
 				return a;
 			}
 			
-			
+			//마이페이지 배송지 개수 체크 메서드
 			@ResponseBody
 			@RequestMapping(value = "/myPageAddrChkNum.do", method = RequestMethod.POST)
 			public Object myPageAddrChkNum(ModelAndView mv, HttpSession session, HttpServletResponse response, ShoppingDestination sd) {
 				int a = 0;
-				System.out.println(sd);
 				List<ShoppingDestination> list = new ArrayList<ShoppingDestination>(); 
 				list = myService.myPageAddrChkNum(sd);
 				System.out.println(list.size());
@@ -323,6 +353,20 @@ public class MyPageController {
 				return a;
 			}
 			
+			//마이페이지 기본배송지 바꾸기 메서드
+			@ResponseBody
+			@RequestMapping(value = "/myPageAddrChangeDeault.do", method = RequestMethod.POST)
+			public void myPageAddrChangeDeault(ModelAndView mv, HttpSession session, HttpServletResponse response, ShoppingDestination sd, Member m) {
+				myService.memberAddrUpdate(m);
+				myService.sdDefaultChange(sd);
+			}
+			@ResponseBody
+			@RequestMapping(value = "/myPageAddrChangeDeault2.do", method = RequestMethod.POST)
+			public void myPageAddrChangeDeault2(ModelAndView mv, HttpSession session, HttpServletResponse response, ShoppingDestination sd) {
+				myService.sdDefaultChange2(sd);
+			}
+			
+			
 			//마이페이지 리뷰 이동 메서드
 			@RequestMapping(value = "/myPageReview.do", method = RequestMethod.GET)
 			public ModelAndView myPageReview(ModelAndView mv, HttpSession session) {
@@ -331,13 +375,7 @@ public class MyPageController {
 				return mv;
 			}
 			
-			//마이페이지 배송지 이동 메서드
-			@RequestMapping(value = "/myPageMyHome.do", method = RequestMethod.GET)
-			public ModelAndView myPageMyHome(ModelAndView mv, HttpSession session) {
-				//String loginId = (String) session.getAttribute("loginId");
-				mv.setViewName("/mypage_point");
-				return mv;
-			}
+			
 			
 			
 	

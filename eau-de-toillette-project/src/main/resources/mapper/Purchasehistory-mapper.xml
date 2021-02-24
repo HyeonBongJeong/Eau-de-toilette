@@ -12,7 +12,11 @@
 	
 	
 	<insert id="insertPurchasehistory" parameterType="Purchasehistory" flushCache="true" statementType="PREPARED">
-	insert into purchasehistory values(PURCHASEHISTORY_SEQ.nextval,#{ph_count},CURRENT_TIMESTAMP,#{m_id},#{p_id})
+		insert into purchasehistory values(PURCHASEHISTORY_SEQ.nextval,#{ph_count},CURRENT_TIMESTAMP,#{m_id},#{p_id})
 	
 	</insert>
+	<!-- <select id="myPageOrderList" resultType="arraylist" resultMap="resultPurchasehistory" parameterType="Purchasehistory">
+			select * from purchasehistory where m_id = #{m_id}
+	</select> -->
+	
 </mapper>

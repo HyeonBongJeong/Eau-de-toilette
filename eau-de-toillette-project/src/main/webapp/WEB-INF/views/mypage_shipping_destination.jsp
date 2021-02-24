@@ -93,6 +93,7 @@ cursor: pointer;
                     <table id="sd-list-tb">
                     <thead>
                     	<tr>
+                    		<th class="sd-list-th">선택</th>
                     		<th class="sd-list-th-addr">주소</th>
                     		<th class="sd-list-th">받으실분</th>
                     		<th class="sd-list-th">연락처</th>
@@ -104,11 +105,11 @@ cursor: pointer;
                     		<c:forEach items="${list }" varStatus="s" var="vo">
                     			<c:if test="${vo.ad_default eq 1}">
                     	<tr>
-                    		
+                    		<td class="sd-list-td3"><input type="radio" name="sd_chk" checked="checked"></td>
                     		<td class="sd-list-td2">
                     			<div class="sd-list-td2-div1">기본 배송지</div>
-                    			<div class="sd-list-td2-div2">${vo.sd_addr}</div>
                     			<input type="hidden" name="sd_id_default" value="${vo.sd_id}">
+                    			<div class="sd-list-td2-div2">${vo.sd_addr}</div>
                     		</td>
                     		<td class="sd-list-td3">${vo.sd_name}</td>
                     		<td class="sd-list-td3">${vo.sd_phone}</td>
@@ -123,7 +124,7 @@ cursor: pointer;
                     		<c:forEach items="${list }" varStatus="s" var="vo">
                     			<c:if test="${vo.ad_default eq 0}">
                     	<tr>
-                    		
+                    		<td class="sd-list-td3"><input type="radio" name="sd_chk"></td>
                     		<td class="sd-list-td2">
                     			<div class="sd-list-td2-div2">${vo.sd_addr}</div>
                     			<input type="hidden" name="sd_id" value="${vo.sd_id}">
@@ -205,7 +206,52 @@ cursor: pointer;
 	
 })
  	
-   
+$('input[name=sd_chk]').change(function() {
+	var new_default_addr = $(this).parent().parent().find($('.sd-list-td2-div2')).text();
+	var default_addr = $('input[name=sd_id_default]').val();
+	var id = $('input[name=info-id]').val();
+	var sd_id = $(this).parent().parent().find($('input[name=sd_id]')).val();
+	 console.log(sd_id);
+	 console.log(new_default_addr);
+	 console.log(id);
+	 console.log(default_addr);
+	 var when = 
+	/*ajax로 기본배송지 바꿔주기*/
+		 $.ajax({
+			 url : "${pageContext.request.contextPath}/myPageAddrChangeDeault.do",
+	     type : 'POST',
+	     dataType : 'json',
+	     async: false,
+	     data : {
+	    	 sd_id : sd_id,
+	    	 m_id : id,
+	    	 m_addr : new_default_addr,
+	        	
+	        },
+		 success : function() {
+				console.log('성공1');
+			   
+		 },
+	})
+	
+		 $.ajax({
+			 url : "${pageContext.request.contextPath}/myPageAddrChangeDeault2.do",
+	     type : 'POST',
+	     dataType : 'json',
+	     async: false,
+	     data : {
+	    	 sd_id : default_addr,
+	        	
+	        },
+		 success : function(data) {
+			 
+		 },
+	}); 
+	 
+	 
+		 location.reload();		
+	
+})   
 
 
  </script>

@@ -25,12 +25,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kkkj.eaude.common.UploadFileUtils;
 import com.kkkj.eaude.domain.Basket;
+import com.kkkj.eaude.domain.Member;
 import com.kkkj.eaude.domain.Product;
 import com.kkkj.eaude.domain.Purchasehistory;
 import com.kkkj.eaude.domain.Review;
 import com.kkkj.eaude.service.BasketServiceImpl;
 import com.kkkj.eaude.service.MemberService;
 import com.kkkj.eaude.service.MemberServiceImpl;
+import com.kkkj.eaude.service.MypageService;
 import com.kkkj.eaude.service.ProductServiceImpl;
 import com.kkkj.eaude.service.PurchaseSeviceImpl;
 import com.kkkj.eaude.service.ReviewServiceImpl;
@@ -56,6 +58,10 @@ public class ProductController{
 	
 	@Autowired
 	private PurchaseSeviceImpl phService;
+	
+	@Autowired
+	private MypageService myService;
+	
 	
 	@RequestMapping(value = "productwrite")
 	public ModelAndView postGoodRegisterGo(ModelAndView mv) {
@@ -302,6 +308,51 @@ public class ProductController{
 	@ResponseBody
 	public void productBuy(@RequestParam(name="m_id")String id,@RequestParam(name="p_id")int p_id,@RequestParam(name="ph_count")int ph_count) {
 		Purchasehistory vo = new Purchasehistory();
+		//상품 구매시 멤버 등급 올려주는 부분
+		Member m = new Member();
+		List<Member> grade = new ArrayList<Member>();
+		grade = myService.chkGrade(id);
+		//화면에서 금액 가져와야한다 지운아 금액만 가져와서 price에 넣어주기만 하면됨 
+		int price = 333;
+		int addPoint = 0;
+		if(grade.get(0).getM_grade().equals("퍼퓸")) {
+			addPoint = price * 5 / 100;  
+		}else if(grade.get(0).getM_grade().equals("오드퍼퓸")) {
+			addPoint = price * 4 / 100;  
+			
+		}else if(grade.get(0).getM_grade().equals("뚜알렛")) {
+			addPoint = price * 3 / 100;  
+			
+		}else if(grade.get(0).getM_grade().equals("오드코롱")) {
+			addPoint = price * 2 / 100;  
+			
+		}else if(grade.get(0).getM_grade().equals("샤워코롱")) {
+			addPoint = price * 1 / 100;  
+			
+		}
+		
+		if(grade.get(0).getM_allpoint()+addPoint >=0 && grade.get(0).getM_allpoint()+addPoint < 10000) {
+			m.setM_grade("샤워코롱");
+		}else if(grade.get(0).getM_allpoint()+addPoint >=10000 && grade.get(0).getM_allpoint()+addPoint <50000) {
+			m.setM_grade("오드코롱");
+		}else if(grade.get(0).getM_allpoint()+addPoint >=50000 && grade.get(0).getM_allpoint()+addPoint<100000) {
+			m.setM_grade("뚜알레");
+			
+		}else if(grade.get(0).getM_allpoint()+addPoint >=100000 && grade.get(0).getM_allpoint()+addPoint<500000) {
+			m.setM_grade("오드퍼퓸");
+			
+		}else if(grade.get(0).getM_allpoint()+addPoint >=500000) {
+			m.setM_grade("퍼퓸");
+			
+		}
+		
+		
+		m.setM_id(id);
+		m.setM_point(grade.get(0).getM_point()+addPoint);
+		m.setM_allpoint(grade.get(0).getM_allpoint()+addPoint);
+		myService.pointUpdate(m);
+		//상품 구매시 멤버 등급 올려주는 부분 끝
+		
 		vo.setM_id(id);
 		vo.setP_id(p_id);
 		vo.setPh_count(ph_count);

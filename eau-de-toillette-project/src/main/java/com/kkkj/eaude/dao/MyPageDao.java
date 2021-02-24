@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kkkj.eaude.domain.Member;
+import com.kkkj.eaude.domain.Purchasehistory;
 import com.kkkj.eaude.domain.ShoppingDestination;
 
 @Repository("myDao")
@@ -72,6 +73,23 @@ public class MyPageDao {
 	public List<ShoppingDestination> myPageAddrChkNum(ShoppingDestination sd) {
 		return sqlSession.selectList("ShoppingDestination.myPageAddrChkNum",sd);
 	}
+	public List<Member> chkGrade(String id) {
+		return sqlSession.selectList("Member.chkGrade",id);
+	}
+	public void pointUpdate(Member m) {
+		sqlSession.update("Member.pointUpdate",m);
+	}
+	public void sdDefaultChange(ShoppingDestination sd) {
+		sqlSession.update("ShoppingDestination.sdDefaultChange",sd);
+	}
+	public void sdDefaultChange2(ShoppingDestination sd) {
+		sqlSession.update("ShoppingDestination.sdDefaultChange2",sd);
+	}
+	
+	
+//	public List<Purchasehistory> myPageOrderList(Purchasehistory ph) {
+//		return sqlSession.selectList("Purchasehistory.myPageOrderList",ph);
+//	}
 	
 
 }

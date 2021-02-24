@@ -34,6 +34,20 @@
 	<select id="myPageAddrChkNum" resultType="arraylist" resultMap="resultShoppingDestination" parameterType="ShoppingDestination">
 			select * from shipping_destination where m_id = #{m_id}
 	</select>
+	<update id="sdDefaultChange" flushCache="true" statementType="PREPARED" timeout="20" parameterType="ShoppingDestination">
+			update shipping_destination 
+			set 
+			ad_default = 1
+			where sd_id = #{sd_id}
+		
+	</update>
+	<update id="sdDefaultChange2" flushCache="true" statementType="PREPARED" timeout="20" parameterType="ShoppingDestination">
+			update shipping_destination 
+			set 
+			ad_default = 0
+			where sd_id = #{sd_id}
+		
+	</update>
 	
 
 </mapper>

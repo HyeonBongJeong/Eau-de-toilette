@@ -59,6 +59,7 @@ section {
 							<div class="gjw-intro">${vo.p_intro }</div>
 
 							<div class="gjw-price">${vo.afterPirce }원</div></td>
+							
 						<c:if test="${s.current eq '4'||s.current eq '7' }">
 							</tr>
 						</c:if>

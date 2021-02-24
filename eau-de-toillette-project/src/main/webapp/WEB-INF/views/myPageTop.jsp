@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <style type="text/css">
 		#main {
             width: 100%;
@@ -48,6 +51,17 @@
             color: #5f0080; 
             margin-left: 30px; 
             clear: both; 
+            font-size: 15px;
+        }
+        .grades{
+            display:inline; 
+            border: 1px solid #5f0080; 
+            padding : 10px 5px 10px 5px;
+            border-radius: 5px; 
+            text-align: center; 
+            line-height: 60px; 
+            color: #5f0080; 
+            margin-left: 5px; 
             font-size: 15px;
         }
 
@@ -208,11 +222,28 @@
                         </div>
                     </div>
                     <div id="simple-info">
-                        <div id = "simple-info-all-grade">전체등급보기</div>
-                        
+                        <div id = "simple-info-all-grade"><a href="#ex1" rel="modal:open">전체등급보기</a></div>
+                        <div id="ex1" class="modal" style="max-width: 800px; ">
+						  <h3>회원등급 정보입니다.</h3>
+						  <hr style="margin: 20px 0px 20px 0px; ">
+						  <div style="width:700px; margin: 0 auto; text-align: center;">
+						  <div class="grades">샤워코롱&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 1%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;">
+						  <div class="grades">오드코롱&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 2%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;">
+						  <div class="grades">뚜알레&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 3%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;">
+						  <div class="grades">오드퍼퓸&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 4%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;">
+						  <div class="grades">퍼퓸&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 5%</span></div>
+						  </div>
+						  <div style="width:700px; margin: 0 auto; text-align: center;">회원님의 현재 등급은 <span id="now-grade" style="color: #5f0080; font-weight: 700; font-size: 18px;"></span>입니다.</div>
+						  <div style="width:700px; margin: 0 auto; text-align: center;">회원님께서 다음 등급으로 승급 하시기까지 <span id="leastPoint"></span>P 남았습니다.</div>
+						  <a href="#" rel="modal:close"></a>
+						</div>
+						 
+                		</div>
                     </div>
-
-                </div>
+                    
+                    
+                
+                
                 <div id="point-area">
                     <div id="point-area-body">
                         <div id="point-header">
@@ -251,6 +282,8 @@
    				$('#info_realname').html(data.loginMember[0].m_name);
    				$('input[name=info-id]').val(data.loginMember[0].m_id);
    				$('#realpoint').html(data.loginMember[0].m_point+'원');
+   				$('#now-grade').text(data.loginMember[0].m_grade);
+   				$('#leastPoint').text(data.leastPoint);
    				
    				
    			}

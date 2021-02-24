@@ -68,6 +68,21 @@
 		
 		
 		</update>
+		<select id="chkGrade" resultType="arraylist" parameterType="Member" resultMap="resultMember">
+			select m_grade, m_allpoint, m_point from member where m_id = #{id}
+		</select>
+		
+		<update id="pointUpdate" flushCache="true" statementType="PREPARED" timeout="20" parameterType="Member">
+			update member 
+			set 
+			m_point = #{m_point},
+			m_allpoint = #{m_allpoint},
+			m_grade = #{m_grade}
+			where m_id = #{m_id}
+		
+		
+		</update>
+		
 	
 	
 
