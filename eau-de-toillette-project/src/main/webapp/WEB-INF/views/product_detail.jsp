@@ -77,21 +77,42 @@ section {
 	border-bottom: inset;
 	justify-content: center;
 }
-input{
-outline: none;
+
+input {
+	outline: none;
 }
-.reviewtr:hover{
-background-color: #9e9e9e2b;
+
+.reviewtr:hover {
+	background-color: #9e9e9e2b;
 }
+
 #productnumber {
 	width: 15px;
 }
-#sample4_jibunAddress{
-width: 300px;
+
+#sample4_jibunAddress {
+	width: 300px;
+	border: 0;
+    box-shadow: 0px 0px 2px 1px #800080a6;
+    height: 25px;
+    padding-left: 3px;
+    margin-top: 5px;
 }
-#sample4_detailAddress{
-width: 300px;
+#sample4_postcode{
+border: 0;
+    box-shadow: 0px 0px 2px 1px #800080a6;
+    height: 25px;
+    padding-left: 3px;
 }
+#sample4_detailAddress {
+	width: 300px;
+	border: 0;
+    box-shadow: 0px 0px 2px 1px #800080a6;
+    height: 25px;
+    padding-left: 3px;
+    margin-top: 5px;
+}
+
 textarea {
 	border: 0;
 }
@@ -113,6 +134,93 @@ textarea {
 	background: white;
 	z-index: 2;
 	border-radius: 15px;
+}
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  line-height: 20px;
+  display: inline-block;
+  color: #666;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  border:2px solid #ddd;
+  border-radius: 100%;
+  background: #fff;
+}
+[type="radio"]:checked + label:before {
+  border:2px solid #9c27b0fa;
+  border-radius: 100%;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+  content: '';
+  width:9px;
+  height:9px;
+  background: #9c27b0fa;
+  position: absolute;
+  top:5px;
+  left:5px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #fff;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: purple;
+	cursor: pointer;
+	border: 1px solid purple;
+	border-radius: .25em;
+	-webkit-transition: background-color 0.2s;
+	transition: background-color 0.2s;
+}
+
+.filebox label:hover {
+	background-color: #6ed36e;
+}
+
+.filebox label:active {
+	background-color: #367c36;
+}
+
+.filebox input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
 }
 
 .black_bg {
@@ -159,6 +267,17 @@ textarea {
 
 #lastaddressdiv {
 	display: none;
+}
+
+#r_title {
+	width: 100%;
+	border: 0;
+	border-bottom: 1px solid purple;
+	padding-bottom: 5px;
+}
+
+#r_content {
+	border: 1px solid purple;
 }
 
 .modal_close>a {
@@ -245,7 +364,10 @@ img {
 .reviewdetailtr {
 	border-bottom: 1px solid #9e9e9e;
 }
-
+textarea{
+outline: none;
+resize: none;
+}
 #nomal-add {
 	margin-top: 7px;
 	margin-right: 5px;
@@ -275,6 +397,23 @@ img {
 	margin-right: 30px;
 	margin-bottom: 10px;
 }
+.radio {
+    visibility: hidden;
+    position: absolute;
+}
+.radio + label {
+    display: inline-block;
+    margin-right: 15px;
+    padding-left: 20px;
+    font-size: 16px;
+    color: #333333;
+    background: url('/img/radio_off.png') left no-repeat;
+    cursor: pointer;
+}
+.radio:checked + label {
+    background: url('/img/radio_on.png') left no-repeat;
+}
+
 
 .gjw-comment-write {
 	overflow: hidden;
@@ -378,8 +517,7 @@ img {
 				<p
 					style="padding-bottom: 20px; border-bottom: inset; margin-top: 30px;">
 					<span
-						style="font-weight: 700; font-size: 28px; line-height: 30px; margin-top: 30px;">
-						<input type="hidden" value="${list.afterPirce }" name="price">${list.afterPirce }원</span>
+						style="font-weight: 700; font-size: 28px; line-height: 30px; margin-top: 30px;">${list.afterPirce }원</span>
 				</p>
 				<p
 					style="padding-bottom: 30px; border-bottom: inset; margin-top: 30px;">
@@ -392,7 +530,8 @@ img {
 						id="productnumber" style="text-align: center; width: 30px;"><input
 						type="button" id="plusbtn"></span>
 				</p>
-				<div style="padding-bottom: 20px; border-bottom: inset;padding-top: 10px;">
+				<div
+					style="padding-bottom: 20px; border-bottom: inset; padding-top: 10px;">
 					<span>총 상품금액: </span><span id="productprice">0원</span>
 				</div>
 				<div style="margin-top: 4px;">
@@ -410,6 +549,25 @@ img {
 
 		<div style="border-bottom: inset; padding-top: 30px;">${list.p_content }</div>
 		<div style="border-bottom: 1px solid black;">
+		<div style="display: flex; justify-content: flex-end;
+	/* margin-right: 20px; */ margin-top: 50px; padding-bottom: 30px;">
+		<input type="button" value="글 목록"
+					style="width: 150px;
+	/* justify-content: flex-end; */ height: 30px; text-align: center; color: white; background-color: purple; border: 0; font-weight: bold; margin-right: 10px;"
+					id="productlistbtn"> 
+					
+					
+				<input type="button" value="글 수정"
+					style="width: 150px;
+	/* justify-content: flex-end; */ height: 30px; text-align: center; color: white; background-color: purple; border: 0; font-weight: bold; margin-right: 10px;"
+					id="productupdatebtn"> 
+					
+				<input type="button" value="글 삭제"
+					style="width: 150px;
+	/* justify-content: flex-end; */ height: 30px; text-align: center; color: white; background-color: purple; border: 0; font-weight: bold; margin-right: 10px;"
+					id="producdeltbtn"> 
+		</div>
+		
 			<div
 				style="margin-top: 20px; font-size: 25px; font-weight: bold; margin-bottom: 10px;">
 				PRODUCT REVIEW</div>
@@ -471,10 +629,10 @@ img {
 				style="display: flex; justify-content: flex-end;
 	/* margin-right: 20px; */ margin-top: 50px; border-bottom: inset; padding-bottom: 30px;">
 
-				<input type="button" value="글 목록"
-					style="width: 150px;
-	/* justify-content: flex-end; */ height: 30px; text-align: center; color: white; background-color: purple; border: 0; font-weight: bold; margin-right: 10px;"
-					id="productlistbtn"> <input type="button" value="후기작성"
+				
+					
+					
+					<input type="button" value="후기작성"
 					style="width: 150px;
 	/* justify-content: flex-end; */ height: 30px; text-align: center; color: white; background-color: purple; border: 0; font-weight: bold;"
 					id="reviewwritebtn">
@@ -484,22 +642,32 @@ img {
 			<form id="ajaxform" action="review_write.do" method="post"
 				enctype="multipart/form-data">
 				<table>
-					<tr>
+					<tr style="hegiht: 100px;">
 						<td>제목</td>
-						<td><input type="text" name="r_title" id="r_title"></td>
+						<td style="padding-left: 10px;"><input type="text"
+							name="r_title" id="r_title" placeholder="제목을 입력해주세요" required="required">
+							<input type="hidden" name="m_id" value="${my_name }" id="rm_id">
+							</td>
 					</tr>
-					<tr>
+					<tr style="height: 100px;">
 						<td>이미지 첨부</td>
-						<td>
+						<td style="padding-left: 10px;">
 							<div class="select_img" style="display: none;">
 								<img src="" />
-							</div> <input type="file" name="file1" id="file1">
+							</div>
+							<div class="filebox">
+								<label for="file1">업로드</label> <input type="file" id="file1"
+									name="file1" required="required">
+							</div>
+
+
 						</td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea rows="10" cols="120" name="r_content"
-								id="r_content"></textarea></td>
+						<td style="padding-left: 10px;"><textarea rows="10"
+								cols="120" name="r_content" id="r_content"
+								placeholder="내용을 입력해주세요" required="required"></textarea></td>
 					</tr>
 					<tr>
 						<td><input type="hidden" value="${list.p_id }" name="p_id"></td>
@@ -531,37 +699,38 @@ img {
 					입력해주세요</div>
 				<div>
 					<div
-						style="display: flex; justify-content: flex-end; margin-right: 10px; margin-top: 20px">
+						style="display: flex;  margin-left:50px; margin-right: 85px; margin-top: 20px">
 						<input type="radio" id="nomal-add" name="address"
-							required="required" value="기본배송지">기본배송지
+							required="required" value="기본배송지"><label for="nomal-add">기본배송지</label>
 					</div>
 					<div
-						style="display: flex; justify-content: flex-end; margin-right: 10px">
+						style="display: flex;  margin-left:50px;margin-right: 10px">
 						<input type="text" id="originaladd" readonly="readonly"
 							style="width: 99%; text-align: end; padding-right: 30px; border: 0; outline: none;">
 					</div>
 				</div>
 				<div
-					style="display: flex; justify-content: flex-end; margin-right: 53px; margin-top: 20px;">
-					<input type="radio" name="address" value="배송지 선택" id="new-add-btn">배송지
-					선택
+					style="display: flex; margin-left:50px; margin-right: 82px;">
+					<input type="radio" name="address" value="배송지 변경" id="check-add-btn"><label for="check-add-btn">배송지 변경</label>
 				</div>
 				<div
-					style="display: flex; justify-content: flex-end; margin-right: 53px; margin-top: 20px;">
+					style="display: flex; margin-left:50px; margin-right: 53px; margin-top: 20px;">
 					<input type="radio" name="address" value="배송지 직접입력"
-						id="new-add-btn">배송지 직접입력
+						id="new-add-btn"><label for="new-add-btn">배송지 직접입력</label>
 				</div>
 
 
 				<div id="addresstext">
 					<input type="text" id="sample4_postcode" placeholder="우편번호">
 					<input type="button" onclick="sample4_execDaumPostcode()"
-						value="우편번호 찾기"><br>  <input
-						type="text" id="sample4_jibunAddress" placeholder="지번주소"><br>
+						value="우편번호 찾기"
+						style="background-color: purple; border-radius: 3px; border: purple; color: white; padding: 3.5px;font-weight: bold;"><br>
+					<input type="text" id="sample4_jibunAddress" placeholder="지번주소"><br>
 					<span id="guide" style="color: #999; display: none"></span> <input
 						type="text" id="sample4_detailAddress" placeholder="상세주소"
 						required="required"> <input type="button" value="확인"
-						id="addresssubmitbtn">
+						id="addresssubmitbtn"
+						style="background-color: purple; border: 1px solid purple; border-radius: 3px; padding: 2px; color: white;font-weight: bold;">
 				</div>
 				<div>
 					<div
@@ -612,7 +781,7 @@ img {
 					var div = $(this).parent().parent().parent(
 							".gjw-commentlist-wrap");
 					//나중에 바꿔야됨 세션 ID로
-					if (m_id != "GJWoon") {
+					if (m_id != "${my_name}") {
 						alert("댓글 작성자만 삭제가 가능합니다.");
 						return false;
 					} else {
@@ -639,13 +808,21 @@ img {
 									".gjw-comment-write").val();
 							var r_ref = $(this).prev().val();
 							var p_id = "${list.p_id}";
+							var m_id = "${my_name}";
+							if(m_id==""){
+								
+								alert("로그인이 필요한 서비스입니다.");
+								return false;
+							}
+							
 							$
 									.ajax({
 										url : "reviewcomment_write.do",
 										data : {
 											"r_content" : content,
 											"r_ref" : r_ref,
-											"p_id" : p_id
+											"p_id" : p_id,
+											"m_id":"${my_name}"
 										},
 										success : function(list) {
 											alert("댓글 작성에 성공하셨습니다.");
@@ -663,7 +840,7 @@ img {
 											$(document)
 													.ready(
 															function() {
-																$("table")
+																$("#reviewtable")
 																		.on(
 																				"keyup",
 																				"textarea",
@@ -679,7 +856,7 @@ img {
 																							.height(
 																									this.scrollHeight);
 																				});
-																$("table")
+																$("#reviewtable")
 																		.find(
 																				"textarea")
 																		.keyup();
@@ -712,7 +889,7 @@ img {
 													.after(
 															'<tr class="reviewdetailtr"><td colspan="4"><div class="reviewtitle">[${list.p_title}]</div><div style=" display: flex;justify-content: center;"><img src="${pageContext.request.contextPath}/resources'+list.list.r_img+'"></div><div style="font-weight: 400;border-bottom: 1px solid #00000038;padding-bottom: 30px;padding-left:50px;">'
 																	+ list.list.r_content
-																	+ '</div><div></div><div class="reviewcommentdiv"></div><div class="gjw-comment-wrap"><div class="gjw-comment-div"><div class="gjw-cwriter-wrap">금지운(${userID})</div><div class="gjw-ccontent-wrap"><textarea class="gjw-comment-write" rows="1" placeholder="댓글을 남겨보세요" name="b_content"></textarea></div><div class="gjw-commentsubmit-wrap"><input type="hidden" value="'+list.list.r_id+'"><input type="button" value="등록" class="gjw-comment-submit"></div></div><div></td><tr>');
+																	+ '</div><div></div><div class="reviewcommentdiv"></div><div class="gjw-comment-wrap"><div class="gjw-comment-div"><div class="gjw-cwriter-wrap">${my_name}</div><div class="gjw-ccontent-wrap"><textarea class="gjw-comment-write" rows="1" placeholder="댓글을 남겨보세요" name="b_content"></textarea></div><div class="gjw-commentsubmit-wrap"><input type="hidden" value="'+list.list.r_id+'"><input type="button" value="등록" class="gjw-comment-submit"></div></div><div></td><tr>');
 											/* 		<div id="gjw-comment-wrap">
 													<div id="gjw-comment-div">
 													<form action="commentInsert.do" method="post">
@@ -754,7 +931,7 @@ img {
 											$(document)
 													.ready(
 															function() {
-																$("table")
+																$("#reviewtable")
 																		.on(
 																				"keyup",
 																				"textarea",
@@ -770,7 +947,7 @@ img {
 																							.height(
 																									this.scrollHeight);
 																				});
-																$("table")
+																$("#reviewtable")
 																		.find(
 																				"textarea")
 																		.keyup();
@@ -1022,31 +1199,30 @@ img {
 									$.ajax({
 										url : "findaddress.do",
 										data : {
-											"ID" : "GJWoon"
+											"ID" : "${my_name}"
 										},
 										success : (function(result) {
-											alert(result);
-											$("#originaladd").val(result);
-											$("#originaladd").css("display",
-													"block");
+											$("#addresstext1").val(result);
+											$("#addresstext1").css('width', result.length * 10);
+											$("#lastaddressdiv").css("display",
+													"flex");
 										})
 									})
 
 									$("#addresstext").css("display", "none");
 								} else if ($("input[name=address]:checked")
 										.val() == "배송지 직접입력") {
-									$("#originaladd").css("display", "none");
 									$("#originaladd").val("");
 									$("#addresstext").css("display", "block");
 								} else if ($("input[name=address]:checked")
-										.val() == "배송지 선택") {
-									$("#mw_temp").css("display", "block");
+										.val() == "배송지 변경") {
 									$("#addresstext").css("display", "none");
-									$("#lastaddressdiv").css("display","none");
+									$("#lastaddressdiv").css("display", "none");
 									$("#sample4_jibunAddress").val("");
 									$("#sample4_postcode").val("");
 									$("#sample4_detailAddress").val("");
 									$("#addresstext1").val("");
+									location.href="mypageShippingDestination.do";
 								}
 
 							})
@@ -1143,11 +1319,8 @@ img {
 		})
 
 		$('#buybtn2').click(function() {
-			
-			var userID = "${userID}";
-			//밑에꺼 지우기
-			userID = "GJWoon";
-			var p_id = ${list.p_id};
+			var userID = "${my_name}";
+			var p_id = "${list.p_id}";
 			var productcount = $("#productnumber").val();
 			var bill1 = $("#lastprice").text().replace(/,/g, "");
 			var bill = bill1.replace('원', '');
@@ -1155,9 +1328,8 @@ img {
 				alert("옵션을 선택해주세요!");
 				return;
 			}
-			
-			var address =$("#addresstext1").val();
-			if(address==""){
+			var address = $("#addresstext1").val();
+			if (address == "") {
 				alert("주소를 입력해주세요!");
 				return false;
 			}
@@ -1180,9 +1352,22 @@ img {
 				if (rsp.success) {
 					var msg = '결제가 완료되었습니다.';
 					$.ajax({
-						url:"productBuy.do",
-						data:{"ph_count":productcount,"m_id":userID,"p_id":p_id}
+						url : "productBuy.do",
+						data : {
+							"ph_count" : productcount,
+							"m_id" : userID,
+							"p_id" : p_id,
+							"price": bill						},error:function(){
+							alert("결제가 실패하셨습니다");
+						}
 					})
+					
+					$(".black_bg").css("display","none");
+					$(".modal_wrap").css("display","none");
+					$("#addresstext1").val("");
+					$("#sample4_jibunAddress").val("");
+					$("#sample4_detailAddress").val("");
+					$("#sample4_postcode").val("");
 				} else {
 					var msg = '결제에 실패하였습니다.';
 					msg += '\n에러내용 : ' + rsp.error_msg;
@@ -1220,6 +1405,7 @@ img {
 					$("#ajaxdiv").css("display", "none");
 					$("#file1").val("");
 					$("#r_title").val("");
+					$("#rm_id").val("");
 					$("#r_content").val("");
 					$(".select_img").css("display", "none");
 				},
@@ -1231,13 +1417,9 @@ img {
 
 		$(function() {
 			$("#basketbtn").click(function() {
-				var userID = "${userID}";
-				var p_id = $
-				{
-					list.p_id
-				}
+				var userID = "${my_name}";
+				var p_id = "${list.p_id}";
 				//지워야됨 밑에꺼
-				userID = "GJWoon";
 				if (userID == null || userID == "") {
 					alert("로그인이 필요한 서비스입니다.");
 					return false;
@@ -1275,16 +1457,22 @@ img {
 					return false;
 				} else {
 					var lastadd = add + " " + detail;
-					alert(lastadd.length)
-					$("#addresstext1").css('width', lastadd.length *10);
+					$("#addresstext1").css('width', lastadd.length * 10);
 					$("#addresstext1").val(lastadd);
 					$("#lastaddressdiv").css("display", "flex");
 				}
 
 			})
+				$("#productupdatebtn").click(function(){
+				
+				location.href ="updateproductpage.do?p_id="+"${list.p_id}";
+			})
+			
+			$("#productdelbtn").click(function(){
+				loaction.href="deleteProduct.do?p_id="+"${list.p_id}";
+			})
 		})
 	</script>
 	<jsp:include page="footer.jsp" />
-
 </body>
 </html>

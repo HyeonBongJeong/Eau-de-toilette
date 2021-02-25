@@ -13,7 +13,7 @@
 		<result property="p_id" column="p_id" />
 	</resultMap>
 	<insert id="reviewWrite" parameterType="Review" statementType="PREPARED" flushCache="true">
-	insert into review values(REVIEW_SEQ.NEXTVAL,#{r_img},current_timestamp,'0',#{r_content},#{r_title},'GJWoon',#{r_ref})
+	insert into review values(REVIEW_SEQ.NEXTVAL,#{r_img},current_timestamp,'0',#{r_content},#{r_title},#{m_id},#{r_ref})
 	</insert>
 	<select id="selectreviewlist" resultType="arraylist" resultMap="resultReview" parameterType="int">
 	select* from review where p_id =#{r_ref} and r_ref=0 order by to_number(r_id) desc

@@ -45,7 +45,7 @@ public class ProductDao {
 	public List<Product> selectSearchList(int startPage, int limit, String keyword) {
 		 int startRow = (startPage-1)*limit;
 		 RowBounds row = new RowBounds(startRow, limit);
-		return sqlSession.selectList("Product.selectSearchList",keyword,row);
+		return sqlSession.selectList("Product.selectProductSearchList",keyword,row);
 	}
 
 	public List<Product> selectTagProductList(int startPage, int limit, String p_tag) {
@@ -57,5 +57,14 @@ public class ProductDao {
 	public Product selectProductDetail(int p_id) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Product.selectProductDetail",p_id);
+	}
+
+	public void updateProduct(Product vo) {
+		sqlSession.update("Product.updateProduct",vo);
+	}
+
+	public void deleteProduct(int p_id) {
+		sqlSession.update("Product.deleteProduct",p_id);
+
 	}
 }

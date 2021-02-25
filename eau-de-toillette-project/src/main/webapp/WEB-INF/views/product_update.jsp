@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +31,6 @@ html{
 
 body{
 	height : auto;
-	justify-content: center;
 }
 .jck_wrap{
 	min-height:100%;
@@ -176,15 +179,6 @@ box-shadow: 0px 0px 2px 1px purple;
 height: 25px;
     padding-left: 3px;
 }
-    td{
-padding-top: 20px;
-    padding-bottom: 5px;    }
-    .gjw-table-tr{
-        border-bottom: 1px solid #0000002e;
-    
-    }
-    *{
-    outline:none;}
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js">
@@ -194,9 +188,9 @@ padding-top: 20px;
 
 </head>
 <body>
-
 	<jsp:include page="header.jsp" />
-	<GJW>
+
+<GJW>
 <section>
 <div style="
     width: 90%;
@@ -204,25 +198,27 @@ padding-top: 20px;
 
 
 <div style=" font-family: 'Hanna', fantasy;font-size:30px;margin-bottom: 30px;">
-상품등록</div>
+상품 수정</div>
 	<form name ="frm" enctype="multipart/form-data">
 		<table align="center" style="width: 100%;">
 			<tr class="gjw-table-tr">
 				 <td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
 				 ">상품명</td>
 				 <td style="width:85%;">
-				<input type="text" name="p_title" id="gjw-title-input" placeholder="글 제목을 입력해주세요" required="required"></td>
+				<input type="text" name="p_title" id="gjw-title-input" placeholder="글 제목을 입력해주세요" required="required" value="${list.p_title }">
+				<input type="hidden" name ="p_id" value="${list.p_id }">
+				</td>
 				<tr class="gjw-table-tr">
 				<td style="color:#black; font-family: 'NEXON Lv2 Gothic';">용량</td>
-				<td><input type="text" name="p_size"></td>
+				<td><input type="text" name="p_size" value="${list.p_size }"></td>
 			</tr>
 				<tr class="gjw-table-tr">
 				<td style="color:#black; font-family: 'NEXON Lv2 Gothic';">소개</td>
-				<td><input type="text" name="p_intro" id="introinput"></td>
+				<td><input type="text" name="p_intro" value="${list.p_intro }" id="introinput"></td>
 			</tr>
 			<tr class="gjw-table-tr">
 			<td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
-			">상품 종류</td>
+			">종류</td>
 			<td style="width:90%;"><select name="p_type" id="gjw-type-select">
                               <option value="c">Candle</option>
                               <option value="d">Diffusers</option>
@@ -234,27 +230,30 @@ padding-top: 20px;
 			</tr>
 			<tr class="gjw-table-tr">
 			<td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
-			">상품 금액</td>
+			">가격</td>
 			<td style="width:90%;">
 			<input type="hidden" name="p_id">
-			<input type="number" name="p_price">
-			
-			
+			<input type="number" name="p_price" value="${list.p_price }">
 			</tr>
 			 <tr class="gjw-table-tr">
                         <td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
-                        "> <label for="gdsImg">썸네일이미지</label></td>
+                        "> <label>썸네일이미지</label></td>
 <td style="
     display: flex;
 ">
-<div class="select_img"><img src="">
+
+
+ <div class="select_img"><img src="${pageContext.request.contextPath}/resources${list.p_img }"/>
  </div>
-<div class="filebox"
+<div class="filebox"style="
     /* margin: auto; */
+    margin-top: 150px;
 ">
   <label for="gdsImg">업로드</label>
   <input type="file" id="gdsImg" name="file">
-</div></td>
+</div>
+ 
+ </td>
                      </tr>
 			<tr id="gjw-secret-tr" class="gjw-table-tr">
 				<td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
@@ -265,42 +264,55 @@ padding-top: 20px;
 				<td colspan="2" style="padding-top: 30px;"><textarea id="p_content" name="p_content"></textarea></td>
 			</tr>
 			<tr style="height:50px">
-				<td colspan="2" align="end"style="padding-top: 40px;padding-bottom: 40px"> <input type="button" id="submitbtn" value="상품등록">
-		 <a href="board_list.do" id="gjw-serach-list">목록으로</a></td>
+				<td colspan="2" align="end"style="padding-top: 40px;padding-bottom: 40px"> <input type="button" id="submitbtn" value="상품수정">
+		 <a href="productlist.do" id="gjw-serach-list">목록으로</a></td>
 			</tr>	
 		</table>
 	</form>
 	</div>
 	</section>
 	</GJW>
+	
 		<jsp:include page="footer.jsp" />
+	</body>
  	<script>
+ $(function(){
+	 var p_type ="${list.p_type}"
+	 
+		 $("#gjw-type-select").val(p_type).prop("selected", true);
+
+ })
+ 	
  	var oEditors = [];
  	nhn.husky.EZCreator.createInIFrame({
  	    oAppRef: oEditors,
  	    elPlaceHolder:"p_content",  //textarea ID
  	    sSkinURI: "${pageContext.request.contextPath}/resources/se/SmartEditor2Skin.html",  //skin경로
  	    fCreator: "createSEditor2",
+ 	    
+ 	   
+ 	    fOnAppLoad:function(){
+ 		oEditors.getById["p_content"].exec("PASTE_HTML", ["${fn:replace(list.p_content, "\"", "'") }"]);
+ 	}, 
  		
  	});
+
  	$('#submitbtn').click(function() {
  		if($("#gjw-title-input").val()==""){
  			alert("글 제목을 입력해주세요")
  		$("#gjw-title-input").focus();
  			return false;
  		}
- 		  if ($("#yes").is(":checked")) {
- 			  if($("#gjw-password-input").val()==""){
- 				  alert("비밀번호를 입력해주세요");
- 				  $("#gjw-password-input").focus();
- 				  return false;
- 			  }
- 		    }
  	oEditors.getById["p_content"].exec("UPDATE_CONTENTS_FIELD", []);
- 	document.frm.action ="insertproduct.do";
+ 	document.frm.action ="updateproduct.do";
  	document.frm.method ="POST";
  	document.frm.submit();
  	 });
+ 	
+ 	
+ 	
+ 	
+ 	
  	
  	
 					$("#gdsImg").change(function(){
@@ -311,8 +323,14 @@ padding-top: 20px;
 							}
 							reader.readAsDataURL(this.files[0]);
 						}
-						$(".filebox").css("margin-top","150px");
 					});
+					
+					
+					$(function(){
+						var length = "${list.p_intro}";
+						$("#introinput").css('width', length.length * 12);
+
+					})
 				</script>
 </body>
 </html>

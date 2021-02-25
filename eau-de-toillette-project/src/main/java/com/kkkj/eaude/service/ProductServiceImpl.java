@@ -62,6 +62,16 @@ public class ProductServiceImpl implements ProductService{
 		return cDao.selectProductDetail(p_id);
 	}
 
+	public void updateProduct(Product vo) {
+		cDao.updateProduct(vo);
+	}
+
+	public void deleteProduct(int p_id) {
+		
+		cDao.deleteProduct(p_id);
+		
+	}
+
 
 
 }

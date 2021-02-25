@@ -7,8 +7,10 @@
 	<typeAliases>
 		<typeAlias alias="Product"
 			type="com.kkkj.eaude.domain.Product" />
+	
 		<typeAlias alias="Review"
 			type="com.kkkj.eaude.domain.Review" />
+			
 		<typeAlias alias="Member"
 			type="com.kkkj.eaude.domain.Member" />
 		<typeAlias alias="Board"
@@ -19,6 +21,8 @@
 			type="com.kkkj.eaude.domain.Basket" />		
 		<typeAlias alias="Purchasehistory"
 			type="com.kkkj.eaude.domain.Purchasehistory" />
+		<typeAlias alias="ShoppingDestination"
+			type="com.kkkj.eaude.domain.ShoppingDestination" />	
 
 	</typeAliases>
 	<mappers>
@@ -29,6 +33,7 @@
 		<mapper resource="mapper/board-mapper.xml" />
 		<mapper resource="mapper/Basket-mapper.xml" />
 		<mapper resource="mapper/Purchasehistory-mapper.xml" />
+		<mapper resource="mapper/shoppingDestination_mapper.xml" />
 
 	</mappers>
 </configuration>

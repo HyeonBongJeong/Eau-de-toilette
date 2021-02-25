@@ -438,9 +438,10 @@
                             <span class="member-grade">${regInfo.m_grade }</span> ${regInfo.m_name }&nbsp;&nbsp;<i class="fas fa-caret-down"></i></a>
                         <div id="header-usermenu-drop-con-2">
                             <ul id="header-usermenu-drop-2">
-                                <li class="header-drop-menu"><a href="#" onclick="location.href='/eaude/myPageOrderList.do'">주문 내역</a></li>
-                                <li class="header-drop-menu"><a href="#" onclick="location.href='/eaude/mypageShippingDestination.do'">배송지 관리</a></li>
-                                <li class="header-drop-menu"><a href="#" onclick="location.href='/eaude/myPageInfo.do'">개인 정보 수정</a></li>
+                                <li class="header-drop-menu"><a href="#">주문 내역</a></li>
+                                <li class="header-drop-menu"><a href="#">배송지 관리</a></li>
+                                <li class="header-drop-menu"><a href="#">상품 후기</a></li>
+                                <li class="header-drop-menu"><a href="#">개인 정보 수정</a></li>
                                 <li class="header-drop-menu"><a href="#" onclick="logout('${my_name}');">로그아웃</a></li>
                  </ul>
                         </div>
@@ -452,55 +453,68 @@
                         </div>
                     </c:if>
                 </div>
-                <div id="header-logo">
-                    <img id="logo" src="${pageContext.request.contextPath}/resources/images/index_logo.png" alt="마켓컬리 로고" onclick="location.href='/eaude/main';">
+        <div id="header-logo">
+                              <img id="logo" src="${pageContext.request.contextPath}/resources/images/index_logo.png" alt="마켓컬리 로고" onclick="location.href='/eaude/main';">
+        </div>
+    </div>
+    <div id="header-nav-con">
+        <div id="header-nav">
+            <ul id="header-nav-menus">
+                <li class="header-nav-menu menu2"><a href="productlist.do?p_type=c" class="header-nav-menu-title menu2">캔들</a></li>
+                <li class="header-nav-menu menu3"><a href="productlist.do?p_type=d" class="header-nav-menu-title menu3">디퓨져</a></li>
+                <li class="header-nav-menu menu2"><a href="productlist.do?p_type=b" class="header-nav-menu-title menu2">바디크림</a></li>
+                <li class="header-nav-menu menu3"><a href="productlist.do?p_type=p" class="header-nav-menu-title menu3">향수</a></li>
+                <li class="header-nav-menu menu2"><a href="productlist.do?p_type=e" class="header-nav-menu-title menu2">기타</a></li>
+                <li class="header-nav-icon header-nav-menu header-nav-right">
+                    <a href="#"><img src="${pageContext.request.contextPath}/resources/images/001-shopping-cart.svg" class="header-nav-menu-icon"></a>
+                </li>
+                <li class="header-nav-icon header-nav-menu header-nav-right" id="header-nav-menu-pin">
+                    <a href="#"><img src="${pageContext.request.contextPath}/resources/images/002-pin.svg" class="header-nav-menu-icon"></a>
+                </li>
+                <li id="header-nav-search" class="header-nav-menu header-nav-right">
+                    <input name="header-search" id="header-search" type="text" placeholder="검색어를 입력해주세요.">
+                    <input type="button" id="header-nav-search-icon" style="background-image:url(${pageContext.request.contextPath}/resources/images/loupe.svg);border:0;background-color: transparent;outline:none" id="header-nav-search-icon" value="">
+<%--                     <img src="${pageContext.request.contextPath}/resources/images/loupe.svg" id="header-nav-search-icon">
+ --%>                    <img src="${pageContext.request.contextPath}/resources/images/cancel.svg" id="header-nav-search-icon-cancel">
+                </li>
+            </ul>
+        </div>
+        <div id="header-nav-addr-con-big">
+            <div id="header-nav-addr-con-tri"></div>
+     <c:if test="${empty my_name }">
+            <div id="header-nav-addr-con">
+                <p class="header-nav-addr-mention" id="header-nav-addr-mention-1">배송지를 등록</p>
+                <p class="header-nav-addr-mention">하고<br>집에서 eau de toillette의 상품을 만나보세요!</p>
+                <div>
+                  <button type="button" class="header-nav-button" onclick="location.href='login';">로그인</button>
+                <button type="button" class="header-nav-button header-nav-button-b"><img src="${pageContext.request.contextPath}/resources/images/loupe.svg" id="header-nav-button-icon">&nbsp;&nbsp;주소검색</button>
                 </div>
             </div>
-            <div id="header-nav-con">
-                <div id="header-nav">
-                    <ul id="header-nav-menus">
-                        <li class="header-nav-menu menu2"><a href="#" class="header-nav-menu-title menu2">캔들</a></li>
-                        <li class="header-nav-menu menu3"><a href="#" class="header-nav-menu-title menu3">디퓨져</a></li>
-                        <li class="header-nav-menu menu2"><a href="#" class="header-nav-menu-title menu2">바디크림</a></li>
-                        <li class="header-nav-menu menu3"><a href="#" class="header-nav-menu-title menu3">향수</a></li>
-                        <li class="header-nav-menu menu2"><a href="#" class="header-nav-menu-title menu2">기타</a></li>
-                        <li class="header-nav-icon header-nav-menu header-nav-right">
-                            <a href="#"><img src="${pageContext.request.contextPath}/resources/images/001-shopping-cart.svg" class="header-nav-menu-icon"></a>
-                        </li>
-                        <li class="header-nav-icon header-nav-menu header-nav-right" id="header-nav-menu-pin">
-                            <a href="#"><img src="${pageContext.request.contextPath}/resources/images/002-pin.svg" class="header-nav-menu-icon"></a>
-                        </li>
-                        <li id="header-nav-search" class="header-nav-menu header-nav-right">
-                            <input name="header-search" id="header-search" type="text" placeholder="검색어를 입력해주세요.">
-                            <img src="${pageContext.request.contextPath}/resources/images/loupe.svg" id="header-nav-search-icon">
-                            <img src="${pageContext.request.contextPath}/resources/images/cancel.svg" id="header-nav-search-icon-cancel">
-                        </li>
-                    </ul>
-                </div>
-                <div id="header-nav-addr-con-big">
-                    <div id="header-nav-addr-con-tri"></div>
-                    <c:if test="${empty my_name }">
-                        <div id="header-nav-addr-con">
-                            <p class="header-nav-addr-mention" id="header-nav-addr-mention-1">배송지를 등록</p>
-                            <p class="header-nav-addr-mention">하고<br>집에서 eau de toillette의 상품을 만나보세요!</p>
-                            <div>
-                                <button type="button" class="header-nav-button" onclick="location.href='login';">로그인</button>
-                                <button type="button" class="header-nav-button header-nav-button-b"><img src="${pageContext.request.contextPath}/resources/images/loupe.svg" id="header-nav-button-icon">&nbsp;&nbsp;주소검색</button>
-                            </div>
-                        </div>
                     </c:if>
                     <c:if test="${not empty my_name }">
                         <div id="header-nav-addr-con">
                             <p class="header-nav-addr-mention" style="height:45px; display:inline-block;">${regInfo.m_addr }</p>
 
                             <div>
-                                <button type="button" class="header-nav-button-2" onclick="location.href='/eaude/mypageShippingDestination.do'">배송지 변경</button>
+                                <button type="button" class="header-nav-button-2" onclick="location.href='';">배송지 변경</button>
                             </div>
                         </div>
                     </c:if>
                 </div>
-            </div>
+		<script>
+$(function(){
+	$("#header-nav-search-icon").click(function(){
+		var keyword =$("#header-search").val().trim();
+		if(keyword!=null&&keyword!=""){
+			location.href="productlist.do?keyword="+keyword;
+		}else{
+			
+			alert("검색어를 입력해주세요.");
+		}
+		
+	})
+})
+</script>
+</body>
 
-        </body>
-
-        </html>
+</html>

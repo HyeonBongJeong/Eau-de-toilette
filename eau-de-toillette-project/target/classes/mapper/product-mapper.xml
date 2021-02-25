@@ -39,9 +39,7 @@
  	</select>
  	
  		<select id="selectProductSearchList"  resultType="arraylist" resultMap="resultProduct" parameterType="string">
- 	select * from product where p_title LIKE '%'|| #{keyword} ||'%'
-		OR p_content LIKE '%'|| #{keyword} ||'%' order by p_id
-		desc
+ 	select * from product where p_title LIKE '%'|| #{keyword} ||'%' OR p_content LIKE '%'|| #{keyword} ||'%' order by p_id desc
  	</select>
  	 	<select id="selectProductTagList" resultType="arraylist" resultMap="resultProduct" parameterType="string">
  	select * from product where p_type = #{p_type}  order by p_id desc
@@ -50,4 +48,12 @@
  	
  	select* from product where p_id = #{p_id}
  	</select>
+ 	
+ 	<update id="updateProduct" parameterType="Product" flushCache="true" statementType="PREPARED">
+ 	update product set p_title =#{p_title},p_intro=#{p_intro},p_price=#{p_price},p_img=#{p_img},p_content=#{p_content},p_size=#{p_size},p_type=#{p_type} where p_id =#{p_id}
+ 	</update>
+ 	
+ 	<delete id="deleteProduct" parameterType="int">
+ 	delete product where p_id =#{p_id}
+ 	</delete>
 </mapper>
