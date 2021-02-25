@@ -38,6 +38,6 @@ public interface MypageService {
 
 	void sdDefaultChange2(ShoppingDestination sd);
 
-//	List<Purchasehistory> myPageOrderList(Purchasehistory ph);
+	List<Purchasehistory> myPageOrderList(Purchasehistory ph);
 
 }

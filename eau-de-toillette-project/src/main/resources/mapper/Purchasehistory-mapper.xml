@@ -8,15 +8,17 @@
 		<result property="ph_date" column="ph_date" />
 		<result property="m_id" column="m_id" />
 		<result property="p_id" column="p_id" />
+		<result property="ph_status" column="ph_status" />
+		<result property="ph_allpoint" column="ph_allpoint" />
+		<result property="ph_ordernum" column="ph_ordernum" />
 	</resultMap>
 	
 	
 	<insert id="insertPurchasehistory" parameterType="Purchasehistory" flushCache="true" statementType="PREPARED">
-		insert into purchasehistory values(PURCHASEHISTORY_SEQ.nextval,#{ph_count},CURRENT_TIMESTAMP,#{m_id},#{p_id})
-	
+		insert into purchasehistory values(PURCHASEHISTORY_SEQ.nextval,#{ph_count},TO_CHAR(CURRENT_TIMESTAMP,'YYYY/MM/DD HH24:MI:SS'),#{m_id},#{p_id},'입금완료',#{ph_allpoint},SD_ORDER_NO.nextval)
 	</insert>
-	<!-- <select id="myPageOrderList" resultType="arraylist" resultMap="resultPurchasehistory" parameterType="Purchasehistory">
-			select * from purchasehistory where m_id = #{m_id}
-	</select> -->
+	 <select id="myPageOrderList" resultType="arraylist" resultMap="resultPurchasehistory" parameterType="Purchasehistory">
+			select * from purchasehistory ph_date where m_id = #{m_id} 
+	</select> 
 	
 </mapper>

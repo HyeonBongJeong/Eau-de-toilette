@@ -236,8 +236,9 @@ public class MyPageController {
 				String id = "GJWoon";
 				ph.setM_id(id);
 				List<Purchasehistory> list = new ArrayList<Purchasehistory>();
-//				list = myService.myPageOrderList(ph);
-//				System.out.println(list);
+				list = myService.myPageOrderList(ph);
+				System.out.println(list);
+				mv.addObject("ph-list",list);
 				mv.setViewName("/mypage_orderList");
 				return mv;
 			}
@@ -374,7 +375,20 @@ public class MyPageController {
 				mv.setViewName("/mypage_point");
 				return mv;
 			}
-			
+			//마이페이지 관리자 회원관리 메서드
+			@RequestMapping(value = "/myPageManageUser.do", method = RequestMethod.GET)
+			public ModelAndView myPageManageUser(ModelAndView mv, HttpSession session) {
+				//String loginId = (String) session.getAttribute("loginId");
+				mv.setViewName("/mypage_manager_user");
+				return mv;
+			}
+			//마이페이지 관리자 주문관리 메서드
+			@RequestMapping(value = "/myPageManageOrder.do", method = RequestMethod.GET)
+			public ModelAndView mypage_manager_order(ModelAndView mv, HttpSession session) {
+				//String loginId = (String) session.getAttribute("loginId");
+				mv.setViewName("/mypage_manager_order");
+				return mv;
+			}
 			
 			
 			

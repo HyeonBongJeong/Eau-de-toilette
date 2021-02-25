@@ -87,9 +87,9 @@ public class MyPageDao {
 	}
 	
 	
-//	public List<Purchasehistory> myPageOrderList(Purchasehistory ph) {
-//		return sqlSession.selectList("Purchasehistory.myPageOrderList",ph);
-//	}
+	public List<Purchasehistory> myPageOrderList(Purchasehistory ph) {
+		return sqlSession.selectList("Purchasehistory.myPageOrderList",ph);
+	}
 	
 
 }

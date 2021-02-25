@@ -97,9 +97,9 @@ public class MypageServiceImpl implements MypageService {
 		
 	}
 
-//	@Override
-//	public List<Purchasehistory> myPageOrderList(Purchasehistory ph) {
-//		return myDao.myPageOrderList(ph);
-//	}
+	@Override
+	public List<Purchasehistory> myPageOrderList(Purchasehistory ph) {
+		return myDao.myPageOrderList(ph);
+	}
 
 }

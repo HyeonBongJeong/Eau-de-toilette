@@ -248,8 +248,8 @@ $('input[name=sd_chk]').change(function() {
 		 },
 	}); 
 	 
-	 
 		 location.reload();		
+	 	 alert('기본배송지가 변경되었습니다.');
 	
 })   
 

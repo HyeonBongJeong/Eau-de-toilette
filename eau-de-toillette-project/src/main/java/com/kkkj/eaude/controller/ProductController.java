@@ -352,6 +352,11 @@ public class ProductController{
 		m.setM_allpoint(grade.get(0).getM_allpoint()+addPoint);
 		myService.pointUpdate(m);
 		//상품 구매시 멤버 등급 올려주는 부분 끝
+
+		//상품금액 담기는 부분
+		 String allPrice = "666원";
+		vo.setPh_allpoint(allPrice);
+		 //상품금액 담기는 부분 끝
 		
 		vo.setM_id(id);
 		vo.setP_id(p_id);
