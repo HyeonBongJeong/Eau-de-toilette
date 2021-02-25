@@ -39,7 +39,7 @@ public class MyPageController {
 	@Autowired
 	private MypageService myService;
 	
-	
+	public static final int LIMIT = 15;
 	
 	//마이페이지 개인정보 수정 비밀번호 확인 메서드
 	@RequestMapping(value = "/myPageTop.do", method = RequestMethod.POST)
@@ -377,11 +377,40 @@ public class MyPageController {
 			}
 			//마이페이지 관리자 회원관리 메서드
 			@RequestMapping(value = "/myPageManageUser.do", method = RequestMethod.GET)
-			public ModelAndView myPageManageUser(ModelAndView mv, HttpSession session) {
-				//String loginId = (String) session.getAttribute("loginId");
+			public ModelAndView myPageManageUser(ModelAndView mv, 
+					@RequestParam(name="page", defaultValue = "1") int page,
+					@RequestParam(name="keyword", required = false) String keyword
+					) {
+				int currentPage = page;
+				// 한 페이지당 출력할 목록 갯수
+				int listCount = 0;
+				if(keyword != null && !keyword.equals("")) {
+					mv.addObject("list", myService.selectSearchMember(keyword));
+					listCount = myService.totaSearchlCount(keyword);
+				}else {
+					listCount = myService.totalCount();
+					mv.addObject("list", myService.manage_user(currentPage, LIMIT));
+				}
+				int maxPage = (int) ((double) listCount / LIMIT + 0.9);
+				mv.addObject("currentPage", currentPage);
+				mv.addObject("maxPage", maxPage);
+				mv.addObject("listCount", listCount);
 				mv.setViewName("/mypage_manager_user");
 				return mv;
 			}
+			
+			
+			//마이페이지 회원 삭제 메서드
+			@ResponseBody
+			@RequestMapping(value = "/myPageManageUserDelete.do", method = RequestMethod.POST)
+			public Object myPageManageUserDelete(ModelAndView mv, HttpSession session, HttpServletResponse response, Member m) {
+				System.out.println(m);
+				int result = myService.myPageManageUserDelete(m);
+				System.out.println(result);
+				return result;
+			}
+			
+			
 			//마이페이지 관리자 주문관리 메서드
 			@RequestMapping(value = "/myPageManageOrder.do", method = RequestMethod.GET)
 			public ModelAndView mypage_manager_order(ModelAndView mv, HttpSession session) {

@@ -71,7 +71,7 @@ background-color: #f7f7f7;
 						<ul class="order-ul">
 							<li class="order-li ul-font all order-li-choose">전체기간</li>
 							<li class="order-li ul-font">배송전</li>
-							<li class="order-li ul-font">배송확인</li>
+							<li class="order-li ul-font">입금확인</li>
 						</ul>
 					</div>
                     <br>

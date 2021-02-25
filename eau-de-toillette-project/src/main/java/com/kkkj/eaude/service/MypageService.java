@@ -40,4 +40,14 @@ public interface MypageService {
 
 	List<Purchasehistory> myPageOrderList(Purchasehistory ph);
 
+	List<Member> manage_user(int currentPage, int limit);
+
+	int totalCount();
+
+	List<Member> selectSearchMember(String keyword);
+
+	int totaSearchlCount(String keyword);
+
+	int myPageManageUserDelete(Member m);
+
 }

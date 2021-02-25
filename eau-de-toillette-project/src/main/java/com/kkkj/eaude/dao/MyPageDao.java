@@ -2,6 +2,7 @@ package com.kkkj.eaude.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -90,6 +91,22 @@ public class MyPageDao {
 	public List<Purchasehistory> myPageOrderList(Purchasehistory ph) {
 		return sqlSession.selectList("Purchasehistory.myPageOrderList",ph);
 	}
+	public List<Member> manage_user(int currentPage, int limit) {
+		int startRow = (currentPage - 1) * limit;
+		RowBounds row = new RowBounds(startRow, limit);
+		return sqlSession.selectList("Member.manage_user", null, row);
+	}
 	
-
+	public int totalCount() {
+		return sqlSession.selectOne("Member.totalCount");
+	}
+	public int totaSearchlCount(String keyword) {
+		return sqlSession.selectOne("Member.totaSearchlCount",keyword);
+	}
+	public List<Member> selectSearchMember(String keyword) {
+		return sqlSession.selectList("Member.selectSearchMember",keyword);
+	}
+	public int myPageManageUserDelete(Member m) {
+		return sqlSession.delete("Member.myPageManageUserDelete",m);
+	}
 }

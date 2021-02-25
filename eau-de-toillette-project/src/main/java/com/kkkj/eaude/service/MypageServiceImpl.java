@@ -102,4 +102,31 @@ public class MypageServiceImpl implements MypageService {
 		return myDao.myPageOrderList(ph);
 	}
 
+	
+
+	@Override
+	public int totalCount() {
+		return myDao.totalCount();
+	}
+
+	@Override
+	public List<Member> selectSearchMember(String keyword) {
+		return myDao.selectSearchMember(keyword);
+	}
+
+	@Override
+	public List<Member> manage_user(int currentPage, int limit) {
+		return myDao.manage_user(currentPage, limit);
+	}
+
+	@Override
+	public int totaSearchlCount(String keyword) {
+		return myDao.totaSearchlCount(keyword);
+	}
+
+	@Override
+	public int myPageManageUserDelete(Member m) {
+		return myDao.myPageManageUserDelete(m);
+	}
+
 }
