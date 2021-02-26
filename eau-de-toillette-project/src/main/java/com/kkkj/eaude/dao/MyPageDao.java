@@ -109,4 +109,9 @@ public class MyPageDao {
 	public int myPageManageUserDelete(Member m) {
 		return sqlSession.delete("Member.myPageManageUserDelete",m);
 	}
+
+
+	public List<Member> getRegCount() {
+		return sqlSession.selectList("Member.getRegCount");
+	}
 }

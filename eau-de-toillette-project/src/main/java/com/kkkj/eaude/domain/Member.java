@@ -5,7 +5,6 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
-@Data 
 @Component
 public class Member {
 
@@ -20,7 +19,9 @@ public class Member {
 	private int m_point;
 	private String m_manage;
 	private String m_name;
+	private String reg_date;
 	private int m_allpoint;
+	private int reg_count;
 	public String getM_id() {
 		return m_id;
 	}
@@ -87,11 +88,36 @@ public class Member {
 	public void setM_name(String m_name) {
 		this.m_name = m_name;
 	}
+	public String getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
 	public int getM_allpoint() {
 		return m_allpoint;
 	}
 	public void setM_allpoint(int m_allpoint) {
 		this.m_allpoint = m_allpoint;
 	}
+	public int getReg_count() {
+		return reg_count;
+	}
+	public void setReg_count(int reg_count) {
+		this.reg_count = reg_count;
+	}
+	@Override
+	public String toString() {
+		return "Member [m_id=" + m_id + ", m_password=" + m_password + ", m_email=" + m_email + ", m_phone=" + m_phone
+				+ ", m_addr=" + m_addr + ", m_gender=" + m_gender + ", m_birth=" + m_birth + ", m_grade=" + m_grade
+				+ ", m_point=" + m_point + ", m_manage=" + m_manage + ", m_name=" + m_name + ", reg_date=" + reg_date
+				+ ", m_allpoint=" + m_allpoint + ", reg_count=" + reg_count + "]";
+	}
+	
+	
+	
+	
+	
+	
 
 }

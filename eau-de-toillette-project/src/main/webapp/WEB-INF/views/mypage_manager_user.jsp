@@ -128,7 +128,8 @@ $('.delete').click(function() {
         },
 	 success : function(data) {
 		 if(data == 1){
-			 id_tr.remove();				 
+			 id_tr.remove();
+			 alert(id+' 님이 삭제되었습니다.');
 		 }
 	 },
 });  

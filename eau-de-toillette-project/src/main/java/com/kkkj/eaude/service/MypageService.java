@@ -50,4 +50,6 @@ public interface MypageService {
 
 	int myPageManageUserDelete(Member m);
 
+	List<Member> getRegCount();
+
 }

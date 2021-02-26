@@ -420,6 +420,30 @@ public class MyPageController {
 			}
 			
 			
+			@ResponseBody
+			@RequestMapping(value = "/myPageMangeUserRegAll.do", method = RequestMethod.POST)
+			public Map<String, Object> myPageMangeUserRegAll(ModelAndView mv, HttpSession session, HttpServletResponse response,HttpServletRequest request, Member m) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				List<Member> list = new ArrayList<Member>();
+				
+				try {
+					request.setCharacterEncoding("UTF-8");
+					response.setContentType("text/html; charset=UTF-8");
+					list = myService.getRegCount();
+					for(int i = 0; i<list.size(); i++) {
+						String reg_dates = list.get(i).getReg_date();
+						reg_dates = reg_dates.substring(0, 10);
+						reg_dates = reg_dates.replaceAll("-", "");
+						list.get(i).setReg_date(reg_dates);	
+					}
+					
+					map.put("regMember", list);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return map;
+			}
 			
 	
 }

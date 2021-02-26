@@ -129,4 +129,9 @@ public class MypageServiceImpl implements MypageService {
 		return myDao.myPageManageUserDelete(m);
 	}
 
+	@Override
+	public List<Member> getRegCount() {
+		return myDao.getRegCount();
+	}
+
 }

@@ -14,6 +14,8 @@
 		<result property="m_manage" column="m_manage" />
 		<result property="m_name" column="m_name" />
 		<result property="m_allpoint" column="m_allpoint" />
+		<result property="reg_date" column="reg_date" />
+		<result property="reg_count" column="reg_count" />
 	</resultMap>
 		
 		
@@ -104,5 +106,12 @@
 		</delete>
 	
 
+		<select id="getRegCount" resultType="member" resultMap="resultMember">
+			select count(*) as reg_count, TRUNC(reg_date,'MM') as reg_date 
+			from member 
+			where TRUNC(reg_date,'YY') = TRUNC(current_date, 'YY') 
+			group by TRUNC(reg_date, 'MM') 
+			ORDER by reg_date
+		</select>
 
 </mapper>
