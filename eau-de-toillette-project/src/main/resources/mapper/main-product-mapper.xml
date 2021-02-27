@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MainProduct">
+
+	<resultMap type="Product" id="resultProduct">
+		<id property="p_id" column="p_id" />
+		<result property="m_id" column="m_id" />
+		<result property="p_title" column="p_title" />
+		<result property="p_intro" column="p_intro" />
+		<result property="p_content" column="p_content" />
+		<result property="p_price" column="p_price" />
+		<result property="p_img" column="p_img" />
+		<result property="p_adddate" column="p_adddate" />
+		<result property="p_tag" column="p_tag" />
+		<result property="p_like" column="p_like" />
+	</resultMap>
+	<select id="showMainCandle" resultType="arraylist"
+		resultMap="resultProduct">
+		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type
+		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
+		'([0-9]{3})','\1,')), '^,','') AS p_price
+		from product where p_type='c' order by dbms_random.value ) a) where rnum
+		between 1 and 4
+	</select>
+	<select id="showMainDifuser" resultType="arraylist"
+		resultMap="resultProduct">
+		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type
+		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
+		'([0-9]{3})','\1,')), '^,','') AS p_price
+		from product where p_type='d' order by dbms_random.value ) a) where rnum
+		between 1 and 2
+	</select>
+	<select id="showMainPerfume" resultType="arraylist"
+		resultMap="resultProduct">
+		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type
+		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
+		'([0-9]{3})','\1,')), '^,','') AS p_price
+		from product where p_type='p' order by dbms_random.value ) a) where rnum
+		between 1 and 3
+	</select>
+	<select id="showMainBodyCream" resultType="arraylist"
+		resultMap="resultProduct">
+		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type
+		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
+		'([0-9]{3})','\1,')), '^,','') AS p_price
+		from product where p_type='b' order by dbms_random.value ) a) where rnum
+		between 1 and 4
+	</select>
+</mapper>

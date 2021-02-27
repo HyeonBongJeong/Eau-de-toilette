@@ -1,6 +1,8 @@
 package com.kkkj.eaude.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -31,16 +33,57 @@ import com.kkkj.eaude.service.MainService;
 @Controller
 public class MainController {
 	@Autowired
-	private MainService maService;
+	private MainService mService;
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public ModelAndView test(HttpServletRequest request, ModelAndView mv) {
+		logger.info("main start");
+		HttpSession session = request.getSession();
+		String my_name = (String) session.getAttribute("my_name");
+		mv.addObject("regInfo", mService.regInfo(my_name));
+		mv.setViewName("test");
+		return mv;
+	}
+
+	@RequestMapping(value = "/productsession")
+	public String productsession(String productaddr1, String productimg1, HttpSession session,
+			HttpServletRequest request) {
+		try {
+			ArrayList<String> productsessionaddr = (ArrayList)session.getAttribute("productsessionaddr");
+			ArrayList<String> productsessionimg = (ArrayList)session.getAttribute("productsessionimg");
+			String addr = request.getParameter("productaddr1");
+			String img = request.getParameter("productimg1");
+			if(productsessionaddr==null&&productsessionimg==null) {
+				productsessionaddr = new ArrayList<String>();
+				productsessionimg = new ArrayList<String>();
+				session.setAttribute("productsessionaddr", productsessionaddr);
+				session.setAttribute("productsessionimg", productsessionimg);
+			}
+			productsessionaddr.add(addr);
+			productsessionimg.add(img);
+
+			System.out.println(productsessionaddr);
+			System.out.println(productsessionimg);
+			System.out.println(productaddr1);
+			System.out.println(productimg1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/test";
+	}
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public ModelAndView main(HttpServletRequest request, ModelAndView mv) {
 		logger.info("main start");
 		HttpSession session = request.getSession();
 		String my_name = (String) session.getAttribute("my_name");
-		mv.addObject("regInfo", maService.regInfo(my_name));
+		mv.addObject("regInfo", mService.regInfo(my_name));
+		mv.addObject("candle", mService.showMainCandle());
+		mv.addObject("difuser", mService.showMainDifuser());
+		mv.addObject("perfume", mService.showMainPerfume());
+		mv.addObject("bodycream", mService.showMainBodyCream());
 		mv.setViewName("main");
 		return mv;
 	}
@@ -81,7 +124,7 @@ public class MainController {
 		logger.info("finishreg start");
 		HttpSession session = request.getSession();
 		String my_name = (String) session.getAttribute("my_name");
-		mv.addObject("regInfo", maService.regInfo(my_name));
+		mv.addObject("regInfo", mService.regInfo(my_name));
 		mv.setViewName("finishreg");
 		return mv;
 	}
@@ -89,7 +132,7 @@ public class MainController {
 	@RequestMapping(value = "/findidresult", method = RequestMethod.GET)
 	public ModelAndView findidresult(HttpServletRequest request, ModelAndView mv, MainVO vo) {
 		logger.info("findidresult start");
-		String result = maService.findidresult(vo);
+		String result = mService.findidresult(vo);
 		String result1 = result.substring(0, 3);
 		int resultlength = result.length() - 3;
 		String result2 = String.format("%" + resultlength + "s", "").replace(' ', '*');
@@ -118,7 +161,6 @@ public class MainController {
 		return mv;
 	}
 
-
 	@RequestMapping(value = "/findpwdcg", method = RequestMethod.GET)
 	public ModelAndView findpwdcg(HttpServletRequest request, ModelAndView mv,
 			@RequestParam(name = "m_id") String m_id) {
@@ -132,7 +174,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(String m_id) {
-		int result = maService.idCheck(m_id);
+		int result = mService.idCheck(m_id);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,7 +187,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
 	public int emailCheck(String m_email) {
-		int result = maService.emailCheck(m_email);
+		int result = mService.emailCheck(m_email);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,7 +203,8 @@ public class MainController {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
-			result = maService.insertMember(vo);
+			result = mService.insertMember(vo);
+			result = mService.insertMemberAddr(vo);
 			session = request.getSession();
 			String my_name = request.getParameter("m_id");
 			session.setAttribute("my_name", my_name);
@@ -176,8 +219,8 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/enterlogin", method = RequestMethod.POST)
 	public int enterlogin(MainVO vo) {
-		int resultid = maService.idExist(vo);
-		int resultpw = maService.pwExist(vo);
+		int resultid = mService.idExist(vo);
+		int resultpw = mService.pwExist(vo);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -222,7 +265,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/findidajax", method = RequestMethod.POST)
 	public int findidajax(MainVO vo) {
-		int result = maService.findid(vo);
+		int result = mService.findid(vo);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -235,7 +278,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/findpwajax", method = RequestMethod.POST)
 	public int findpwajax(MainVO vo) {
-		int result = maService.findpw(vo);
+		int result = mService.findpw(vo);
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -249,7 +292,7 @@ public class MainController {
 	public String changepw(MainVO vo, HttpSession session, HttpServletRequest request) {
 		int result = 0;
 		try {
-			result = maService.changepw(vo);
+			result = mService.changepw(vo);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -300,8 +343,8 @@ public class MainController {
 
 	@RequestMapping(value = "/mailSender")
 	public ModelAndView mailSender(HttpServletRequest request, ModelMap mo, ModelAndView mv,
-			@RequestParam(name = "m_email") String m_email, @RequestParam(name = "m_id") String m_id, @RequestParam(name = "chk") String chk)
-			throws AddressException, MessagingException {
+			@RequestParam(name = "m_email") String m_email, @RequestParam(name = "m_id") String m_id,
+			@RequestParam(name = "chk") String chk) throws AddressException, MessagingException {
 		String host = "smtp.gmail.com";
 		final String username = "mbonaegi@gmail.com";
 		final String password = "bonaegi~!";

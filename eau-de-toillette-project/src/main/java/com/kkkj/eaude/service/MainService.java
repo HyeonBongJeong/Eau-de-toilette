@@ -1,6 +1,9 @@
 package com.kkkj.eaude.service;
 
+import java.util.List;
+
 import com.kkkj.eaude.domain.MainVO;
+import com.kkkj.eaude.domain.Product;
 
 public interface MainService {
 
@@ -23,5 +26,15 @@ public interface MainService {
 	int findpw(MainVO vo);
 
 	int changepw(MainVO vo);
+
+	int insertMemberAddr(MainVO vo);
+
+	List<Product> showMainCandle();
+
+	List<Product> showMainDifuser();
+
+	List<Product> showMainPerfume();
+
+	List<Product> showMainBodyCream();
 
 }

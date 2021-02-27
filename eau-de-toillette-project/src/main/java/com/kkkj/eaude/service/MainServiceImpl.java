@@ -1,10 +1,13 @@
 package com.kkkj.eaude.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kkkj.eaude.dao.MainDao;
 import com.kkkj.eaude.domain.MainVO;
+import com.kkkj.eaude.domain.Product;
 
 @Service("maService")
 public class MainServiceImpl implements MainService {
@@ -60,6 +63,31 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int changepw(MainVO vo) {
 		return maDao.changepw(vo);
+	}
+
+	@Override
+	public int insertMemberAddr(MainVO vo) {
+		return maDao.insertMemberAddr(vo);
+	}
+
+	@Override
+	public List<Product> showMainCandle() {
+		return maDao.showMainCandle();
+	}
+
+	@Override
+	public List<Product> showMainDifuser() {
+		return maDao.showMainDifuser();
+	}
+
+	@Override
+	public List<Product> showMainPerfume() {
+		return maDao.showMainPerfume();
+	}
+
+	@Override
+	public List<Product> showMainBodyCream() {
+		return maDao.showMainBodyCream();
 	}
 
 

@@ -13,12 +13,16 @@
 	</select>
 	<insert id="insertMember" parameterType="Main" flushCache="true"
 		statementType="PREPARED" timeout="20">
-		insert into Member (m_id, m_password,
-		m_email, m_phone, m_addr, m_gender,
-		m_birth, m_name) values (#{m_id},
+		insert into Member values (#{m_id},
 		#{m_password}, #{m_email},
 		#{m_phone}, #{m_addr}, #{m_gender},
-		#{m_birth}, #{m_name})
+		#{m_birth},'샤워코롱',0,'N', #{m_name}, 0, sysdate)
+	</insert>
+	<insert id="insertMemberAddr" parameterType="Main"
+	flushCache="true" statementType="PREPARED" timeout="20">
+	insert into
+	shipping_destination values(SD_SEQ_NO.nextval, #{m_addr}, 1, #{m_id},
+	#{m_name},#{m_phone})
 	</insert>
 	<select id="idExist" parameterType="Main" resultType="int">
 		select
@@ -30,23 +34,28 @@
 		m_password=#{m_password}
 	</select>
 	<select id="regInfo" parameterType="string" resultType="Main">
-		select m_id, m_name, m_email, m_addr, m_grade from member where
+		select
+		m_id, m_name, m_email, m_addr, m_grade from member where
 		m_id=#{my_name}
 	</select>
 	<select id="findid" parameterType="Main" resultType="int">
-		select count(*) chk from member where m_name=#{m_name} and m_email =
+		select
+		count(*) chk from member where m_name=#{m_name} and m_email =
 		#{m_email}
 	</select>
 	<select id="findpw" parameterType="Main" resultType="int">
-		select count(*) chk from member where m_name=#{m_name} and m_email =
+		select
+		count(*) chk from member where m_name=#{m_name} and m_email =
 		#{m_email} and m_id=#{m_id}
 	</select>
 	<select id="findidresult" parameterType="Main"
 		resultType="string">
-		select m_id from member where m_name=#{m_name} and m_email = #{m_email}
+		select m_id from member where m_name=#{m_name} and m_email
+		= #{m_email}
 	</select>
 	<update id="changepw" parameterType="Main" flushCache="true"
 		statementType="PREPARED" timeout="20">
-		update member set m_password = #{m_password} where m_id=#{m_id}
-		</update>
+		update member set m_password =
+		#{m_password} where m_id=#{m_id}
+	</update>
 </mapper>

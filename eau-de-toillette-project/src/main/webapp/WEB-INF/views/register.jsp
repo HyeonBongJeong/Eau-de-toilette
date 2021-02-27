@@ -7,8 +7,8 @@
         <head>
             <meta charset="UTF-8">
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>회원가입</title>
             <script src="https://kit.fontawesome.com/2409d81413.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
@@ -172,6 +172,19 @@
                 }
                 
                 .reg-circle-con {
+                    float: left;
+                }
+                .reg-circle-1-1 {
+                    border: 1px solid #ccc;
+                    background-color: #fff;
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    float: left;
+                }
+                
+                .reg-circle-con-1 {
                     float: left;
                 }
                 
@@ -785,7 +798,21 @@
                 }
             </style>
         </head>
-        <script>
+              <script>
+        
+        $(function(){
+           
+           $(".reg-genter-rabel").click(function(){
+              $(this).children(".reg-circle-1").css("display","none");
+              $(this).children(".reg-circle-con").css("display","block");
+              $(this).prevAll().children(".reg-circle-1").css("display","block");
+              $(this).prevAll().children(".reg-circle-con").css("display","none");
+              $(this).nextAll().children(".reg-circle-1").css("display","block");
+              $(this).nextAll().children(".reg-circle-con").css("display","none");
+           })
+           
+        })
+        
             $(function() {
                 //$(".reg-circle-con").css("display", "none");
                 $("#agree-all-2").css("display", "none");
@@ -793,31 +820,12 @@
                 $("#agree-2-2").css("display", "none");
                 $("#agree-3-2").css("display", "none");
                 $("#agree-7-2").css("display", "none");
-
                 $('input[type=radio][name=m_gender]').change(function() {
                     if (this.value == 'M') {
-                        $("#male-1").css("display", "none");
-                        $("#male-2").css("dlsplay", "block");
-                        $("#female-1").css("display", "block");
-                        $("#notcheck-1").css("display", "block");
-                        $("#female-2").css("display", "none");
-                        $("#notcheck-2").css("display", "none");
                         $("#m_gender").val('M');
                     } else if (this.value == 'F') {
-                        $("#male-2").css("dlsplay", "none");
-                        $("#male-1").css("display", "block");
-                        $("#female-1").css("display", "none");
-                        $("#female-2").css("display", "block");
-                        $("#notcheck-1").css("display", "block");
-                        $("#notcheck-2").css("display", "none");
                         $("#m_gender").val('F');
                     } else if (this.value == 'N') {
-                        $("#male-2").css("dlsplay", "none");
-                        $("#male-1").css("display", "block");
-                        $("#female-1").css("display", "block");
-                        $("#female-2").css("display", "none");
-                        $("#notcheck-1").css("display", "none");
-                        $("#notcheck-2").css("display", "block");
                         $("#m_gender").val('N');
                     }
                 });
@@ -1674,7 +1682,7 @@
                             <input type="radio" name="m_gender" id="male" value="M" style="display: none;">
                             <input type="radio" name="m_gender" id="female" value="F" style="display: none;">
                             <input type="radio" name="m_gender" id="notcheck" value="N" checked style="display: none;">
-                            <label for="male" class="reg-genter-rabel">
+                             <label for="male" class="reg-genter-rabel">
                                 <div class="reg-circle-1" id="male-1" style="display: block;"></div>
                                 <div class="reg-circle-con" id="male-2" style="display:none;">
                                     <div class="reg-circle-2"></div>

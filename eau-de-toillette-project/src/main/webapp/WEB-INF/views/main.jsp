@@ -29,7 +29,7 @@
                     text-decoration: none;
                 }
                 
-                #main-big-add {
+                #main-big-ad {
                     width: 100%;
                     height: 370px;
                 }
@@ -39,28 +39,66 @@
                     list-style: none;
                 }
                 
-                #main-big-add ul {
-                    height: 100%;
+                #main-big-ad ul {
+                    width: calc(100% * 4);
+                    display: flex;
+                    animation: slide 8s infinite;
                 }
                 
-                #main-big-add li {
-                    height: 100%;
+                #main-big-ad li {
+                    width: calc(100% / 4);
+                    height: 370px;
+                    cursor: pointer;
                 }
                 
-                #main-big-add li:nth-child(1) {
+                #main-big-ad li:nth-child(1) {
                     background: #faa;
                 }
                 
-                #main-big-add li:nth-child(2) {
+                #main-big-ad li:nth-child(2) {
                     background: #afa;
                 }
                 
-                #main-big-add li:nth-child(3) {
+                #main-big-ad li:nth-child(3) {
                     background: #aaf;
                 }
                 
-                #main-big-add li:nth-child(4) {
+                #main-big-ad li:nth-child(4) {
                     background: #faf;
+                }
+                
+                @keyframes slide {
+                    0% {
+                        margin-left: 0;
+                    }
+                    /* 0 ~ 10  : 정지 */
+                    10% {
+                        margin-left: 0;
+                    }
+                    /* 10 ~ 25 : 변이 */
+                    25% {
+                        margin-left: -100%;
+                    }
+                    /* 25 ~ 35 : 정지 */
+                    35% {
+                        margin-left: -100%;
+                    }
+                    /* 35 ~ 50 : 변이 */
+                    50% {
+                        margin-left: -200%;
+                    }
+                    60% {
+                        margin-left: -200%;
+                    }
+                    75% {
+                        margin-left: -300%;
+                    }
+                    85% {
+                        margin-left: -300%;
+                    }
+                    100% {
+                        margin-left: 0;
+                    }
                 }
                 
                 #main-big-con {
@@ -283,166 +321,64 @@
                 
                 #scroll-outer {
                     width: 100%;
-                    max-height:270px;
+                    max-height: 270px;
                     /* margin-top: -141px; */
                     position: sticky;
                     top: 200px;
                 }
-                
-                #scroll {
-                    width: 78px;
-                    float: right;
-                    margin-right: -130px;
-                    max-height:270px;
-                    /* margin-top:141px; */
-                    border:1px solid #4C4C4C;
-                    text-align:center;
-                    /* overflow:hidden; */
-                }
-                
-                #scroll-inner {
-                    width: 78px;
-                    height: 100px;
-                    background-color: yellow;
-                }
-                
-                #scroll-img-con{
-                max-height:200px;
-                overflow:hidden;
-                }
-                
-                .scroll-up{
-                height:22px;
-               	cursor:pointer;
-                }
-                
-                #scroll-title{
-                height:16px;
-                font-size:12px;
-                line-height:16px;
-                padding-bottom:6px;
-                }
-                
-                .scroll-img{
-                width:60px;
-                height:77px;
-                background-color:white;
-                }
             </style>
         </head>
-        <script>
-            /* var all = ele => document.querySelectorAll(ele)
-                                                var one = ele => document.querySelector(ele)
-                                                var slide = _ => {
-                                                    var wrap = one('#main-big-add') // .slide 선택
-                                                    var target = wrap.children[0] // .slide ul 선택
-                                                    var len = target.children.length // .slide li 갯수
-                                                        // .slide ul의 너비 조정
-                                                    target.style.cssText = `width:calc(100% * ${len});display:flex;transition:1s;`
-                                                        // .slide li의 너비 조정
-                                                    Array.from(target.children)
-                                                        .forEach(ele => ele.style.cssText = `width:calc(100% / ${len});`)
-                                                    let pos = 0
-                                                    setInterval(() => {
-                                                        pos = (pos + 1) % len // 장면 선택
-                                                        target.style.marginLeft = `${-pos * 100}%` // 장면 전환
-                                                    }, 2000)
-                                                }
-                                                window.onload = function() {
-                                                    slide()
-                                                } */
-        </script>
-        <script>
-            /* function scroll_follow(id) {
-                                                    $(window).scroll(function() //스크롤이 움직일때마다 이벤트를 발생시키고
-                                                        {
-                                                            var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
-                                                            $(id).stop().animate({
-                                                                top: position + "px"
-                                                            }, 1); //해당 오브젝트 위치값 재설정
-                                                        });
-                                                }
-                                                scroll_follow("#scroll");
-                                                //스크롤이 생기도록 <br> 을 여러개 넣은 부분..
-                                                $(document).ready(function() {
-                                                    for (var i = 0; i < 200; i++) {
-                                                        $('#brr').html($('#brr').html() + "<br>" + i);
-                                                    }
-                                                }); */
-        </script>
 
         <body>
             <jsp:include page="header.jsp"></jsp:include>
-            <div id="main-big-add">
-                <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+            <div id="main-big-ad">
+                <ul id="main-middle-ad">
+                    <li class="main-ad"></li>
+                    <li class="main-ad"></li>
+                    <li class="main-ad"></li>
+                    <li class="main-ad"></li>
                 </ul>
             </div>
+            <input type="button" class="slide_btn_next">
+            <input type="button" class="slide_btn_prev">
             <div id="main-big-con">
                 <section class="main-section-title">
                     <p>Candle</p>
                 </section>
-                <div id="scroll-outer">
-                    <div id="scroll" style="right:100;">
-                    <div class="scroll-up"><i class="fas fa-angle-up"></i></div>
-                    <strong id="scroll-title">최근 본 상품</strong>
-                    <div id="scroll-img-con">
-                    <img class="scroll-img">
-                    <img class="scroll-img">
-                    <img class="scroll-img">
-                    </div>
-                    <div class="scroll-up"><i class="fas fa-angle-down"></i></div>
-                    </div>
-                </div> 
+                <jsp:include page="quickmenu.jsp"></jsp:include>
                 <section id="main-section-1" class="main-blank">
                     <ul>
-                        <li>
-                            <div class="main249-320"></div>
-                            <p class="main-product-name">캔들 이름</p>
-                            <p class="main-product-price">140,000</p>
-                        </li>
-                        <li>
-                            <div class="main249-320"></div>
-                            <p class="main-product-name">캔들 이름</p>
-                            <p class="main-product-price">140,000</p>
-                        </li>
-                        <li>
-                            <div class="main249-320"></div>
-                            <p class="main-product-name">캔들 이름</p>
-                            <p class="main-product-price">140,000</p>
-                        </li>
-                        <li>
-                            <div class="main249-320"></div>
-                            <p class="main-product-name">캔들 이름</p>
-                            <p class="main-product-price">140,000</p>
-                        </li>
+                        <c:if test="${not empty candle }">
+                            <c:forEach var="vo" items="${candle }" varStatus="s">
+                                <li><img src="${ p_img}" class="main249-320" onclick="location.href='productsession?productaddr1=${vo.p_title }&productimg1=${vo.p_price }';">
+                                    <p class="main-product-name">${vo.p_title }</p>
+                                    <p class="main-product-price">${vo.p_price }</p>
+                                </li>
+                            </c:forEach>
+                        </c:if>
                     </ul>
                     <div class="main-blank-66"></div>
                     <div class="main-move-links">캔들 전체보기</div>
                 </section>
-                <section class="main-section-title">
-                </section>
+                <section class="main-section-title"></section>
                 <section id="main-section-2" class="main-blank">
                     <div id="main-section-2-left">
                         <span>Difuser</span>
-                        <p>-<br> 향기가 아주 좋습니다.
+                        <p>
+                            -<br> 향기가 아주 좋습니다.
                         </p>
                         <div class="main-section-2-link">디퓨져 전체보기</div>
                     </div>
                     <ul>
-                        <li>
-                            <div class="main338-434"></div>
-                            <p class="main-product-name-3">디퓨져 이름</p>
-                            <p class="main-product-price-3">140,000</p>
-                        </li>
-                        <li>
-                            <div class="main338-434"></div>
-                            <p class="main-product-name-3">디퓨져 이름</p>
-                            <p class="main-product-price-3">140,000</p>
-                        </li>
+                        <c:if test="${not empty difuser }">
+                            <c:forEach var="vo" items="${difuser }" varStatus="s">
+                                <li>
+                                    <div class="main338-434" onclick="location.href='productsession?product=${vo.p_title }';"></div>
+                                    <p class="main-product-name-3">${vo.p_title }</p>
+                                    <p class="main-product-price-3">${vo.p_price }</p>
+                                </li>
+                            </c:forEach>
+                        </c:if>
                     </ul>
                 </section>
                 <section class="main-section-title">
@@ -450,21 +386,15 @@
                 </section>
                 <section id="main-section-3" class="main-blank">
                     <ul>
-                        <li>
-                            <div class="main338-338"></div>
-                            <p class="main-product-name-2">향수 이름</p>
-                            <p class="main-product-price-2">140,000</p>
-                        </li>
-                        <li>
-                            <div class="main338-338"></div>
-                            <p class="main-product-name-2">향수 이름</p>
-                            <p class="main-product-price-2">140,000</p>
-                        </li>
-                        <li>
-                            <div class="main338-338"></div>
-                            <p class="main-product-name-2">향수 이름</p>
-                            <p class="main-product-price-2">140,000</p>
-                        </li>
+                        <c:if test="${not empty perfume }">
+                            <c:forEach var="vo" items="${perfume }" varStatus="s">
+                                <li>
+                                    <div class="main338-338"></div>
+                                    <p class="main-product-name-2">${vo.p_title }</p>
+                                    <p class="main-product-price-2">${vo.p_price }</p>
+                                </li>
+                            </c:forEach>
+                        </c:if>
                     </ul>
                     <div class="main-blank-72"></div>
                     <div class="main-move-links">향수 전체보기</div>
@@ -475,26 +405,15 @@
                 </section>
                 <section id="main-section-4" class="main-blank">
                     <ul>
-                        <li>
-                            <div class="main249-320"></div>
-                            <p class="main-product-name">크림 이름</p>
-                            <p class="main-product-price">140,000</p>
-                        </li>
-                        <li>
-                            <div class="main249-320"></div>
-                            <p class="main-product-name">크림 이름</p>
-                            <p class="main-product-price">140,000</p>
-                        </li>
-                        <li>
-                            <div class="main249-320"></div>
-                            <p class="main-product-name">크림 이름</p>
-                            <p class="main-product-price">140,000</p>
-                        </li>
-                        <li>
-                            <div class="main249-320"></div>
-                            <p class="main-product-name">크림 이름</p>
-                            <p class="main-product-price">140,000</p>
-                        </li>
+                        <c:if test="${not empty bodycream }">
+                            <c:forEach var="vo" items="${bodycream }" varStatus="s">
+                                <li>
+                                    <div class="main249-320"></div>
+                                    <p class="main-product-name">${vo.p_title }</p>
+                                    <p class="main-product-price">${vo.p_price }</p>
+                                </li>
+                            </c:forEach>
+                        </c:if>
                     </ul>
                     <div class="main-blank-66"></div>
                     <div class="main-move-links">크림 전체보기</div>

@@ -1,10 +1,13 @@
 package com.kkkj.eaude.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kkkj.eaude.domain.MainVO;
+import com.kkkj.eaude.domain.Product;
 
 @Repository("maDao")
 public class MainDao {
@@ -60,6 +63,31 @@ public class MainDao {
 
 	public int changepw(MainVO vo) {
 		return sqlSession.update("Main.changepw", vo);
+	}
+
+
+	public int insertMemberAddr(MainVO vo) {
+		return sqlSession.insert("Main.insertMemberAddr", vo);
+	}
+
+
+	public List<Product> showMainCandle() {
+		return sqlSession.selectList("MainProduct.showMainCandle");
+	}
+
+
+	public List<Product> showMainDifuser() {
+		return sqlSession.selectList("MainProduct.showMainDifuser");
+	}
+
+
+	public List<Product> showMainPerfume() {
+		return sqlSession.selectList("MainProduct.showMainPerfume");
+	}
+
+
+	public List<Product> showMainBodyCream() {
+		return sqlSession.selectList("MainProduct.showMainBodyCream");
 	}
 
 
