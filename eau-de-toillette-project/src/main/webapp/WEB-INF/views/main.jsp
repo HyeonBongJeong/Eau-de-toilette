@@ -350,15 +350,15 @@
                     <ul>
                         <c:if test="${not empty candle }">
                             <c:forEach var="vo" items="${candle }" varStatus="s">
-                                <li><img src="${ p_img}" class="main249-320" onclick="location.href='productsession?productaddr1=${vo.p_title }&productimg1=${vo.p_price }';">
-                                    <p class="main-product-name">${vo.p_title }</p>
+                                <li><img src="${ p_img}" class="main249-320" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
+                                    <p class="main-product-name" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">${vo.p_title }</p>
                                     <p class="main-product-price">${vo.p_price }</p>
                                 </li>
                             </c:forEach>
                         </c:if>
                     </ul>
                     <div class="main-blank-66"></div>
-                    <div class="main-move-links">캔들 전체보기</div>
+                    <div class="main-move-links" onclick="location.href='productlist.do?p_type=c';">캔들 전체보기</div>
                 </section>
                 <section class="main-section-title"></section>
                 <section id="main-section-2" class="main-blank">
@@ -367,14 +367,14 @@
                         <p>
                             -<br> 향기가 아주 좋습니다.
                         </p>
-                        <div class="main-section-2-link">디퓨져 전체보기</div>
+                        <div class="main-section-2-link" onclick="location.href='productlist.do?p_type=d';">디퓨져 전체보기</div>
                     </div>
                     <ul>
                         <c:if test="${not empty difuser }">
                             <c:forEach var="vo" items="${difuser }" varStatus="s">
                                 <li>
-                                    <div class="main338-434" onclick="location.href='productsession?product=${vo.p_title }';"></div>
-                                    <p class="main-product-name-3">${vo.p_title }</p>
+                                    <img src="${ p_img}" class="main338-434" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
+                                    <p class="main-product-name-3" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">${vo.p_title }</p>
                                     <p class="main-product-price-3">${vo.p_price }</p>
                                 </li>
                             </c:forEach>
@@ -389,15 +389,15 @@
                         <c:if test="${not empty perfume }">
                             <c:forEach var="vo" items="${perfume }" varStatus="s">
                                 <li>
-                                    <div class="main338-338"></div>
-                                    <p class="main-product-name-2">${vo.p_title }</p>
+                                    <img src="${ p_img}" class="main338-338" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
+                                    <p class="main-product-name-2" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">${vo.p_title }</p>
                                     <p class="main-product-price-2">${vo.p_price }</p>
                                 </li>
                             </c:forEach>
                         </c:if>
                     </ul>
                     <div class="main-blank-72"></div>
-                    <div class="main-move-links">향수 전체보기</div>
+                    <div class="main-move-links" onclick="location.href='productlist.do?p_type=p';">향수 전체보기</div>
 
                 </section>
                 <section class="main-section-title">
@@ -408,15 +408,15 @@
                         <c:if test="${not empty bodycream }">
                             <c:forEach var="vo" items="${bodycream }" varStatus="s">
                                 <li>
-                                    <div class="main249-320"></div>
-                                    <p class="main-product-name">${vo.p_title }</p>
+                                    <img src="${ p_img}" class="main249-320" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
+                                    <p class="main-product-name" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">${vo.p_title }</p>
                                     <p class="main-product-price">${vo.p_price }</p>
                                 </li>
                             </c:forEach>
                         </c:if>
                     </ul>
                     <div class="main-blank-66"></div>
-                    <div class="main-move-links">크림 전체보기</div>
+                    <div class="main-move-links" onclick="location.href='productlist.do?p_type=b';">크림 전체보기</div>
                 </section>
             </div>
             <jsp:include page="footer.jsp"></jsp:include>

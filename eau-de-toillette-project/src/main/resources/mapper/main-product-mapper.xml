@@ -16,7 +16,7 @@
 	</resultMap>
 	<select id="showMainCandle" resultType="arraylist"
 		resultMap="resultProduct">
-		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type
+		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type, p_id
 		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
 		'([0-9]{3})','\1,')), '^,','') AS p_price
 		from product where p_type='c' order by dbms_random.value ) a) where rnum
@@ -24,7 +24,7 @@
 	</select>
 	<select id="showMainDifuser" resultType="arraylist"
 		resultMap="resultProduct">
-		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type
+		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type, p_id
 		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
 		'([0-9]{3})','\1,')), '^,','') AS p_price
 		from product where p_type='d' order by dbms_random.value ) a) where rnum
@@ -32,7 +32,7 @@
 	</select>
 	<select id="showMainPerfume" resultType="arraylist"
 		resultMap="resultProduct">
-		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type
+		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type, p_id
 		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
 		'([0-9]{3})','\1,')), '^,','') AS p_price
 		from product where p_type='p' order by dbms_random.value ) a) where rnum
@@ -40,7 +40,7 @@
 	</select>
 	<select id="showMainBodyCream" resultType="arraylist"
 		resultMap="resultProduct">
-		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type
+		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type, p_id
 		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
 		'([0-9]{3})','\1,')), '^,','') AS p_price
 		from product where p_type='b' order by dbms_random.value ) a) where rnum

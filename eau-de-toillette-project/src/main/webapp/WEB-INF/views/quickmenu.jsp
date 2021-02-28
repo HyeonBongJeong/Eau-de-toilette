@@ -144,7 +144,7 @@
                         <div id="scroll-img-con" class="scroll-img-con">
                             <ul>
                                 <c:forEach var="vo" items="${ productsessionaddr}" varStatus="s">
-                                    <li><img class="scroll-img" src="${productsessionimg[s.index] }" onclick="location.href='${vo}';"></li>
+                                    <li><img class="scroll-img" src="${productsessionimg[s.index] }" onclick="location.href='productsession?productimg1=${productsessionimg[s.index] }&p_id=${vo }';"></li>
                                 </c:forEach>
                             </ul>
                         </div>

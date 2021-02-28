@@ -37,23 +37,13 @@ public class MainController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public ModelAndView test(HttpServletRequest request, ModelAndView mv) {
-		logger.info("main start");
-		HttpSession session = request.getSession();
-		String my_name = (String) session.getAttribute("my_name");
-		mv.addObject("regInfo", mService.regInfo(my_name));
-		mv.setViewName("test");
-		return mv;
-	}
-
 	@RequestMapping(value = "/productsession")
-	public String productsession(String productaddr1, String productimg1, HttpSession session,
+	public String productsession(String productimg1, HttpSession session, String p_id,
 			HttpServletRequest request) {
 		try {
 			ArrayList<String> productsessionaddr = (ArrayList)session.getAttribute("productsessionaddr");
 			ArrayList<String> productsessionimg = (ArrayList)session.getAttribute("productsessionimg");
-			String addr = request.getParameter("productaddr1");
+			String addr = request.getParameter("p_id");
 			String img = request.getParameter("productimg1");
 			if(productsessionaddr==null&&productsessionimg==null) {
 				productsessionaddr = new ArrayList<String>();
@@ -66,12 +56,12 @@ public class MainController {
 
 			System.out.println(productsessionaddr);
 			System.out.println(productsessionimg);
-			System.out.println(productaddr1);
+			System.out.println(p_id);
 			System.out.println(productimg1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/test";
+		return "redirect:/product_detail.do?p_id="+p_id;
 	}
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -300,46 +290,6 @@ public class MainController {
 		return "redirect:/login";
 	}
 
-//	// 문자를 보낼때 맵핑되는 메소드
-//	@RequestMapping(value = "/sendSms")
-//	public String sendSms(HttpServletRequest request) throws Exception {
-//
-//		String api_key = "NCS0VWZPZQPVXEXX"; // 위에서 받은 api key를 추가
-//		String api_secret = "DKTPX4RYWG5GEDPL6DMRRNKOJMATK24X"; // 위에서 받은 api secret를 추가
-//
-//		Coolsms coolsms = new Coolsms(api_key, api_secret);
-//
-//		HashMap<String, String> set = new HashMap<String, String>();
-//		set.put("to", (String) request.getParameter("to")); // 수신번호
-//
-//		set.put("from", "01083595008"); // 발신번호, jsp에서 전송한 발신번호를 받아 map에 저장한다.
-//		set.put("text", "안녕하세요 인증번호는 [" + (String) request.getParameter("text") + "]입니다"); // 문자내용, jsp에서 전송한 문자내용을 받아
-//																							// map에 저장한다.
-//		set.put("type", "sms"); // 문자 타입
-//
-//		System.out.println(set);
-//
-//		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
-//
-//		if ((boolean) result.get("status") == true) {
-//
-//			// 메시지 보내기 성공 및 전송결과 출력
-//			System.out.println("성공");
-//			System.out.println(result.get("group_id")); // 그룹아이디
-//			System.out.println(result.get("result_code")); // 결과코드
-//			System.out.println(result.get("result_message")); // 결과 메시지
-//			System.out.println(result.get("success_count")); // 메시지아이디
-//			System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
-//		} else {
-//
-//			// 메시지 보내기 실패
-//			System.out.println("실패");
-//			System.out.println(result.get("code")); // REST API 에러코드
-//			System.out.println(result.get("message")); // 에러메시지
-//		}
-//
-//		return "member/number"; // 문자 메시지 발송 성공했을때 number페이지로 이동함
-//	}
 
 	@RequestMapping(value = "/mailSender")
 	public ModelAndView mailSender(HttpServletRequest request, ModelMap mo, ModelAndView mv,
