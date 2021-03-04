@@ -52,4 +52,20 @@ public interface MypageService {
 
 	List<Member> getRegCount();
 
+	List<Purchasehistory> getOrderCount();
+
+	int totalOrderCount();
+
+	List<Purchasehistory> manage_Order(int currentPage, int limit);
+
+	List<Purchasehistory> myPageOrderListYear(String year, String id);
+
+	List<Purchasehistory> myPageOrderDetailList(Purchasehistory ph);
+
+	int myPageManageOrderChangeStatus(Purchasehistory ph);
+
+	int myPageManageOrderCancle(Purchasehistory ph);
+
+	String manageChk(String my_name);
+
 }

@@ -94,11 +94,11 @@
 	                            <tr class="mypage_passChk_tr">
 	                                <td class="mypage_passChk_td_label">아이디</td>
 	                                <!-- 여기 인풋값 세션값들어가야함 -->
-	                                <td class="mypage_passChk_td_input"><input class="mypage_passChk_td_input_single" type="text" name="id" value="whb1026" readonly="readonly"></td>
+	                                <td class="mypage_passChk_td_input"><input class="mypage_passChk_td_input_single" type="text" name="id" value="${my_name }" readonly="readonly"></td>
 	                            </tr>
 	                            <tr class="mypage_passChk_tr">
 	                                <td  class="mypage_passChk_td_label">비빌번호</td>
-	                                <td  class="mypage_passChk_td_input"><input class="mypage_passChk_td_input_single" type="text" name="password"></td>
+	                                <td  class="mypage_passChk_td_input"><input class="mypage_passChk_td_input_single" type="password" name="password"></td>
 	                            </tr>
 	                        </table>
 	                        <hr id="form-bottom">

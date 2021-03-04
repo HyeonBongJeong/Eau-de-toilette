@@ -28,12 +28,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kkkj.eaude.domain.MainVO;
+import com.kkkj.eaude.domain.Member;
 import com.kkkj.eaude.service.MainService;
+import com.kkkj.eaude.service.MypageService;
 
 @Controller
 public class MainController {
 	@Autowired
 	private MainService mService;
+	@Autowired
+	private MypageService myService;
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -65,10 +69,14 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public ModelAndView main(HttpServletRequest request, ModelAndView mv) {
+	public ModelAndView main(HttpServletRequest request, ModelAndView mv, Member m) {
 		logger.info("main start");
 		HttpSession session = request.getSession();
 		String my_name = (String) session.getAttribute("my_name");
+		if(my_name != null) {
+			String manageChk = myService.manageChk(my_name);
+			mv.addObject("manageChk", manageChk);			
+		}
 		mv.addObject("regInfo", mService.regInfo(my_name));
 		mv.addObject("candle", mService.showMainCandle());
 		mv.addObject("difuser", mService.showMainDifuser());

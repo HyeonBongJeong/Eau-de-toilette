@@ -357,7 +357,7 @@ public class ProductController {
 		//상품 구매시 멤버 등급 올려주는 부분 끝
 		//상품금액 담기는 부분
 		 String allPrice = price+"원";
-		vo.setPh_allpoint(allPrice);
+		vo.setPh_allprice(allPrice);
 		 //상품금액 담기는 부분 끝
 		vo.setM_id(id);
 		vo.setP_id(p_id);

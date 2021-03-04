@@ -100,6 +100,9 @@ width: 100px; height:34px;  line-height:34px; color:#5f0080; font-size:12px; flo
 .ph-main-qna-a{
 width: 100px; height:34px;  line-height:34px; color:#5f0080; font-size:12px; float: right; text-align:center;
 }
+.ph-all-order-list-end{
+	margin-bottom: 100px;
+}
       /*마이페이지 종료*/
 </style>
 </head>
@@ -131,7 +134,7 @@ width: 100px; height:34px;  line-height:34px; color:#5f0080; font-size:12px; flo
                     <div style="display: inline; font-size: 12px; color: #999; margin-left: 20px;">지난 3년간의 주문 내역 조회가 가능합니다.</div>
 					
 					<div style="float: right;">
-						<div class="none_click ul-font">전체기간<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;"></div>
+						<div class="none_click ul-font"><span class="serch-year">전체기간</span><img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;"></div>
 						<ul class="order-ul">
 							<li class="order-li ul-font all order-li-choose">전체기간</li>
 							<li class="order-li ul-font year1"></li>
@@ -142,38 +145,56 @@ width: 100px; height:34px;  line-height:34px; color:#5f0080; font-size:12px; flo
 					
                     <br>
                     <hr style="background-color: black; height: 1px; margin-top: 30px;">
-                    <div class="ph-date">2020.09.03</div>
-                    <div class="ph-section">
-                    	<div class="ph-body">
-                    		<div class="ph-header">
-		                    	<a href="#" onclick="location.href='/eaude/myPageOrderDetail.do'">
-	                    		[캔들] 양키캔들 외 4건
-	                    		<img src="https://res.kurly.com/pc/ico/1806/ico_arrow_10x15.png">
-			                    </a>
-                    		</div>
-                    		<div class="ph-main">
-                    		<div class="ph-main-left">
-                    		<div class="ph-main-img">	
-                    			<img src = "" alt="안녕하세요">
-                    		</div>
-                    		<div class="ph-main-info">
-	                    		<div class="ph-main-info-text">[캔들]양키캔들</div>
-	                    		<div class="ph-main-infos" style="margin-top: 5px;">주문번호&nbsp;&nbsp;<span>1236548</span></div>
-	                    		<div class="ph-main-infos">결제금액&nbsp;&nbsp;<span>20565원</span></div>
-	                    		<div class="ph-main-infos">주문상태&nbsp;&nbsp;<span>미확인</span></div>
-                    		</div>
-                    		</div>
-                    		
-                    		<div class="ph-main-right">
-                    			<div class="ph-main-qna"><a class="ph-main-qna-a" href="#" onclick="location.href=''">1:1 문의</a></div>
-                    		</div>
-                    		</div>
-                    	</div>
-                    </div>
+                    <div class="ph-order-list">
+                    <c:if test="${not empty phList }">
+                    <c:forEach items="${phList }" varStatus="s" var="vo">
+	                    <div class="ph-all-order-list">
+	                    <div class="ph-date">${vo.ph_date }</div>
+	                    <div class="ph-section">
+	                    	<div class="ph-body">
+	                    		<div class="ph-header">
+			                    	<a href="#" onclick="location.href='/eaude/myPageOrderDetail.do?ph_ordernum=${vo.ph_ordernum}'">
+		                    		<c:if test="${vo.p_type eq 'c'}">[캔들]</c:if>
+		                    		<c:if test="${vo.p_type eq 'd'}">[디퓨저]</c:if>
+		                    		<c:if test="${vo.p_type eq 'b'}">[바디]</c:if>
+		                    		<c:if test="${vo.p_type eq 'p'}">[향수]</c:if>
+		                    		<c:if test="${vo.p_type eq 'e'}">[e.t.c]</c:if> ${vo.p_title} 외 ${vo.ph_count} 건
+		                    		<img src="https://res.kurly.com/pc/ico/1806/ico_arrow_10x15.png">
+				                    </a>
+	                    		</div>
+	                    		<div class="ph-main">
+	                    		<div class="ph-main-left">
+	                    		<div class="ph-main-img">	
+	                    			<img src = "${pageContext.request.contextPath}/resources/images/defaultChk.png" alt="안녕하세요">
+	                    		</div>
+	                    		<div class="ph-main-info">
+		                    		<div class="ph-main-info-text">
+		                    		<c:if test="${vo.p_type eq 'c'}">[캔들]</c:if>
+								    <c:if test="${vo.p_type eq 'd'}">[디퓨저]</c:if>
+									<c:if test="${vo.p_type eq 'b'}">[바디]</c:if>
+									<c:if test="${vo.p_type eq 'p'}">[향수]</c:if>
+									<c:if test="${vo.p_type eq 'e'}">[e.t.c]</c:if>${vo.p_title}</div>
+		                    		<div class="ph-main-infos" style="margin-top: 5px;">주문번호&nbsp;&nbsp;<span>${vo.ph_ordernum}</span></div>
+		                    		<div class="ph-main-infos">결제금액&nbsp;&nbsp;<span>${vo.ph_allprice}</span></div>
+		                    		<div class="ph-main-infos">주문상태&nbsp;&nbsp;<span>${vo.ph_status}</span></div>
+	                    		</div>
+	                    		</div>
+	                    		
+	                    		<div class="ph-main-right">
+	                    			<div class="ph-main-qna"><a class="ph-main-qna-a" href="#" onclick="location.href=''">1:1 문의</a></div>
+	                    		</div>
+	                    		</div>
+	                    	</div>
+	                    </div>
+	                    </div>                    
+                    </c:forEach>
+                    </c:if>
+					</div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="ph-all-order-list-end"></div>
  <jsp:include page="footer.jsp"></jsp:include>
  <script>
  
@@ -206,13 +227,80 @@ width: 100px; height:34px;  line-height:34px; color:#5f0080; font-size:12px; flo
 			var getYear = $(this).text();
 			var yearSplit = getYear.split(' ');
 			var year = yearSplit[0];
-			console.log(year);
+			$('.serch-year').text('');
+			$('.serch-year').text(getYear);
 			$('.order-li').css('background-color', 'white');
 			$(this).css('background-color', '#f7f7f7');
 			click=false;
 			$('.click').css('transform','rotate( 90deg )');
 			$('.order-ul').slideUp(300);
 			/*년도별 주문내역 가져오는 ajax*/
+			 $.ajax({
+				 url : "${pageContext.request.contextPath}/myPageOrderListYear.do",
+			     type : 'POST',
+			     dataType : 'json',
+			     data : {
+			    	 year: year,
+			        	
+			        },
+				 success : function(data) {
+					 console.log('성공');
+					 console.log(data.orderList.length);
+					 if(data.orderList.length>0){
+						 var type;
+						 $('.ph-order-list').empty();
+						 for(var i = 0; i < data.orderList.length; i++){
+							 console.log(data.orderList[i].p_type)
+							 if(data.orderList[i].p_type == 'c'){
+									type = '[캔들]'	
+									}else if(data.orderList[i].p_type == 'd'){
+										type = '[디퓨저]'
+									}else if(data.orderList[i].p_type == 'b'){
+										type = '[바디]'
+									}else if(data.orderList[i].p_type == 'p'){
+										type = '[향수]'
+									}else if(data.orderList[i].p_type == 'e'){
+										type = '[e.t.c]'
+									}
+						 $('.ph-order-list').append(
+								 '<div class="ph-all-order-list">'
+				                +'    <div class="ph-date">'+data.orderList[i].ph_date+'</div>'
+				                +'    <div class="ph-section">'
+				                +'    	<div class="ph-body">'
+				                +'    		<div class="ph-header">'
+						        +'            	<a href="#" onclick="location.href=\'/eaude/myPageOrderDetail.do?ph_ordernum ='+ data.orderList[i].ph_ordernum+'\'">'
+					            + type + data.orderList[i].p_title+' 외 '+data.orderList[i].ph_count+' 건'
+					            +'        		<img src="https://res.kurly.com/pc/ico/1806/ico_arrow_10x15.png">'
+							    +'                </a>'
+				                +'    		</div>'
+				                +'    		<div class="ph-main">'
+				                +'    		<div class="ph-main-left">'
+				                +'    		<div class="ph-main-img">'
+				                +'    			<img src = "${pageContext.request.contextPath}/resources/images/defaultChk.png" alt="'+data.orderList[i].p_img+'">'
+				                +'    		</div>'
+				                +'    		<div class="ph-main-info">'
+					            +'        		<div class="ph-main-info-text">'
+								+ type +data.orderList[i].p_title+'</div>'
+					            +'        		<div class="ph-main-infos" style="margin-top: 5px;">주문번호&nbsp;&nbsp;<span>'+data.orderList[i].ph_ordernum+'</span></div>'
+					            +'        		<div class="ph-main-infos">결제금액&nbsp;&nbsp;<span>'+data.orderList[i].ph_allprice+'</span></div>'
+					            +'        		<div class="ph-main-infos">주문상태&nbsp;&nbsp;<span>'+data.orderList[i].ph_status+'</span></div>'
+				                +'    		</div>'
+				                +'    		</div>'
+				                +'    		<div class="ph-main-right">'
+				                +'   			<div class="ph-main-qna"><a class="ph-main-qna-a" href="#" onclick="location.href=">1:1 문의</a></div>'
+				                +'    		</div>'
+				                +'    		</div>'
+				                +'    	</div>'
+				                +'    </div>'
+				                +'    </div>');
+						 }
+					 }else{
+						 $('.ph-order-list').empty();
+						 $('.ph-order-list').append('<div style="width:100%; text-align:center; margin-top:50px; color:#999; font-weight:700; font-size:20px;">구매내역이 없습니다.<div>');
+					 }
+					
+				 },
+			});   
 		})
 })
 

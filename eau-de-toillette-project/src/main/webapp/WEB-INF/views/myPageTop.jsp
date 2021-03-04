@@ -119,7 +119,6 @@
             height: 10px; 
             font-size: 25px; 
             color: #5f0080;
-            cursor: pointer;
         }
 
         #point > img{
@@ -204,7 +203,23 @@
         #realpoint{
         font-size: 25px; 
         color: #5f0080;
-        cursor: pointer;
+        display: inline;
+        }
+        #realpoint > img{
+        display: inline;
+        }
+        .grades > span{
+        font-size: 12px; color:#ddd;
+        }
+        .click{
+        width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;
+        }
+        .now-grade-div{
+        width:700px; margin: 0 auto; text-align: center;
+        }
+        
+        #now-grade{
+        color: #5f0080; font-weight: 700; font-size: 18px;  text-align: center;
         }
 </style>
 </head>
@@ -218,7 +233,7 @@
                         <div id="info-body">
                             <div id="info-name"><p id="info_realname"></p><span>님</span></div>
                             <input type="hidden" name="info-id">
-                            <div id="info-point-grade">적립<span>   0.5%</span></div>
+                            <div id="info-point-grade">적립&nbsp;&nbsp;&nbsp;<span id="info-point-grade-span"></span></div>
                         </div>
                     </div>
                     <div id="simple-info">
@@ -227,14 +242,14 @@
 						  <h3>회원등급 정보입니다.</h3>
 						  <hr style="margin: 20px 0px 20px 0px; ">
 						  <div style="width:700px; margin: 0 auto; text-align: center;">
-						  <div class="grades">샤워코롱&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 1%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;">
-						  <div class="grades">오드코롱&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 2%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;">
-						  <div class="grades">뚜알레&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 3%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;">
-						  <div class="grades">오드퍼퓸&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 4%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;">
-						  <div class="grades">퍼퓸&nbsp;<span style="font-size: 12px; color:#ddd; ">적립 5%</span></div>
+						  <div class="grades">샤워코롱&nbsp;<span>적립 1%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png">
+						  <div class="grades">오드코롱&nbsp;<span>적립 2%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png">
+						  <div class="grades">뚜알레&nbsp;<span>적립 3%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png">
+						  <div class="grades">오드퍼퓸&nbsp;<span>적립 4%</span></div>&nbsp;&nbsp;<img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png">
+						  <div class="grades">퍼퓸&nbsp;<span>적립 5%</span></div>
 						  </div>
-						  <div style="width:700px; margin: 0 auto; text-align: center;">회원님의 현재 등급은 <span id="now-grade" style="color: #5f0080; font-weight: 700; font-size: 18px;"></span>입니다.</div>
-						  <div style="width:700px; margin: 0 auto; text-align: center;">회원님께서 다음 등급으로 승급 하시기까지 <span id="leastPoint"></span>P 남았습니다.</div>
+						  <div class="now-grade-div">회원님의 현재 등급은 <span id="now-grade"></span>입니다.</div>
+						  <div class="now-grade-div">회원님께서 다음 등급으로 승급 하시기까지 <span id="leastPoint"></span>P 남았습니다.</div>
 						  <a href="#" rel="modal:close"></a>
 						</div>
 						 
@@ -250,8 +265,8 @@
                            	 적립금 
                         </div>
                         <div id="point">
-                            <div id="realpoint" style="display: inline"></div>
-                            <img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="display: inline">
+                            <div id="realpoint"></div>
+                            <img src ="${pageContext.request.contextPath}/resources/images/point-right.png">
                         </div>
                        
 
@@ -284,6 +299,7 @@
    				$('#realpoint').html(data.loginMember[0].m_point+'원');
    				$('#now-grade').text(data.loginMember[0].m_grade);
    				$('#leastPoint').text(data.leastPoint);
+   				$('#info-point-grade-span').text(data.point);
    				
    				
    			}

@@ -30,6 +30,7 @@ import com.kkkj.eaude.common.Coolsms;
 import com.kkkj.eaude.domain.Member;
 import com.kkkj.eaude.domain.Purchasehistory;
 import com.kkkj.eaude.domain.ShoppingDestination;
+import com.kkkj.eaude.service.MainService;
 import com.kkkj.eaude.service.MypageService;
 
 
@@ -38,42 +39,53 @@ public class MyPageController {
 
 	@Autowired
 	private MypageService myService;
+	@Autowired
+	private MainService mService;
 	
-	public static final int LIMIT = 15;
+	public static final int LIMIT = 10;
 	
 	//마이페이지 개인정보 수정 비밀번호 확인 메서드
 	@RequestMapping(value = "/myPageTop.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> myPageTop(HttpServletRequest request, HttpServletResponse response, Member m) {
+	public Map<String, Object> myPageTop(HttpServletRequest request,HttpSession session , HttpServletResponse response, Member m) {
 		//String loginId = (String) session.getAttribute("loginId");
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Member> list = new ArrayList<Member>();
+		String id = (String) session.getAttribute("my_name");
 		try {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
-			m.setM_id("whb1026");
+			m.setM_id(id);
 			list = myService.myPageTop(m);
 			String grade = list.get(0).getM_grade();
 			int allPoint = list.get(0).getM_allpoint();
 			int leastPoint = 0;
+			String point = null;
 			if(grade.equals("샤워코롱") ) {
 				leastPoint = 0;
+				point = "1%";
 			}else if(grade.equals("오드코롱")) {
 				leastPoint = 10000-allPoint;
+				point = "2%";
 			}else if(grade.equals("뚜알레")) {
 				leastPoint = 50000-allPoint;
+				point = "3%";
 				
 			}else if(grade.equals("오드퍼퓸")) {
 				leastPoint = 100000-allPoint;
+				point = "4%";
 				
 			}else if(grade.equals("퍼퓸")) {
 				leastPoint = 0;
+				point = "5%";
 				
-			}		
+			}	
+			
 			
 				
 			map.put("loginMember", list);
 			map.put("leastPoint", leastPoint);
+			map.put("point", point);
 		} catch (UnsupportedEncodingException e) {
 			map.put("fail", "실패");
 			e.printStackTrace();
@@ -81,11 +93,18 @@ public class MyPageController {
 		
 		return map;
 	}
+
 	
 	//마이페이지 개인정보 수정 화면 이동 메서드
 	@RequestMapping(value = "/myPageInfo.do", method = RequestMethod.GET)
 	public ModelAndView myPageInfo(ModelAndView mv, HttpSession session) {
-		//String loginId = (String) session.getAttribute("loginId");
+		String id = (String) session.getAttribute("my_name");
+		if(id != null) {
+			String manageChk = myService.manageChk(id);
+			mv.addObject("manageChk", manageChk);			
+		}
+		mv.addObject("regInfo", mService.regInfo(id));
+		mv.addObject("myname", id);
 		mv.setViewName("/mypage_info");
 		return mv;
 	}
@@ -103,13 +122,14 @@ public class MyPageController {
 	@RequestMapping(value ="/mypage_update.do", method = RequestMethod.POST)
 	public ModelAndView mypage_update(ModelAndView mv, Member m, HttpSession session, 
 			@RequestParam(name="id") String id) {
-		//String loginId = (String) session.getAttribute("loginId");
 		m.setM_id(id);
+		if(id != null) {
+			String manageChk = myService.manageChk(id);
+			mv.addObject("manageChk", manageChk);			
+		}
 		List<Member> list = new ArrayList<Member>();
 		list = myService.mypage_update(m);
-		System.out.println(list);
 		mv.addObject("sessionList", list);
-		System.out.println(mv);
 		mv.setViewName("/mypage_update");
 		return mv;
 	}
@@ -119,7 +139,6 @@ public class MyPageController {
 			public Object myPageEmailChk(HttpServletRequest request, HttpServletResponse response, Member m) {
 				int result = 0;
 				result = myService.myPageEmailChk(m);
-				System.out.println(myService.myPageEmailChk(m));
 				
 				return result;
 				
@@ -180,8 +199,10 @@ public class MyPageController {
 					@RequestParam(name="year" , required = false) String year,
 					@RequestParam(name="month" , required = false) String month,
 					@RequestParam(name="date" , required = false) String date) {
-				//String loginId = (String) session.getAttribute("loginId");
-				
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
 				//다 널값일때
 				m.setM_id(id);
 				if(password.equals("") && pass_chk.equals("0") && email_chk.equals("0") && phone_chk.equals("0") && gender.equals("none") && year.equals("") && month.equals("") && date.equals("") ) {
@@ -232,23 +253,143 @@ public class MyPageController {
 			//마이페이지 구매내역 이동 메서드
 			@RequestMapping(value = "/myPageOrderList.do", method = RequestMethod.GET)
 			public ModelAndView myPageOrderList(ModelAndView mv, HttpSession session, Purchasehistory ph) {
-				//String loginId = (String) session.getAttribute("loginId");
-				String id = "GJWoon";
+				String id = (String) session.getAttribute("my_name");
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
 				ph.setM_id(id);
 				List<Purchasehistory> list = new ArrayList<Purchasehistory>();
+				int count = 0;
 				list = myService.myPageOrderList(ph);
-				System.out.println(list);
-				mv.addObject("ph-list",list);
+				for(int i =0; i<list.size(); i++) {					
+					String phDate = list.get(i).getPh_date().substring(0, 10);
+					list.get(i).setPh_date(phDate);
+					
+				}
+				mv.addObject("regInfo", mService.regInfo(id));
+				mv.addObject("phList",list);
 				mv.setViewName("/mypage_orderList");
 				return mv;
 			}
-			//마이페이지 구매내역 이동 메서드
+			
+			
+			
+			
+			
+			//연도별 주문내역 메서드
+			@ResponseBody
+			@RequestMapping(value = "/myPageOrderListYear.do", method = RequestMethod.POST)
+			public Map<String, Object> myPageOrderListYear(ModelAndView mv, HttpSession session, HttpServletResponse response,
+															HttpServletRequest request, Purchasehistory ph,
+															@RequestParam(name="year") String year) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					List<Purchasehistory> list = new ArrayList<Purchasehistory>();
+				
+				try {
+					request.setCharacterEncoding("UTF-8");
+					response.setContentType("text/html; charset=UTF-8");
+					//String loginId = (String) session.getAttribute("loginId");
+					String id = (String) session.getAttribute("my_name");
+					if(year.equals("전체기간")) {
+						ph.setM_id(id);
+						list = myService.myPageOrderList(ph);
+						if(list.size() > 0) {
+							for(int i =0; i<list.size(); i++) {					
+								String phDate = list.get(i).getPh_date().substring(0, 10);
+								list.get(i).setPh_date(phDate);
+							}
+						}
+						
+					}else {
+						list = myService.myPageOrderListYear(year,id);
+						if(list.size() > 0) {
+							for(int i =0; i<list.size(); i++) {					
+								String phDate = list.get(i).getPh_date().substring(0, 10);
+								list.get(i).setPh_date(phDate);
+							}
+						}
+					}
+					map.put("orderList", list);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return map;
+			}
+			
+			
+			//마이페이지 상세 구매내역 이동 메서드
 			@RequestMapping(value = "/myPageOrderDetail.do", method = RequestMethod.GET)
-			public ModelAndView myPageOrderDetail(ModelAndView mv, HttpSession session, Purchasehistory ph) {
+			public ModelAndView myPageOrderDetail(ModelAndView mv, HttpSession session,Member m ,Purchasehistory ph, HttpServletRequest request,
+					@RequestParam(name="ph_ordernum") int ph_ordernum) {
 				//String loginId = (String) session.getAttribute("loginId");
-
+				String id = (String) session.getAttribute("my_name");
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
+				int allPrice = 0;
+				List<Member> grade = new ArrayList<Member>();
+				List<Member> mList = new ArrayList<Member>();
+				List<Purchasehistory> list = new ArrayList<Purchasehistory>();
+				m.setM_id(id);
+				mList = myService.myPageTop(m);
+				ph.setPh_ordernum(ph_ordernum);
+				ph.setM_id(id);
+				grade = myService.chkGrade(id);
+				list = myService.myPageOrderDetailList(ph);
+				for(int i =0; i<list.size(); i++) {
+				    allPrice += Integer.parseInt(list.get(i).getPh_allprice().substring(0, list.get(i).getPh_allprice().length()-1));
+				    
+				}
+				String chkGrade = grade.get(0).getM_grade();
+				int addPoint = 0;
+				if(grade.get(0).getM_grade().equals("퍼퓸")) {
+					addPoint = allPrice * 5 / 100;  
+				}else if(grade.get(0).getM_grade().equals("오드퍼퓸")) {
+					addPoint = allPrice * 4 / 100;  
+					
+				}else if(grade.get(0).getM_grade().equals("뚜알렛")) {
+					addPoint = allPrice * 3 / 100;  
+					
+				}else if(grade.get(0).getM_grade().equals("오드코롱")) {
+					addPoint = allPrice * 2 / 100;  
+					
+				}else if(grade.get(0).getM_grade().equals("샤워코롱")) {
+					addPoint = allPrice * 1 / 100;  
+				}
+				
+				
+				mv.addObject("regInfo", mService.regInfo(id));
+				mv.addObject("mList", mList);				
+				mv.addObject("addPoint", addPoint);				
+				mv.addObject("allPrice", allPrice);
+				mv.addObject("ordernum", ph_ordernum);
+				mv.addObject("orderDetailList", list);
 				mv.setViewName("/mypage_orderDetail");
 				return mv;
+			}
+			
+			//마이페이지 회원 주문취소 메서드
+			@ResponseBody
+			@RequestMapping(value = "/myPageOrderCancle.do", method = RequestMethod.POST)
+			public Map<String, Object> myPageManageOrderCancle(ModelAndView mv, HttpSession session, HttpServletResponse response,HttpServletRequest request, Purchasehistory ph) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				int changeStatusResult = 0;
+				
+				try {
+					request.setCharacterEncoding("UTF-8");
+					response.setContentType("text/html; charset=UTF-8");
+					changeStatusResult = myService.myPageManageOrderCancle(ph);
+					if(changeStatusResult == 1) {
+						map.put("message", "주문이 최소되었습니다.");
+					}
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return map;
 			}
 			
 			//마이페이지 배송지 이동 메서드
@@ -256,9 +397,14 @@ public class MyPageController {
 			public ModelAndView mypageShippingDestination(ModelAndView mv, HttpSession session, ShoppingDestination sd) {
 				//String loginId = (String) session.getAttribute("loginId");
 				List<ShoppingDestination> list = new ArrayList<ShoppingDestination>();
-				String id= "whb1026";
+				String id = (String) session.getAttribute("my_name");
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
 				sd.setM_id(id);
 				list = myService.mypageShippingDestination(sd);
+				mv.addObject("regInfo", mService.regInfo(id));
 				mv.addObject("list", list);
 				mv.setViewName("/mypage_shipping_destination");
 				return mv;
@@ -319,7 +465,6 @@ public class MyPageController {
 				sd.setSd_phone(pop_phone);
 				m.setM_id(id);
 				m.setM_addr(addr+" "+pop_detail_addr);
-				System.out.println(sd);
 				myService.mypageAddrUpdate(sd);
 				myService.memberAddrUpdate(m);
 				
@@ -345,7 +490,6 @@ public class MyPageController {
 				int a = 0;
 				List<ShoppingDestination> list = new ArrayList<ShoppingDestination>(); 
 				list = myService.myPageAddrChkNum(sd);
-				System.out.println(list.size());
 				if(list.size() >= 5) {
 					a=1;
 				}else {
@@ -375,12 +519,19 @@ public class MyPageController {
 				mv.setViewName("/mypage_point");
 				return mv;
 			}
+			
 			//마이페이지 관리자 회원관리 메서드
 			@RequestMapping(value = "/myPageManageUser.do", method = RequestMethod.GET)
-			public ModelAndView myPageManageUser(ModelAndView mv, 
+			public ModelAndView myPageManageUser(ModelAndView mv, HttpSession session,
 					@RequestParam(name="page", defaultValue = "1") int page,
 					@RequestParam(name="keyword", required = false) String keyword
 					) {
+				String id = (String) session.getAttribute("my_name");
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
+				mv.addObject("regInfo", mService.regInfo(id));
 				int currentPage = page;
 				// 한 페이지당 출력할 목록 갯수
 				int listCount = 0;
@@ -404,22 +555,39 @@ public class MyPageController {
 			@ResponseBody
 			@RequestMapping(value = "/myPageManageUserDelete.do", method = RequestMethod.POST)
 			public Object myPageManageUserDelete(ModelAndView mv, HttpSession session, HttpServletResponse response, Member m) {
-				System.out.println(m);
 				int result = myService.myPageManageUserDelete(m);
-				System.out.println(result);
 				return result;
 			}
 			
 			
 			//마이페이지 관리자 주문관리 메서드
 			@RequestMapping(value = "/myPageManageOrder.do", method = RequestMethod.GET)
-			public ModelAndView mypage_manager_order(ModelAndView mv, HttpSession session) {
-				//String loginId = (String) session.getAttribute("loginId");
+			public ModelAndView myPageManageOrder(ModelAndView mv,HttpSession session, 
+					@RequestParam(name="page", defaultValue = "1") int page,
+					@RequestParam(name="keyword", required = false) String keyword
+					) {
+				String id = (String) session.getAttribute("my_name");
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
+				mv.addObject("regInfo", mService.regInfo(id));
+				int currentPage = page;
+				// 한 페이지당 출력할 목록 갯수
+				int listCount = 0;
+					listCount = myService.totalOrderCount();
+					mv.addObject("list", myService.manage_Order(currentPage, LIMIT));
+				int maxPage = (int) ((double) listCount / LIMIT + 0.9);
+				mv.addObject("currentPage", currentPage);
+				mv.addObject("maxPage", maxPage);
+				mv.addObject("listCount", listCount);
 				mv.setViewName("/mypage_manager_order");
 				return mv;
 			}
 			
 			
+			
+			//월간 회원 유입 현황 그래프 메서드
 			@ResponseBody
 			@RequestMapping(value = "/myPageMangeUserRegAll.do", method = RequestMethod.POST)
 			public Map<String, Object> myPageMangeUserRegAll(ModelAndView mv, HttpSession session, HttpServletResponse response,HttpServletRequest request, Member m) {
@@ -445,7 +613,70 @@ public class MyPageController {
 				return map;
 			}
 			
-	
+			//월간 주문 현황 그래프 메서드
+			@ResponseBody
+			@RequestMapping(value = "/myPageMangeOrderRegAll.do", method = RequestMethod.POST)
+			public Map<String, Object> myPageMangeOrderRegAll(ModelAndView mv, HttpSession session, HttpServletResponse response,HttpServletRequest request, ShoppingDestination sd) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				List<Purchasehistory> list = new ArrayList<Purchasehistory>();
+				
+				try {
+					request.setCharacterEncoding("UTF-8");
+					response.setContentType("text/html; charset=UTF-8");
+					list = myService.getOrderCount();
+					for(int i = 0; i<list.size(); i++) {
+						String reg_dates = list.get(i).getPh_date();
+						reg_dates = reg_dates.substring(0, 10);
+						reg_dates = reg_dates.replaceAll("-", "");
+						list.get(i).setPh_date(reg_dates);	
+					}
+					
+					map.put("regMember", list);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return map;
+			}
+			
+			
+			//마이페이지 관리자 주문내역 입금 확인 메서드
+			@ResponseBody
+			@RequestMapping(value = "/myPageManageOrderChangeStatus.do", method = RequestMethod.POST)
+			public Map<String, Object> myPageManageOrderChangeStatus(ModelAndView mv, HttpSession session, HttpServletResponse response,HttpServletRequest request, Purchasehistory ph) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				int changeStatusResult = 0;
+				
+				try {
+					request.setCharacterEncoding("UTF-8");
+					response.setContentType("text/html; charset=UTF-8");
+					changeStatusResult = myService.myPageManageOrderChangeStatus(ph);
+					
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return map;
+			}
+			
+			
+			//마이페이지 관리자 이벤트 메서드
+			@RequestMapping(value = "/mypage_manager_event.do", method = RequestMethod.GET)
+			public ModelAndView mypage_manager_event(ModelAndView mv, HttpSession session) {
+				String id = (String) session.getAttribute("my_name");
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
+				mv.addObject("regInfo", mService.regInfo(id));
+				mv.addObject("myname", id);
+				mv.setViewName("/mypage_manager_event");
+				return mv;
+			}
+			
+			
+			
+			
 }
 
 

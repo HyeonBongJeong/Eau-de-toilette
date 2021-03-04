@@ -134,4 +134,44 @@ public class MypageServiceImpl implements MypageService {
 		return myDao.getRegCount();
 	}
 
+	@Override
+	public List<Purchasehistory> getOrderCount() {
+		return myDao.getOrderCount();
+	}
+
+	@Override
+	public int totalOrderCount() {
+		return myDao.totalOrderCount();
+	}
+
+	@Override
+	public List<Purchasehistory> manage_Order(int currentPage, int limit) {
+		return myDao.manage_Order(currentPage, limit);
+	}
+
+	@Override
+	public List<Purchasehistory> myPageOrderListYear(String year, String id) {
+		return myDao.myPageOrderListYear(year, id);
+	}
+
+	@Override
+	public List<Purchasehistory> myPageOrderDetailList(Purchasehistory ph) {
+		return myDao.myPageOrderDetailList(ph);
+	}
+
+	@Override
+	public int myPageManageOrderChangeStatus(Purchasehistory ph) {
+		return myDao.myPageManageOrderChangeStatus(ph);
+	}
+
+	@Override
+	public int myPageManageOrderCancle(Purchasehistory ph) {
+		return myDao.myPageManageOrderCancle(ph);
+	}
+
+	@Override
+	public String manageChk(String my_name) {
+		return myDao.manageChk(my_name);
+	}
+
 }

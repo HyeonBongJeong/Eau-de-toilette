@@ -92,13 +92,14 @@
 		<select id="totalCount" resultType="int">
 			select count(*) from member
 		</select>
+		
 		<select id="totaSearchlCount" resultType="int" parameterType="String">
-			select count(*) from member where m_id = #{keyword}
+			select count(*) from member where m_id like '%'||#{keyword}||'%'
 		</select>
 		
 		
 		<select id="selectSearchMember" resultType="arraylist" parameterType="String" resultMap="resultMember">
-			select m_id, m_name, m_email, m_phone from member where m_id = #{keyword}
+			select m_id, m_name, m_email, m_phone from member where m_id like '%'||#{keyword}||'%'
 		</select>
 		
 		<delete id="myPageManageUserDelete" flushCache="true" statementType="PREPARED" timeout="20" parameterType="Member">
@@ -113,5 +114,10 @@
 			group by TRUNC(reg_date, 'MM') 
 			ORDER by reg_date
 		</select>
+		<select id="manageChk" resultType="string" parameterType="String">
+		select m_manage from member where m_id = #{m_id}
+		</select>
+		
+		
 
 </mapper>

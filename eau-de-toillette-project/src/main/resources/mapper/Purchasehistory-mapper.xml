@@ -9,16 +9,109 @@
 		<result property="m_id" column="m_id" />
 		<result property="p_id" column="p_id" />
 		<result property="ph_status" column="ph_status" />
-		<result property="ph_allpoint" column="ph_allpoint" />
+		<result property="ph_allprice" column="ph_allprice" />
 		<result property="ph_ordernum" column="ph_ordernum" />
+		<result property="p_title" column="p_title" />
+		<result property="p_intro" column="p_intro" />
+		<result property="p_content" column="p_content" />
+		<result property="p_price" column="p_price" />
+		<result property="p_img" column="p_img" />
+		<result property="p_adddate" column="p_adddate" />
+		<result property="p_tag" column="p_tag" />
+		<result property="p_like" column="p_like" />
+		<result property="ph_allcount" column="ph_allcount" />
 	</resultMap>
 	
 	
 	<insert id="insertPurchasehistory" parameterType="Purchasehistory" flushCache="true" statementType="PREPARED">
-		insert into purchasehistory values(PURCHASEHISTORY_SEQ.nextval,#{ph_count},TO_CHAR(CURRENT_TIMESTAMP,'YYYY/MM/DD HH24:MI:SS'),#{m_id},#{p_id},'입금완료',#{ph_allpoint},SD_ORDER_NO.nextval)
+		insert into PURCHASEHISTORY values(PURCHASEHISTORY_SEQ.nextval,#{ph_count},TO_CHAR(CURRENT_TIMESTAMP,'YYYY/MM/DD HH24:MI:SS'),#{m_id},#{p_id},'입금완료',#{ph_allprice},SD_ORDER_NO.nextval)
 	</insert>
 	 <select id="myPageOrderList" resultType="arraylist" resultMap="resultPurchasehistory" parameterType="Purchasehistory">
-			select * from purchasehistory ph_date where m_id = #{m_id} 
+			select MAX(PURCHASEHISTORY.ph_id) as ph_id,
+			count(PURCHASEHISTORY.ph_count) as ph_count,
+			MAX(PURCHASEHISTORY.ph_date) as ph_date,
+			MAX(PURCHASEHISTORY.m_id) as m_id,
+			MAX(PURCHASEHISTORY.p_id) as p_id,
+			MAX(PURCHASEHISTORY.ph_status) as ph_status,
+			MAX(PURCHASEHISTORY.PH_ALLPRICE) as ph_allprice,
+			MAX(PRODUCT.p_title) as p_title, 
+			MAX(PRODUCT.p_img) as p_img,
+			MAX(PRODUCT.p_type) as p_type,
+			count(PURCHASEHISTORY.ph_ordernum) as ph_allcount,
+			MAX(PURCHASEHISTORY.ph_ordernum) as ph_ordernum
+			 from PURCHASEHISTORY
+			inner join
+			 product
+			on PURCHASEHISTORY.p_id = PRODUCT.p_id 
+			where PURCHASEHISTORY.m_id = #{m_id}
+			 group by PURCHASEHISTORY.ph_ordernum
 	</select> 
+	<select id="getOrderCount" resultType="purchasehistory" resultMap="resultPurchasehistory">
+			select count(*) as ph_count, TRUNC(ph_date,'MM') as ph_date 
+			from PURCHASEHISTORY  
+			where TRUNC(ph_date,'YY') = TRUNC(current_date, 'YY') 
+			group by TRUNC(ph_date, 'MM') 
+			ORDER by ph_date
+	</select>
+	
+	<select id="myPageOrderListYear" resultType="purchasehistory" resultMap="resultPurchasehistory" parameterType="Purchasehistory">
+			select MAX(PURCHASEHISTORY.ph_id) as ph_id,
+			count(PURCHASEHISTORY.ph_count) as ph_count,
+			MAX(PURCHASEHISTORY.ph_date) as ph_date,
+			MAX(PURCHASEHISTORY.m_id) as m_id,
+			MAX(PURCHASEHISTORY.p_id) as p_id,
+			MAX(PURCHASEHISTORY.ph_status) as ph_status,
+			MAX(PURCHASEHISTORY.PH_ALLPRICE) as ph_allprice,
+			MAX(PRODUCT.p_title) as p_title, 
+			MAX(PRODUCT.p_img) as p_img,
+			MAX(PRODUCT.p_type) as p_type,
+			count(PURCHASEHISTORY.ph_ordernum) as ph_allcount,
+			MAX(PURCHASEHISTORY.ph_ordernum) as ph_ordernum
+			 from PURCHASEHISTORY
+			inner join
+			 product
+			on PURCHASEHISTORY.p_id = PRODUCT.p_id 
+			where PURCHASEHISTORY.m_id = #{m_id} and EXTRACT(year from PURCHASEHISTORY.ph_date) = #{ph_date}
+			 group by PURCHASEHISTORY.ph_ordernum
+	</select>
+	
+	
+	<select id="totalOrderCount" resultType="int">
+			select count(*) from PURCHASEHISTORY
+	</select>
+	
+	<select id="manage_Order" resultType="arraylist" resultMap="resultPurchasehistory">
+			select sum(ph_count) as ph_count, ph_ordernum, max(ph_status) as ph_status, max(m_id) as m_id,max(p_id) as p_id from PURCHASEHISTORY group by ph_ordernum
+	</select>
+	<select id="myPageOrderDetailList" resultType="arraylist" resultMap="resultPurchasehistory" parameterType="Purchasehistory">
+			select 
+			PURCHASEHISTORY.ph_id as ph_id,
+			PURCHASEHISTORY.ph_count as ph_count,
+			PURCHASEHISTORY.ph_date as ph_date,
+			PURCHASEHISTORY.m_id as m_id,
+			PURCHASEHISTORY.p_id as p_id, 
+			PURCHASEHISTORY.ph_status as ph_status,
+			PURCHASEHISTORY.ph_allprice as ph_allprice, 
+			product.p_title as p_title, 
+			product.p_img as p_img, 
+			product.p_type as p_type,
+			PURCHASEHISTORY.ph_ordernum as ph_ordernum
+			FROM PURCHASEHISTORY, product 
+			where PURCHASEHISTORY.m_id = #{m_id} and PURCHASEHISTORY.ph_ordernum = #{ph_ordernum} and PURCHASEHISTORY.p_id = product.p_id 
+	</select>
+	<update id="myPageManageOrderChangeStatus" flushCache="true" statementType="PREPARED" timeout="20" parameterType="Purchasehistory">
+			update 
+			PURCHASEHISTORY
+			set
+			ph_status = '배송중'
+			where ph_ordernum = #{ph_ordernum}
+	</update>
+	<update id="myPageManageOrderCancle" flushCache="true" statementType="PREPARED" timeout="20" parameterType="Purchasehistory">
+			update 
+			PURCHASEHISTORY
+			set
+			ph_status = '주문취소'
+			where ph_ordernum = #{ph_ordernum}
+	</update>
 	
 </mapper>

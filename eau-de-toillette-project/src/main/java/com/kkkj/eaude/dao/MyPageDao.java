@@ -110,8 +110,51 @@ public class MyPageDao {
 		return sqlSession.delete("Member.myPageManageUserDelete",m);
 	}
 
-
 	public List<Member> getRegCount() {
 		return sqlSession.selectList("Member.getRegCount");
+	}
+
+	public List<Purchasehistory> getOrderCount() {
+		return sqlSession.selectList("Purchasehistory.getOrderCount");
+	}
+
+
+	public int totalOrderCount() {
+		return sqlSession.selectOne("Purchasehistory.totalOrderCount");
+	}
+
+
+	public List<Purchasehistory> manage_Order(int currentPage, int limit) {
+		int startRow = (currentPage - 1) * limit;
+		RowBounds row = new RowBounds(startRow, limit);
+		return sqlSession.selectList("Purchasehistory.manage_Order", null, row);
+	}
+
+
+	public List<Purchasehistory> myPageOrderListYear(String year, String id) {
+		Purchasehistory ph = new Purchasehistory();
+		ph.setPh_date(year);
+		ph.setM_id(id);
+		return sqlSession.selectList("Purchasehistory.myPageOrderListYear",ph);
+	}
+
+
+	public List<Purchasehistory> myPageOrderDetailList(Purchasehistory ph) {
+		return sqlSession.selectList("Purchasehistory.myPageOrderDetailList",ph);
+	}
+
+
+	public int myPageManageOrderChangeStatus(Purchasehistory ph) {
+		return sqlSession.update("Purchasehistory.myPageManageOrderChangeStatus",ph);
+	}
+
+
+	public int myPageManageOrderCancle(Purchasehistory ph) {
+		return sqlSession.update("Purchasehistory.myPageManageOrderCancle",ph);
+	}
+
+
+	public String manageChk(String my_name) {
+		return sqlSession.selectOne("Member.manageChk",my_name);
 	}
 }

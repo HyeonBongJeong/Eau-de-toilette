@@ -55,46 +55,37 @@ font-size:12px; float:right; margin-top:15px;  padding-left: 10px; width: 160px;
             <h2>관리자 페이지</h2>
             <div id="mypage-side-menu">
                 <ul id="mypage-side-menus">
-                    <li class= "menu menu-on">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='myPageManageUser.do'">회원 관리&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></a></li>
+                    <li class= "menu">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='myPageManageUser.do'">회원 관리&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></a></li>
                     <li class= "menu">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='myPageManageOrder.do'">주문 관리&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></a></li>
-                	                	<li class= "menu">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='mypage_manager_event.do'">이벤트&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></a></li>
+                    <li class= "menu menu-on">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='mypage_manager_event.do'">이벤트&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></a></li>
                 </ul>
             </div>
 		</div>
             <div class="mypage-personer-info">
                 <div class = "mypage-personer-info-section">
-                    <h2 class="order-manage-h2">회원 관리</h2>
-					 <form class="mypage_manage_user_search" action="myPageManageUser.do" method="get">
-					 <img class="mypage_manage_user_submit" src="${pageContext.request.contextPath}/resources/images/loupe.svg" style="">                   
-                    <input class="mypage_manage_user_input" type="text" name="keyword" style="" placeholder="아이디로 검색해주세요" >
-                    </form>
+                    <h2 class="order-manage-h2">이벤트 관리</h2>
+					 
                     <br>
                     <hr style="background-color: black; height: 1px; margin-top: 30px;">
                     <div>
                     <table id="order-manage-table">
                     	<tr>
-                    		<td class="order-manage-td1-top">아이디</td>
-                    		<td class="order-manage-td1">회원명</td>
-                    		<td class="order-manage-td1">이메일</td>
-                    		<td class="order-manage-td1 order-manage-td-center1">전화번호</td>
-                    		<td class="order-manage-td1 order-manage-td-center1">탈퇴</td>
+                    		<td class="order-manage-td1-top">이벤트 목록</td>
+                    		
                     	</tr>
-                    	<c:if test="${not empty list }">
-                    	<c:forEach items="${list }" varStatus="s" var="vo">
+                    	<%-- <c:if test="${not empty list }">
+                    	<c:forEach items="${list }" varStatus="s" var="vo"> --%>
                     	<tr>
-                    		<td class="mypage_manage_user_id">${vo.m_id }</td>
-                    		<td class="order-manage-td2">${vo.m_name }</td>
-                    		<td class="order-manage-td2">${vo.m_email }</td>
-                    		<td class="order-manage-td2 order-manage-td-center1">${vo.m_phone }</td>
+                    		
                     		<td class="order-manage-td2 order-manage-td-center1">
                     			<img class="order-manage-delete" src ="${pageContext.request.contextPath}/resources/images/trash.png">
                     		</td>
                     	</tr>
-                    	</c:forEach>
-                    	</c:if>
+                    	<%-- </c:forEach>
+                    	</c:if> --%>
                     	
                     </table>
-                    <div class="order-manage-paging">
+                   <%--  <div class="order-manage-paging">
 		                   <c:if test="${currentPage <= 1}">
 				 				[이전]&nbsp;
 				 			</c:if> 
@@ -126,7 +117,7 @@ font-size:12px; float:right; margin-top:15px;  padding-left: 10px; width: 160px;
 									</c:url>
 									<a href="${mlistEND}">[다음]</a>
 						</c:if>                    
-                    </div>
+                    </div> --%>
                         
                     </div>
                 </div>
@@ -135,18 +126,9 @@ font-size:12px; float:right; margin-top:15px;  padding-left: 10px; width: 160px;
     </div>
  <jsp:include page="footer.jsp"></jsp:include>
  <script type="text/javascript">
- $('.mypage_manage_user_submit').click(function() {
-	
-	var id = $('input[name=keyword]').val();
-	if(!id){
-		alert('검색할 아이디가 없음으로 전체조회를 하겠습니다.')
-		$('.mypage_manage_user_search').submit();
-	}else{
-		$('.mypage_manage_user_search').submit();
-	}
-})
 
-$('.delete').click(function() {
+
+/* $('.delete').click(function() {
 	if (confirm("정말 삭제하시겠습니까??") == true){
 	var id_td = $(this).parent().parent().find($('.mypage_manage_user_id'));
 	var id = id_td.text();
@@ -171,7 +153,7 @@ $('.delete').click(function() {
 		return false;
 	}
 	
-})
+}) */
  
  </script>
 </body>

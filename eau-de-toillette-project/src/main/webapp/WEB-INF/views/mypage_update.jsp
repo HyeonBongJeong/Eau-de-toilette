@@ -251,7 +251,7 @@
 	                            <tr class="mypage_personer_info_update_tr">
 	                                <td class="mypage_personer_info_update_td_label">현재 비빌번호</td>
 	                                <td class="mypage_personer_info_update_td_input">
-	                                <input type="text" class="mypage_personer_info_update_single_input" name="mypage_personer_info_update_password">
+	                                <input type="password" class="mypage_personer_info_update_single_input" name="mypage_personer_info_update_password">
 	                                <div id="pass_warning">
 	                                	현재 비밀번호를 확인해 주세요.
 	                                </div>
@@ -261,7 +261,7 @@
 	                            <tr class="mypage_personer_info_update_tr">
 	                                <td class="mypage_personer_info_update_td_label">새 비빌번호</td>
 	                                <td class="mypage_personer_info_update_td_input" >
-	                                <input type="text" class="mypage_personer_info_update_single_input" name="mypage_personer_info_update_new_password" readonly="readonly">
+	                                <input type="password" class="mypage_personer_info_update_single_input" name="mypage_personer_info_update_new_password" readonly="readonly">
 	                                <div id="new_password">
 	                                	<ul id="new_password_validate_ul"> 
 	                                		<li class="new_password_validate_li diff">현재 비밀번호와 다르게 입력</li>
@@ -274,7 +274,7 @@
 	                            <tr class="mypage_personer_info_update_tr">
 	                                <td class="mypage_personer_info_update_td_label">새 비빌번호 확인</td>
 	                                <td class="mypage_personer_info_update_td_input">
-	                                <input type="text" class="mypage_personer_info_update_single_input" name="mypage_personer_info_update_new_passwordChk">
+	                                <input type="password" class="mypage_personer_info_update_single_input" name="mypage_personer_info_update_new_passwordChk">
 	                                <div id="re_pass_warning">
 	                                <input type="hidden" name="pass_chk" value="0">
 	                                	새 비밀번호를 확인해주세요.

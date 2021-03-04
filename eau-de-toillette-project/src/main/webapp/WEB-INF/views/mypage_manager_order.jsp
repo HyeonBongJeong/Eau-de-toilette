@@ -45,6 +45,29 @@ background-color: #f7f7f7;
 .ul-font{
 	font-size:12px;
 }
+.order-manage-h2{
+float:left; margin-bottom: 15px;
+}
+#order-manage-table{
+width: 100%; margin-top: 20px; border-collapse: collapse; 
+}
+.order-manage-td1{
+padding: 0 0 15px 0; border-bottom: 2px solid black;
+}
+.order-manage-td-center1{
+text-align: center;
+}
+.order-manage-td2{
+padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7;
+}
+.order-manage-paging{
+width: 100%; text-align: center; margin:20px 0 100px 0;
+}
+.order-manage-btn{
+text-align: center; padding: 5px 10px 5px 10px; background-color: white; color:#5f0080; border: 1px solid #5f0080
+}
+
+
 </style>
 </head>
 <body>
@@ -52,7 +75,7 @@ background-color: #f7f7f7;
 
      <div id="main">
 
- <jsp:include page="myPageManageTop.jsp"></jsp:include>
+ <jsp:include page="myPageManageTop2.jsp"></jsp:include>
         <div id="mypage_section">
           <div id="mypage-side-section">
             <h2>관리자 페이지</h2>
@@ -60,50 +83,78 @@ background-color: #f7f7f7;
                 <ul id="mypage-side-menus">
                     <li class= "menu">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='myPageManageUser.do'">회원 관리&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></a></li>
                     <li class= "menu menu-on">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='myPageManageOrder.do'">주문 관리&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></a></li>
+                	<li class= "menu">&nbsp;&nbsp;&nbsp;<a href = "#" onclick="location.href='mypage_manager_event.do'">이벤트&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 12px; height: 12px; margin-left: 90px;"></a></li>
                 </ul>
             </div>
 		</div>
             <div class="mypage-personer-info">
                 <div class = "mypage-personer-info-section">
-                    <h2 style="float:left; margin-bottom: 15px;">주문 관리</h2>
-                    <div style="float: right;">
-						<div class="none_click ul-font"><span id="li-text">전체기간</span><img class="click" src ="${pageContext.request.contextPath}/resources/images/point-right.png" style="width: 10px; height: 10px; vertical-align: 1.5px; transition: all ease 0.5s;"></div>
-						<ul class="order-ul">
-							<li class="order-li ul-font all order-li-choose">전체기간</li>
-							<li class="order-li ul-font">배송전</li>
-							<li class="order-li ul-font">입금확인</li>
-						</ul>
-					</div>
+                    <h2 class="order-manage-h2">주문 관리</h2>
+
                     <br>
                     <hr style="background-color: black; height: 1px; margin-top: 30px;">
                     <div>
-                    <table style="width: 100%; margin-top: 20px; border-collapse: collapse; ">
+                    <table id="order-manage-table">
                     	<tr>
-                    		<td style="padding: 0 0 15px 0; border-bottom: 2px solid black;">주문번호</td>
-                    		<td style="padding: 0 0 15px 0; border-bottom: 2px solid black;">주문자</td>
-                    		<td style="padding: 0 0 15px 0; border-bottom: 2px solid black;">이메일</td>
-                    		<td style="padding: 0 0 15px 0; border-bottom: 2px solid black; text-align: center;">전화번호</td>
-                    		<td style="padding: 0 0 15px 0; border-bottom: 2px solid black; text-align: center;">상태</td>
+                    		<td class="order-manage-td1">주문번호</td>
+                    		<td class="order-manage-td1">상품수량</td>
+                    		<td class="order-manage-td1">상품번호</td>
+                    		<td class="order-manage-td1 order-manage-td-center1" >주문자</td>
+                    		<td class="order-manage-td1 order-manage-td-center1">상태</td>
+                    		<td class="order-manage-td1 order-manage-td-center1">비고</td>
                     	</tr>
+                    	<c:if test="${not empty list }">
+                    	<c:forEach items="${list }" varStatus="s" var="vo">
                     	<tr>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7;">18652315</td>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7;">whb1026</td>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7;">whb1026@naver.com</td>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7; text-align: center;">01083595008</td>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7; text-align: center;">배송전</td>
+                    		<td class="order-manage-td2 ordernum">${vo.ph_ordernum }</td>
+                    		<td class="order-manage-td2">${vo.ph_count } 개</td>
+                    		<td class="order-manage-td2">${vo.p_id }</td>
+                    		<td class="order-manage-td2 order-manage-td-center1">${vo.m_id }</td>
+                    		<td class="order-manage-td2 order-manage-td-center1">${vo.ph_status }</td>
+                    		<td class="order-manage-td2 order-manage-td-center1">
+                    		<c:if test="${vo.ph_status eq '입금완료'}">
+                    		<button class="order-manage-btn">확인</button>
+                    		</c:if>
+                    		</td>
                     	</tr>
-                    	<tr>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7;">18652315</td>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7;">whb1026</td>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7;">whb1026@naver.com</td>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7; text-align: center;">01083595008</td>
-                    		<td style="padding: 15px 0 15px 0; border-bottom: 1px solid #f7f7f7; text-align: center;">배송확인</td>
-                    	</tr>
+                    	</c:forEach>
+                    	</c:if>
+                    	
                     	
                     	
                     </table>
-                    <div style="width: 100%; text-align: center; margin:20px 0 100px 0">
-                    <<  <  1  >  >>                    
+                    <div class="order-manage-paging">
+		                   <c:if test="${currentPage <= 1}">
+				 				[이전]&nbsp;
+				 			</c:if> 
+				 			
+				 			<c:if test="${currentPage > 1}">
+									<c:url var="mlistST" value="myPageManageOrder.do">
+										<c:param name="page" value="${currentPage-1}" />
+									</c:url>
+									<a class="order-manage-paging-before" href="${mlistST}">[이전]</a>
+							</c:if> <!-- 끝 페이지 번호 처리 --> 
+							<c:set var="endPage" value="${maxPage}" /> 
+							<c:forEach var="p" begin="${startPage+1}" end="${endPage}">
+									<c:if test="${p eq currentPage}">
+										<font color="red" size="4"><b>[${p}]</b></font>
+									</c:if>
+									<c:if test="${p ne currentPage}">
+										<c:url var="mlistchk" value="myPageManageOrder.do">
+											<c:param name="page" value="${p}" />
+										</c:url>
+										<a href="${mlistchk}">${p}</a>
+									</c:if>
+								</c:forEach> 
+						<c:if test="${currentPage >= maxPage}">
+				 					[다음]
+				 		</c:if>
+						<c:if test="${currentPage < maxPage}">
+									<c:url var="mlistEND" value="myPageManageOrder.do">
+										<c:param name="page" value="${currentPage+1}" />
+									</c:url>
+									<a class="order-manage-paging-before" href="${mlistEND}">[다음]</a>
+						</c:if>                    
                     </div>
                         
                     </div>
@@ -112,34 +163,25 @@ background-color: #f7f7f7;
         </div>
     </div>
  <jsp:include page="footer.jsp"></jsp:include>
- <script type="text/javascript">
- 
- var click = false;
-	$('.none_click').click(function() {
-		if(click == false){
-			click = true;
-			$('.click').css('transform','rotate( -90deg )');
-			$('.order-ul').slideDown(300);			
-		}else{
-			click=false;
-			$('.click').css('transform','rotate( 90deg )');
-			$('.order-ul').slideUp(300);
-			
-		}
-	})
-	
-	$('.order-li').click(function() {
-		var getYear = $(this).text();
-		var yearSplit = getYear.split(' ');
-		var year = yearSplit[0];
-		$('.order-li').css('background-color', 'white');
-		$(this).css('background-color', '#f7f7f7');
-		$('#li-text').text(getYear);
-		click=false;
-		$('.click').css('transform','rotate( 90deg )');
-		$('.order-ul').slideUp(300);
-		/*주문상태로 페이지 리로드하는 ajax*/
-	})
- </script>
+<script type="text/javascript">
+$('.order-manage-btn').click(function() {
+	var ordernum = $(this).parent().parent().find($('.ordernum')).text();
+
+	  $.ajax({
+		 url : "${pageContext.request.contextPath}/myPageManageOrderChangeStatus.do",
+	     type : 'POST',
+	     dataType : 'json',
+	     data : {
+	    	 ph_ordernum: ordernum,
+	        	
+	        },
+		 success : function(data) {
+			console.log('성공');
+			location.reload();
+		 },
+	});   
+})
+
+</script>
 </body>
 </html>
