@@ -350,9 +350,9 @@
                     <ul>
                         <c:if test="${not empty candle }">
                             <c:forEach var="vo" items="${candle }" varStatus="s">
-                                <li><img src="${ p_img}" class="main249-320" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
+                                <li><img src="${ vo.p_img}" class="main249-320" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
                                     <p class="main-product-name" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">${vo.p_title }</p>
-                                    <p class="main-product-price">${vo.p_price }</p>
+                                    <p class="main-product-price">${vo.p_price_comma }</p>
                                 </li>
                             </c:forEach>
                         </c:if>
@@ -373,9 +373,9 @@
                         <c:if test="${not empty difuser }">
                             <c:forEach var="vo" items="${difuser }" varStatus="s">
                                 <li>
-                                    <img src="${ p_img}" class="main338-434" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
+                                    <img src="${ vo.p_img}" class="main338-434" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
                                     <p class="main-product-name-3" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">${vo.p_title }</p>
-                                    <p class="main-product-price-3">${vo.p_price }</p>
+                                    <p class="main-product-price-3">${vo.p_price_comma }</p>
                                 </li>
                             </c:forEach>
                         </c:if>
@@ -389,9 +389,9 @@
                         <c:if test="${not empty perfume }">
                             <c:forEach var="vo" items="${perfume }" varStatus="s">
                                 <li>
-                                    <img src="${ p_img}" class="main338-338" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
+                                    <img src="${ vo.p_img}" class="main338-338" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
                                     <p class="main-product-name-2" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">${vo.p_title }</p>
-                                    <p class="main-product-price-2">${vo.p_price }</p>
+                                    <p class="main-product-price-2">${vo.p_price_comma }</p>
                                 </li>
                             </c:forEach>
                         </c:if>
@@ -408,9 +408,9 @@
                         <c:if test="${not empty bodycream }">
                             <c:forEach var="vo" items="${bodycream }" varStatus="s">
                                 <li>
-                                    <img src="${ p_img}" class="main249-320" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
+                                    <img src="${ vo.p_img}" class="main249-320" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">
                                     <p class="main-product-name" onclick="location.href='productsession?productimg1=${vo.p_img }&p_id=${vo.p_id }';">${vo.p_title }</p>
-                                    <p class="main-product-price">${vo.p_price }</p>
+                                    <p class="main-product-price">${vo.p_price_comma }</p>
                                 </li>
                             </c:forEach>
                         </c:if>

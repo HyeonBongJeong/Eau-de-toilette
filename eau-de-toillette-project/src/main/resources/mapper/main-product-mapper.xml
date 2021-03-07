@@ -18,7 +18,7 @@
 		resultMap="resultProduct">
 		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type, p_id
 		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
-		'([0-9]{3})','\1,')), '^,','') AS p_price
+		'([0-9]{3})','\1,')), '^,','') AS p_price_comma
 		from product where p_type='c' order by dbms_random.value ) a) where rnum
 		between 1 and 4
 	</select>
@@ -26,7 +26,7 @@
 		resultMap="resultProduct">
 		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type, p_id
 		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
-		'([0-9]{3})','\1,')), '^,','') AS p_price
+		'([0-9]{3})','\1,')), '^,','') AS p_price_comma
 		from product where p_type='d' order by dbms_random.value ) a) where rnum
 		between 1 and 2
 	</select>
@@ -34,15 +34,15 @@
 		resultMap="resultProduct">
 		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type, p_id
 		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
-		'([0-9]{3})','\1,')), '^,','') AS p_price
+		'([0-9]{3})','\1,')), '^,','') AS p_price_comma
 		from product where p_type='p' order by dbms_random.value ) a) where rnum
 		between 1 and 3
 	</select>
-	<select id="showMainBodyCream" resultType="arraylist"
+	<select id="showMainBodyCream" resultType="arraylist" 
 		resultMap="resultProduct">
 		select * from (select rownum rnum, a.* from (select p_title, p_img, p_type, p_id
 		,REGEXP_REPLACE(REVERSE(REGEXP_REPLACE( REVERSE(TO_CHAR(p_price)),
-		'([0-9]{3})','\1,')), '^,','') AS p_price
+		'([0-9]{3})','\1,')), '^,','') AS p_price_comma
 		from product where p_type='b' order by dbms_random.value ) a) where rnum
 		between 1 and 4
 	</select>

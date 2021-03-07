@@ -18,6 +18,7 @@ public class Product {
 	private int p_view;
 	private int p_like;
 	private int p_size;
+	private String p_price_comma;
 	
 	public String getP_intro() {
 		return p_intro;
@@ -94,6 +95,12 @@ public class Product {
 	}
 	public void setP_like(int p_like) {
 		this.p_like = p_like;
+	}
+	public String getP_price_comma() {
+		return p_price_comma;
+	}
+	public void setP_price_comma(String p_price_comma) {
+		this.p_price_comma = p_price_comma;
 	}
 
 	
