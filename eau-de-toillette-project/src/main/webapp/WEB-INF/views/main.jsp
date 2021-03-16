@@ -51,55 +51,13 @@
                     cursor: pointer;
                 }
                 
-                #main-big-ad li:nth-child(1) {
+                #main-big-ad > li {
                     background: #faa;
                 }
                 
-                #main-big-ad li:nth-child(2) {
-                    background: #afa;
-                }
+
                 
-                #main-big-ad li:nth-child(3) {
-                    background: #aaf;
-                }
-                
-                #main-big-ad li:nth-child(4) {
-                    background: #faf;
-                }
-                
-                @keyframes slide {
-                    0% {
-                        margin-left: 0;
-                    }
-                    /* 0 ~ 10  : 정지 */
-                    10% {
-                        margin-left: 0;
-                    }
-                    /* 10 ~ 25 : 변이 */
-                    25% {
-                        margin-left: -100%;
-                    }
-                    /* 25 ~ 35 : 정지 */
-                    35% {
-                        margin-left: -100%;
-                    }
-                    /* 35 ~ 50 : 변이 */
-                    50% {
-                        margin-left: -200%;
-                    }
-                    60% {
-                        margin-left: -200%;
-                    }
-                    75% {
-                        margin-left: -300%;
-                    }
-                    85% {
-                        margin-left: -300%;
-                    }
-                    100% {
-                        margin-left: 0;
-                    }
-                }
+               
                 
                 #main-big-con {
                     width: 1050px;
@@ -332,11 +290,15 @@
         <body>
             <jsp:include page="header.jsp"></jsp:include>
             <div id="main-big-ad">
-                <ul id="main-middle-ad">
-                    <li class="main-ad"></li>
-                    <li class="main-ad"></li>
-                    <li class="main-ad"></li>
-                    <li class="main-ad"></li>
+                <ul id="main-middle-ad" class="slide">
+                <c:if test="${not empty eList }">
+                	<c:forEach items="${eList }" var="vo" varStatus="s">
+                    <li class="main-ad">
+                    <img src ="${pageContext.request.contextPath}/resources/eventFiles/${vo.event_img}" style="width: 100%; height: 100%;">
+                    </li>
+                    
+                    </c:forEach>
+                </c:if>
                 </ul>
             </div>
             <input type="button" class="slide_btn_next">
@@ -420,6 +382,80 @@
                 </section>
             </div>
             <jsp:include page="footer.jsp"></jsp:include>
+            <script type="text/javascript">
+           
+            //이미지 슬라이드
+            $(function(){
+            	  var $slider = $('.slide'),
+            	      $firstSlide = $slider.find('li').first() // 첫번째 슬라이드
+            	      .stop(true).animate({'opacity':1},200); // 첫번째 슬라이드만 보이게 하기
+
+            	  function PrevSlide(){ // 이전버튼 함수
+            	    stopSlide();startSlide(); //타이머 초기화
+            	    var $lastSlide = $slider.find('li').last() //마지막 슬라이드
+            	    .prependTo($slider); //마지막 슬라이드를 맨 앞으로 보내기  
+            	    $secondSlide = $slider.find('li').eq(1)//두 번째 슬라이드 구하기
+            	    .stop(true).animate({'opacity':0},400); //밀려난 두 번째 슬라이드는 fadeOut 시키고
+            	    $firstSlide = $slider.find('li').first() //맨 처음 슬라이드 다시 구하기
+            	    .stop(true).animate({'opacity':1},400);//새로 들어온 첫 번째 슬라이드는 fadeIn 시키기
+            	  }
+            	  
+            	  function NextSlide(){ // 다음 버튼 함수
+            	    stopSlide();startSlide(); //타이머 초기화
+            	    $firstSlide = $slider.find('li').first() // 첫 번째 슬라이드
+            	    .appendTo($slider); // 맨 마지막으로 보내기
+            	    var $lastSlide = $slider.find('li').last() // 맨 마지막으로 보낸 슬라이드
+            	    .stop(true).animate({'opacity':0},400); // fadeOut시키기
+            	    $firstSlide = $slider.find('li').first()// 맨 처음 슬라이드
+            	    .stop(true).animate({'opacity':1},400);// fadeIn 시키기
+            	  }
+            	  
+            	  
+
+            	  startSlide(); // 자동 슬라이드 시작
+            	  
+            	  var theInterval;
+
+            	  function startSlide() {
+            	    theInterval = setInterval(NextSlide, 4000); //자동 슬라이드 설정
+            	  }
+
+            	  function stopSlide() { //자동 멈추기
+            	    clearInterval(theInterval);
+            	  }
+            	  
+            	  $('.slide').hover(function(){ //마우스 오버시 슬라이드 멈춤
+            	    stopSlide();
+            	  }, function (){
+            	    startSlide();
+            	  });
+            	});
+            
+            
+            
+            
+            /* var ul = document.querySelector('.slide');
+            function move(){
+            	 
+                var curIndex = 0;
+     
+                setInterval(function(){
+                    ul.style.transition = '0.1s';
+                    ul.style.transform = "translate3d(-"+400*(curIndex+1)+"px, 0px, 0px)";
+     
+                    curIndex++;
+     
+                    if(curIndex === 4){
+                        curIndex = -1;
+                    }
+     
+                },1000);
+            }
+            
+            document.addEventListener("DOMContentLoaded",function(){
+                move();
+            }); */
+            </script>
         </body>
 
         </html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Event">
+
+	<resultMap type="Event" id="resultEvent">
+		<id property="event_id" column="event_id" />
+		<result property="event_img" column="event_img" />
+		<result property="event_content" column="event_content" />
+		<result property="event_title" column="event_title" />
+		<result property="event_end" column="event_end" />
+	</resultMap>
+	
+	<insert id="insertEvent" parameterType="Event" flushCache="true" statementType="PREPARED">
+		insert into event values (SEQ_eve.NEXTVAL, #{event_img}, #{event_content}, #{event_title},#{event_end})
+	</insert>
+	
+	<select id="getEventList" resultType="event" resultMap="resultEvent">
+		select * from event where TO_date(event_end, 'yyyy-MM-dd') > current_date 
+	</select>
+	
+	<delete id="eventDelete" flushCache="true" statementType="PREPARED" timeout="20" parameterType="Event">
+		delete from event where event_id = #{event_id}
+	</delete>
+	
+	<select id="getEventLists" resultType="event" resultMap="resultEvent">
+		select * from event order by TO_date(event_end, 'yyyy-MM-dd') ASC
+	</select>
+	
+	<select id="totalEventCount" resultType="int">
+		select count(*) from event
+	</select>
+	
+	<select id="eventDetailList" resultType="arraylist" parameterType="String" resultMap="resultEvent">
+		select * from event where event_id = #{page}
+	</select>
+	<update id="eventUpdate" flushCache="true" statementType="PREPARED" timeout="20" parameterType="Event">
+		update event set 
+			<if test="event_img != null and event_img !=''">
+			 event_img = #{event_img},
+			</if>
+			event_title = #{event_title},
+			event_end = #{event_end},
+			event_content = #{event_content}
+			where
+			event_id = #{event_id}
+		
+	</update>
+	
+	
+	
+	
+	
+</mapper>

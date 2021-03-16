@@ -8,7 +8,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
             <script src="https://kit.fontawesome.com/2409d81413.js" crossorigin="anonymous"></script>
-            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
+            <script type="text/javascript" src="./resources/js/jquery-3.2.1.min.js"></script>
             <link rel="preconnect" href="https://fonts.gstatic.com">
             <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
             <style>
@@ -442,11 +442,12 @@
                                 <li class="header-drop-menu"><a href="#" onclick="location.href='/eaude/myPageOrderList.do'">주문 내역</a></li>
                                 <li class="header-drop-menu"><a href="#" onclick="location.href='/eaude/mypageShippingDestination.do'" >배송지 관리</a></li>
                                 <li class="header-drop-menu"><a href="#" onclick="location.href='/eaude/myPageInfo.do'">개인 정보 수정</a></li>
+                                <li class="header-drop-menu"><a href="#" onclick="location.href='mypage_manager_event.do'">이벤트</a></li>
                                 </c:if>
                                 <c:if test="${manageChk eq 'Y' }">
                                 <li class="header-drop-menu"><a href="#" onclick="location.href='myPageManageUser.do'">회원 관리</a></li>
                                 <li class="header-drop-menu"><a href="#" onclick="location.href='myPageManageOrder.do'">주문 관리</a></li>
-                                <li class="header-drop-menu"><a href="#" onclick="location.href='mypage_manager_event.do'">이벤트 관리</a></li>
+                                <li class="header-drop-menu"><a href="#" onclick="location.href='mypage_manager_event.do'">이벤트</a></li>
                                 </c:if>
                                 <li class="header-drop-menu"><a href="#" onclick="logout('${my_name}');">로그아웃</a></li>
                  </ul>

@@ -4,6 +4,7 @@ package com.kkkj.eaude.controller;
 
 
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,23 +25,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kkkj.eaude.common.Coolsms;
+import com.kkkj.eaude.dao.EventDao;
+import com.kkkj.eaude.domain.Event;
 import com.kkkj.eaude.domain.Member;
 import com.kkkj.eaude.domain.Purchasehistory;
 import com.kkkj.eaude.domain.ShoppingDestination;
+import com.kkkj.eaude.service.EventService;
 import com.kkkj.eaude.service.MainService;
 import com.kkkj.eaude.service.MypageService;
 
 
 @Controller
 public class MyPageController {
-
+	private static final String FILE_SERVER_PATH = "../../.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/eau-de-toillette-project/resources/eventFiles";
 	@Autowired
 	private MypageService myService;
 	@Autowired
 	private MainService mService;
+	@Autowired
+	private EventService eService;
 	
 	public static final int LIMIT = 10;
 	
@@ -576,7 +583,7 @@ public class MyPageController {
 				// 한 페이지당 출력할 목록 갯수
 				int listCount = 0;
 					listCount = myService.totalOrderCount();
-					mv.addObject("list", myService.manage_Order(currentPage, LIMIT));
+				mv.addObject("list", myService.manage_Order(currentPage, LIMIT));
 				int maxPage = (int) ((double) listCount / LIMIT + 0.9);
 				mv.addObject("currentPage", currentPage);
 				mv.addObject("maxPage", maxPage);
@@ -660,9 +667,54 @@ public class MyPageController {
 			}
 			
 			
-			//마이페이지 관리자 이벤트 메서드
+			//마이페이지 관리자 이벤트 페이지 이동 메서드
 			@RequestMapping(value = "/mypage_manager_event.do", method = RequestMethod.GET)
-			public ModelAndView mypage_manager_event(ModelAndView mv, HttpSession session) {
+			public ModelAndView mypage_manager_event(ModelAndView mv, HttpSession session, @RequestParam(name="page", defaultValue = "1") int page) {
+				List<Event> list = new ArrayList<Event>();
+				
+				String id = (String) session.getAttribute("my_name");
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
+				
+				int currentPage = page;
+				// 한 페이지당 출력할 목록 갯수
+				int listCount = 0;
+					listCount = eService.totalEventCount();
+				mv.addObject("eList", eService.getEventLists(currentPage, LIMIT));
+				int maxPage = (int) ((double) listCount / LIMIT + 0.9);
+				mv.addObject("currentPage", currentPage);
+				mv.addObject("maxPage", maxPage);
+				mv.addObject("listCount", listCount);
+				mv.addObject("regInfo", mService.regInfo(id));
+				mv.addObject("myname", id);
+				mv.setViewName("/mypage_manager_event");
+				return mv;
+			}
+			//마이페이지 관리자 이벤트 상세 페이지 이동 메서드
+			@RequestMapping(value = "/mypage_manager_event_detail.do", method = RequestMethod.GET)
+			public ModelAndView mypage_manager_event_detail(ModelAndView mv, HttpSession session, @RequestParam(name="page", defaultValue = "1") String page) {
+				List<Event> list = new ArrayList<Event>();
+				list =  eService.eventDetailList(page);
+				String id = (String) session.getAttribute("my_name");
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
+				mv.addObject("regInfo", mService.regInfo(id));
+				
+				mv.addObject("eventDetailList", list);
+				mv.addObject("eid", list.get(0).getEvent_id());
+			
+				mv.setViewName("/mypage_manager_event_detail");
+				return mv;
+			}
+			
+			
+			//마이페이지 관리자 이벤트 추가 페이지 이동 메서드
+			@RequestMapping(value = "/myPageAddEvent.do", method = RequestMethod.GET)
+			public ModelAndView myPageAddEvent(ModelAndView mv, HttpSession session) {
 				String id = (String) session.getAttribute("my_name");
 				if(id != null) {
 					String manageChk = myService.manageChk(id);
@@ -670,9 +722,136 @@ public class MyPageController {
 				}
 				mv.addObject("regInfo", mService.regInfo(id));
 				mv.addObject("myname", id);
-				mv.setViewName("/mypage_manager_event");
+				mv.setViewName("/mypage_manager_Add_event");
 				return mv;
 			}
+			//마이페이지 관리자 이벤트 수정 페이지 이동 메서드
+			@RequestMapping(value = "/mypage_event_update.do", method = RequestMethod.GET)
+			public ModelAndView mypage_event_update(ModelAndView mv, HttpSession session, HttpServletRequest request, @RequestParam(name="eid") String eid) {
+				String id = (String) session.getAttribute("my_name");
+				mv.addObject("elist",eService.eventDetailList(eid));
+			
+				if(id != null) {
+					String manageChk = myService.manageChk(id);
+					mv.addObject("manageChk", manageChk);			
+				}
+				mv.addObject("regInfo", mService.regInfo(id));
+				mv.addObject("myname", id);
+				mv.setViewName("/mypage_manager_Update_event");
+				return mv;
+			}
+			
+			//마이페이지 관리자 이벤트 수정  메서드
+			@RequestMapping(value = "/eventUpdate.do", method = RequestMethod.POST)
+			public ModelAndView eventUpdate(ModelAndView mv, HttpSession session, HttpServletRequest request, Event e,
+					@RequestParam(name="e-id") String eId,
+					@RequestParam(name="e-end", required = false) String eEnd,
+					@RequestParam(name="e-title", required = false) String eTitle,
+					@RequestParam(name="e-img", required = false) MultipartFile eImg,
+					@RequestParam(name="notice_content", required = false) String eContent) {
+				
+				
+				if(eImg.isEmpty()) {
+					e.setEvent_id(eId);
+					e.setEvent_end(eEnd);
+					e.setEvent_content(eContent);
+					e.setEvent_title(eTitle);
+					eService.eventUpdate(e);
+				}else {
+					removeFile(eService.eventDetailList(eId).get(0).getEvent_id(), request);
+					e.setEvent_id(eId);
+					e.setEvent_end(eEnd);
+					e.setEvent_content(eContent);
+					e.setEvent_title(eTitle);
+					e.setEvent_img(eImg.getOriginalFilename());
+					eService.eventUpdate(e);
+					
+				}
+				mv.setViewName("redirect:mypage_manager_event.do");
+				return mv;
+			}
+			
+		
+				//마이페이지 관리자 이벤트 추가  메서드
+				@RequestMapping(value = "/eventAdd.do", method = RequestMethod.POST)
+				public ModelAndView eventAdd(ModelAndView mv, HttpSession session, HttpServletRequest request,Event e,
+						@RequestParam(name="e-title") String title,
+						@RequestParam(name="e-img") MultipartFile img,
+						@RequestParam(name="e-end") String end,
+						@RequestParam(name="notice_content" ,required = false) String notice_content ) {
+					saveFile(img, request);
+					e.setEvent_title(title);
+					e.setEvent_img(img.getOriginalFilename());
+					e.setEvent_end(end);
+					e.setEvent_content(notice_content);
+					eService.insertEvent(e);
+					mv.setViewName("redirect:mypage_manager_event.do");
+					return mv;
+				}
+				
+				
+				//마이페이지 관리자 이벤트 삭제 ajax
+				@ResponseBody
+				@RequestMapping(value = "/eventDelete.do", method = RequestMethod.POST)
+				public Map<String, Object> eventDelete(ModelAndView mv, HttpSession session, HttpServletResponse response,HttpServletRequest request, Event e) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					int changeStatusResult = 0;
+					try {
+						request.setCharacterEncoding("UTF-8");
+						response.setContentType("text/html; charset=UTF-8");
+						changeStatusResult = eService.eventDelete(e);
+				
+						
+						
+						
+						
+						
+					} catch (UnsupportedEncodingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+					return map;
+				}
+				
+				//파일저장
+				private void saveFile(MultipartFile report, HttpServletRequest request) {
+					String root = request.getSession().getServletContext().getRealPath("resources");
+					String savePath = root + "\\eventFiles";
+					File folder = new File(savePath);
+					if (!folder.exists()) {
+						folder.mkdir(); // 폴더가 없다면 생성한다.
+					}
+					String filePath = null;
+					try {
+						// 파일 저장
+						
+						filePath = folder + "\\" + report.getOriginalFilename();
+						report.transferTo(new File(filePath)); // 파일을 저장한다
+						
+					} catch (Exception e) {
+						
+					}
+				}
+				
+				//파일삭제
+				private void removeFile(String eventImg, HttpServletRequest request) {
+					String root = request.getSession().getServletContext().getRealPath("resources");
+					String savePath = root + "\\eventFiles";
+
+					String filePath = savePath + "\\" + eventImg;
+					try {
+						// 파일 저장
+						File delFile = new File(filePath);
+						delFile.delete();
+
+						System.out.println("파일 삭제가 완료되었습니다.");
+					} catch (Exception e) {
+						System.out.println("파일 삭제 에러 : " + e.getMessage());
+					}
+				}
+			
 			
 			
 			

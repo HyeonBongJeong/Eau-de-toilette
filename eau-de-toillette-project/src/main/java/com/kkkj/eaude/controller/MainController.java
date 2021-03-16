@@ -27,8 +27,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kkkj.eaude.domain.Event;
 import com.kkkj.eaude.domain.MainVO;
 import com.kkkj.eaude.domain.Member;
+import com.kkkj.eaude.service.EventService;
 import com.kkkj.eaude.service.MainService;
 import com.kkkj.eaude.service.MypageService;
 
@@ -38,6 +40,8 @@ public class MainController {
 	private MainService mService;
 	@Autowired
 	private MypageService myService;
+	@Autowired
+	private EventService eService;
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -82,6 +86,7 @@ public class MainController {
 		mv.addObject("difuser", mService.showMainDifuser());
 		mv.addObject("perfume", mService.showMainPerfume());
 		mv.addObject("bodycream", mService.showMainBodyCream());
+		mv.addObject("eList", eService.getEventList());
 		mv.setViewName("main");
 		return mv;
 	}

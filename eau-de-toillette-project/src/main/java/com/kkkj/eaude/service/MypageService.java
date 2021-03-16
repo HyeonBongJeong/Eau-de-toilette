@@ -68,4 +68,5 @@ public interface MypageService {
 
 	String manageChk(String my_name);
 
+
 }
