@@ -46,7 +46,7 @@
 ### 기능 설명
 #### 마이페이지(회원)
 ![마이페이지기본](https://user-images.githubusercontent.com/59170160/111327024-60b87700-86b0-11eb-8a99-122e3a96d99d.png)
-![마이페이지등급모달](https://user-images.githubusercontent.com/59170160/111327028-61510d80-86b0-11eb-8830-0a5eac06d9dd.png)
+![모달](https://user-images.githubusercontent.com/59170160/111333202-d115c700-86b5-11eb-8b6b-ee3b515cff1f.png)
 - 마이페이지 기본 화면입니다.
 - 위의 등급 영역은 따로 jsp파일을 만들어 include 하여 ajax로 화면이 로드 될 때마다 지금 로그인 중인 회원의 세션을 사용해 DB에서 회워느이 정보를 띄워줍니다.
 - 전체 등급보기 버튼을 누르면 현재 자신의 등급과 다음 등급까지의 필요한 포인트를 알려주는 팝업을 띄우게 하였습니다. 이 때 데이터는 ajax를 활용해 비동기로 처리하였습니다.
