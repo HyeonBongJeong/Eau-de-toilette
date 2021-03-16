@@ -30,12 +30,11 @@
 - 마이페이지(회원, 관리자 구분)
 
 ### DB 설계
-![Copy of fine (1)](https://user-images.githubusercontent.com/69295153/106625198-cdbcf500-65b9-11eb-8d8d-5b2bf0f4b582.png)
+![1](https://user-images.githubusercontent.com/59170160/111323357-24374c00-86ad-11eb-8ee2-8f6becdbbe08.png)
 
 ### 테이블 정의서
-![kh2조 semi_1](https://user-images.githubusercontent.com/69295153/106628659-6143f500-65bd-11eb-9410-fb32a3e1f782.jpg)
-![kh2조 semi_2](https://user-images.githubusercontent.com/69295153/106628663-62752200-65bd-11eb-9b1d-0021e40a35b1.jpg)
-![kh2조 semi_3](https://user-images.githubusercontent.com/69295153/106628665-630db880-65bd-11eb-9f7b-77147828e2a9.jpg)
+![2](https://user-images.githubusercontent.com/59170160/111323363-25687900-86ad-11eb-8433-3e1c6fca17f5.png)
+![3](https://user-images.githubusercontent.com/59170160/111323365-25687900-86ad-11eb-80f9-32067ce6ff8a.png)
 
 
 
