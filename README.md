@@ -88,9 +88,14 @@
 - 옆의 쓰레기통 버튼을 누르면 해당 회원은 탈퇴 처리가 되고 페이지가 reload되도록 구현하였습니다.
 #### 마이페이지(회원,관리자)
 ![이벤트리스트](https://user-images.githubusercontent.com/59170160/111327047-631ad100-86b0-11eb-91c3-afa5b74e1ebb.png)
-![이벤트추가](https://user-images.githubusercontent.com/59170160/111327053-644bfe00-86b0-11eb-90d4-367db7b6dce9.png)
 ![이벤트상세](https://user-images.githubusercontent.com/59170160/111327050-63b36780-86b0-11eb-85d1-49fddcfa06ed.png)
+![이벤트추가](https://user-images.githubusercontent.com/59170160/111327053-644bfe00-86b0-11eb-90d4-367db7b6dce9.png)
 ![이벤트수정](https://user-images.githubusercontent.com/59170160/111327051-644bfe00-86b0-11eb-91be-e1798a86048b.png)
+![헤더이벤트](https://user-images.githubusercontent.com/59170160/111332124-daeafa80-86b4-11eb-9b37-58e3b3c33503.png)
 - 관리자와 회원의 공통 메뉴입니다.
+- 이벤트 리스트를 불러와 보여줍니다. 이 때 로그인 중인 정보를 가져와 회원인지 관리자인지 확인 후 삭제 버튼인 쓰레기통 아이콘을 보여줄지 말지 결정 하였습니다.
+- 상세 화면에서도 마찬가지로 수정과 삭제 버튼은 관리자로 로그인 한 경우에만 보이도록 구현 하였습니다.
+- 수정과 추가 기능은 스마트 에디터를 활용해 자신이 적은 스타일 그대로 DB에 저장시켜 상세 화면에서 보일 때에도 동일하게 보이도록 구현 하였습니다.
+- 이렇게 수정이나 작성된 이벤트는 메인페이지의 이벤트 영역에서 마감일이 오늘 날자 이 후인 이벤트를 차례대로 불러와 javascript를  슬라이드로 보이게 구현 하였습니다.
 
 
